@@ -16,6 +16,7 @@ $cakeDescription = 'Dog API | Wellcome to Our world';
     <link href="https://fonts.googleapis.com/css?family=Raleway:400,700" rel="stylesheet">
 
     <?= $this->Html->css(['bootstrap/dist/css/bootstrap.min']) ?>
+    <?= $this->Html->css(['home','cake','milligram.min','normalize.min']) ?>
 
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>

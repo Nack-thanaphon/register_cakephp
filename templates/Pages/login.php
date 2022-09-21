@@ -9,8 +9,8 @@
             <h6>สมัครสมาชิกเพื่อรับสิทธิ์ใช้งาน Dog API
                 มากกว่า 100 สายพันธ์</h6>
         </div>
-        <div class="col-12">
-            <div class="card  shadow-sm my-3 p-4">
+        <div class="col-12 p-sm-5">
+            <div class="card  shadow-sm my-3 py-5 p-3">
                 <h1 class="text-center fw-bold">Login</h1>
                 <h6 class="text-center">เข้าสู่ระบบ</h6>
                 <form>
