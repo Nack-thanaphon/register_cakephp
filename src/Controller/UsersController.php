@@ -1,102 +1,65 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Controller;
 
-/**
- * Users Controller
- *
- * @method \App\Model\Entity\User[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
- */
+
+use Cake\Mailer\Email;
+use Cake\Auth\DefaultPasswordHasher;
+use Cake\Utility\Security;
+use Cake\ORM\TableRegistry;
+
+
+
+
 class UsersController extends AppController
 {
-
-    public function index()
+    public function register()
     {
-        $users = $this->paginate($this->Users);
-
-        $this->set(compact('users'));
-        // echo json_encode($users);
-        // exit();
-    }
-
-    /**
-     * View method
-     *  
-     * @param string|null $id User id.
-     * @return \Cake\Http\Response|null|void Renders view
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    public function view($id = null)
-    {
-        $user = $this->Users->get($id, [
-            'contain' => [],
-        ]);
-
-        $this->set(compact('user'));
-    }
-
-    /**
-     * Add method
-     *
-     * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
-     */
-    public function add()
-    {
-        $user = $this->Users->newEmptyEntity();
         if ($this->request->is('post')) {
-            $user = $this->Users->patchEntity($user, $this->request->getData());
-            if ($this->Users->save($user)) {
-                $this->Flash->success(__('The user has been saved.'));
+            $usertable = TableRegistry::getTableLocator()->get('users');
+            $user = $usertable->newemptyEntity();
+            $hasher = new DefaultPasswordHasher();
+            $myname = $this->request->getData('name');
+            $myemail = $this->request->getData('email');
+            $mypass = Security::hash($this->request->getData('password'), 'sha256', false);
+            $mytoken = Security::hash(Security::randomBytes(32));
+            $user->name = $myname;
+            // $user->email = $myemail;
+            // $user->password = $hasher->hash($mypass);
+            // $user->token = $mytoken;
+            // $user->created_at = date('Y-m-d H:i:s');
+            // $user->updated_at = date('Y-m-d H:i:s');
 
-                return $this->redirect(['action' => 'index']);
+            if ($usertable->save($user)) {
+                $this->Flash->set('ลงทะเบียนเรียบร้อย', ['element' => 'success']);
+                // Email::configTransport('mailtrap', [
+                //     'host' => 'smtp.mailtrap.io',
+                //     'port' => 2525,
+                //     'username' => '5e5c495f64998a',
+                //     'password' => '008a9d71482220',
+                //     'className' => 'Smtp'
+                // ]);
+
+                // $email = new Email('default');
+                // $email->setTransport('mailtrap');
+                // $email->emailFormat('html');
+                // $email->from('Dogapi@gmail.com', 'Puppy Dogie API');
+                // $email->subject('กรุณายืนยันอีเมลล์ของคุณเพื่อเข้าใช้งาน Dog API');
+                // $email->to($myemail);
+                // $email->send('สวัสดีครับ' . $myname . '<br/> กรุณายืนยันอีเมลล์ยืนยันของคุณด้านล่างนี<br/> <a href="http://localhost:8765/users/verification/' . $mytoken . '">Verification Email</a> <br/> ขอบพระคุณที่เข้าร่วมทีมกับเรา');
+            } else {
+                $this->Flash->set('ลงทะเบียนไม่สำเร็จ', ['element' => 'error']);
             }
-            $this->Flash->error(__('The user could not be saved. Please, try again.'));
         }
-        $this->set(compact('user'));
     }
-
-    /**
-     * Edit method
-     *
-     * @param string|null $id User id.
-     * @return \Cake\Http\Response|null|void Redirects on successful edit, renders view otherwise.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    public function edit($id = null)
+    public function verification($token)
     {
-        $user = $this->Users->get($id, [
-            'contain' => [],
-        ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $user = $this->Users->patchEntity($user, $this->request->getData());
-            if ($this->Users->save($user)) {
-                $this->Flash->success(__('The user has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
-            }
-            $this->Flash->error(__('The user could not be saved. Please, try again.'));
-        }
-        $this->set(compact('user'));
-    }
-
-    /**
-     * Delete method
-     *
-     * @param string|null $id User id.
-     * @return \Cake\Http\Response|null|void Redirects to index.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    public function delete($id = null)
-    {
-        $this->request->allowMethod(['post', 'delete']);
-        $user = $this->Users->get($id);
-        if ($this->Users->delete($user)) {
-            $this->Flash->success(__('The user has been deleted.'));
-        } else {
-            $this->Flash->error(__('The user could not be deleted. Please, try again.'));
-        }
-
-        return $this->redirect(['action' => 'index']);
+        $usertable = TableRegistry::getTableLocator()->get('users');
+        $verify = $usertable->find('all')->where(['token' => $token])->first();
+        $verify->verified = '1';
+        $usertable->save($verify);
     }
 }

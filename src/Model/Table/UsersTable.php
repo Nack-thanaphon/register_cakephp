@@ -38,6 +38,8 @@ class UsersTable extends Table
         parent::initialize($config);
 
         $this->setTable('users');
+        $this->setDisplayField('name');
+        $this->setPrimaryKey('id');
     }
 
     /**
@@ -49,24 +51,8 @@ class UsersTable extends Table
     public function validationDefault(Validator $validator): Validator
     {
         $validator
-            ->scalar('phone')
-            ->maxLength('phone', 32)
-            ->allowEmptyString('phone');
-
-        $validator
-            ->scalar('firstname')
-            ->maxLength('firstname', 32)
-            ->allowEmptyString('firstname');
-
-        $validator
-            ->scalar('lastname')
-            ->maxLength('lastname', 32)
-            ->allowEmptyString('lastname');
-
-        $validator
-            ->scalar('address')
-            ->maxLength('address', 64)
-            ->allowEmptyString('address');
+            ->scalar('name')
+            ->allowEmptyString('name');
 
         return $validator;
     }

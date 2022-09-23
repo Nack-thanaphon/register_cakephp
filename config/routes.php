@@ -43,6 +43,8 @@ return static function (RouteBuilder $routes) {
      * `{action}` markers.
      */
     $routes->setRouteClass(DashedRoute::class);
+    $routes->connect('/users/register', ['controller' => 'Users', 'action' => 'register']);
+    $routes->connect('/users/verification', ['controller' => 'Users', 'action' => 'verification']);
 
     $routes->scope('/', function (RouteBuilder $builder) {
         /*
@@ -56,7 +58,7 @@ return static function (RouteBuilder $routes) {
          * ...and connect the rest of 'Pages' controller's URLs.
          */
         $builder->connect('/pages/*', 'Pages::display');
-
+       
         /*
          * Connect catchall routes for all controllers.
          *
