@@ -1,31 +1,49 @@
-<div class="row">
-    <div class="col-md-6 offset-md-3">
-        <?= $this->Flash->render() ?>
-        <div class="card">
-            <div class="card-header">
-                <h3>สมัครสมาชิก</h3>
-                <div class="card-body">
-                    <?= $this->form->create() ?>
-                    <?php echo $this->Html->meta('csrfToken', $this->request->getAttribute('csrfToken'));
- ?>
-                    <div class="form-group">
-                        <?= $this->Form->control('name');; ?>
-                    </div>
-                    <div class="form-group">
-                        <?= $this->Form->control('email');; ?>
-                    </div>
-                    <div class="form-group">
-                    <?= $this->Form->control('password');; ?>
-                    </div>
-                    <?=
-                    $this->form->button('สมัครสมาชิก', ['class' => 'btn btn-primary']);
+<body class="text-center">
 
-                    $this->form->end();
-                    ?>
-                </div>
-            </div>
+    <main class="form-signin">
+        <?= $this->form->create() ?>
+        <!-- <img class="mb-4" src="/docs/5.0/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57"> -->
+        <h1 class="h3 mb-3 fw-normal">สมัครสมาชิก</h1>
 
+        <?= $this->flash->render() ?>
+        <div class="form-floating mb-2">
+            <?= $this->Form->input('name', ['class' => 'form-control register', 'id' => 'floatingname']) ?>
+            <label for="floatingname">Your Name</label>
+        </div>
+        <div class="form-floating mb-2">
+            <?= $this->Form->input('email', ['class' => 'form-control', 'id' => 'floatingemail']) ?>
+            <label for="floatingemail">Your Email</label>
+        </div>
+        <div class="form-floating mb-2">
+            <?= $this->Form->password('password', ['class' => 'form-control', 'id' => 'floatingPassword']) ?>
+            <label for="floatingPassword">Your Password</label>
         </div>
 
-    </div>
-</div>
+        <div class="checkbox mb-3">
+            <label>
+                <input type="checkbox" value="remember-me"> Remember me
+            </label>
+        </div>
+
+        <?= $this->form->button('สมัครสมาชิก', ['class' => 'btn btn-primary submit disabled']); ?>
+        <?= $this->Html->link('เข้าสู่ระบบ', ['action' => 'login'], ['class' => 'btn btn-secondary']) ?>
+
+        <!-- <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button> -->
+        <p class="mt-5 mb-3 text-muted">© 2017–2021</p>
+        <?= $this->form->end() ?>
+
+    </main>
+
+</body>
+
+
+<script>
+    $('.register').change(function() {
+        let value = $('.register').val()
+        if (value) {
+            $('.submit').removeClass('disabled')
+        }else{
+            $('.submit').addClass('disabled')
+        }
+    })
+</script>

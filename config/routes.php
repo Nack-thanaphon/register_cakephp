@@ -43,8 +43,9 @@ return static function (RouteBuilder $routes) {
      * `{action}` markers.
      */
     $routes->setRouteClass(DashedRoute::class);
-    $routes->connect('/users/register', ['controller' => 'Users', 'action' => 'register']);
+    $routes->connect('/users/register', ['controller' => 'users', 'action' => 'register']);
     $routes->connect('/users/verification', ['controller' => 'Users', 'action' => 'verification']);
+    $routes->connect('/Home', ['controller' => 'Home', 'action' => 'index']);
 
     $routes->scope('/', function (RouteBuilder $builder) {
         /*
@@ -52,7 +53,7 @@ return static function (RouteBuilder $routes) {
          * its action called 'display', and we pass a param to select the view file
          * to use (in this case, templates/Pages/home.php)...
          */
-        $builder->connect('/', ['controller' => 'Pages', 'action' => 'display', 'login']);
+        $builder->connect('/', ['controller' => 'Home', 'action' => 'index']);
 
         /*
          * ...and connect the rest of 'Pages' controller's URLs.

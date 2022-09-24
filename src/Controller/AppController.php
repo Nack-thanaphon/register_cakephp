@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 /**
@@ -14,9 +15,11 @@ declare(strict_types=1);
  * @since     0.2.9
  * @license   https://opensource.org/licenses/mit-license.php MIT License
  */
+
 namespace App\Controller;
 
 use Cake\Controller\Controller;
+use Cake\Event\EventInterface;
 
 /**
  * Application Controller
@@ -43,11 +46,34 @@ class AppController extends Controller
 
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
+        $this->loadComponent('Auth', [
+            'authError'    => 'กรุณาเข้าสู่ระบบ',
+            'authenticate' => [
+                'form' => [
+                    'fields' => ['username' => 'email', 'password' => 'password'],
+                    'scope' => ['verified' => '1'],
+                    'userModel' => 'Users'
+                ]
+            ],
+            'loginredirect' => [
+                'controller' => 'Home',
+                'action' => 'index'
+            ],
+            'logoutredirect' => [
+                'controller' => 'users',
+                'action' => 'login'
+            ],
+            'storage' => 'session'
+        ]);
 
         /*
          * Enable the following component for recommended CakePHP form protection settings.
          * see https://book.cakephp.org/4/en/controllers/components/form-protection.html
          */
         //$this->loadComponent('FormProtection');
+    }
+    public function beforeFilter(EventInterface $event)
+    {
+        $this->Auth->allow(['verification', 'register']);
     }
 }

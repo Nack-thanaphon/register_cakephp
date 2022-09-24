@@ -10,6 +10,11 @@ use Cake\ORM\Entity;
  *
  * @property int $id
  * @property string|null $name
+ * @property string|null $email
+ * @property string|null $verified
+ * @property string|null $token
+ * @property \Cake\I18n\FrozenTime|null $created_at
+ * @property \Cake\I18n\FrozenTime|null $updated_at
  */
 class User extends Entity
 {
@@ -24,5 +29,19 @@ class User extends Entity
      */
     protected $_accessible = [
         'name' => true,
+        'email' => true,
+        'verified' => true,
+        'token' => true,
+        'created_at' => true,
+        'updated_at' => true,
+    ];
+
+    /**
+     * Fields that are excluded from JSON versions of the entity.
+     *
+     * @var array<string>
+     */
+    protected $_hidden = [
+        'token',
     ];
 }
