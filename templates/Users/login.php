@@ -22,13 +22,15 @@
       <label>
         <input type="checkbox" value="remember-me"> Remember me
       </label>
+      <?= $this->Html->link('ลืมรหัสผ่าน', ['action' => 'forgetpassword']) ?>
+
     </div>
     <?= $this->form->button('เข้าสู่ระบบ', ['class' => 'btn btn-primary']); ?>
     <?= $this->Html->link('สมัครสมาชิก', ['action' => 'register'],['class' => 'btn btn-secondary']) ?>
 
 
     <!-- <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button> -->
-    <p class="mt-5 mb-3 text-muted">© 2017–2021</p>
+    <p class="mt-5 mb-3 text-muted">© Buid with CakePhp4 | Nack_thanaphon</p>
     <?= $this->form->end() ?>
 
   </main>

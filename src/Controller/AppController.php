@@ -74,6 +74,6 @@ class AppController extends Controller
     }
     public function beforeFilter(EventInterface $event)
     {
-        $this->Auth->allow(['verification', 'register']);
+        $this->Auth->allow(['verification', 'register','logout','forgetpassword','resetpassword']);
     }
 }

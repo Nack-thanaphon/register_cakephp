@@ -10,9 +10,7 @@ use Cake\Auth\DefaultPasswordHasher;
 use Cake\Utility\Security;
 use Cake\ORM\TableRegistry;
 use Cake\Mailer\TransportFactory;
-
-
-
+use Cake\ORM\Locator\TableLocator;
 
 class UsersController extends AppController
 {
@@ -60,7 +58,7 @@ class UsersController extends AppController
                     'className' => 'Smtp',
                     'tls' => true
                 ]);
-                
+
                 //for test
                 // TransportFactory::setConfig('mailtrap', [
                 //     'host' => 'smtp.mailtrap.io',
@@ -89,9 +87,64 @@ class UsersController extends AppController
             }
         }
     }
+    public function forgetpassword()
+    {
+        if ($this->request->is('post')) {
+            $email = $this->request->getData('email');
+            $token = Security::hash(Security::randomBytes(25));
+            $usertable = TableRegistry::getTableLocator()->get('users');
+            $user = $usertable->find('all')->where(['email' => $email])->first();
+
+            $user->password = '';
+            $user->token =$token;
+
+            if ($usertable->save($user)) {
+                $this->Flash->set('กรุณาเช็คในอีเมลล์ '.$email.' เพื่อยืนยันการเปลี่ยนรหัสผ่าน', ['element' => 'success']);
+                TransportFactory::setConfig('gmail', [
+                    'host' => 'smtp.gmail.com',
+                    'port' => 587,
+                    'username' => 'e21bvz@gmail.com',
+                    'password' => 'jxcsblueiiwjzvxd',
+                    'className' => 'Smtp',
+                    'tls' => true
+                ]);
+
+                $mailer = new Mailer('default');
+                $mailer->setFrom(['e21bvz@gmail.com' => 'DOG-API |TEAM'])
+                    ->setTo($email)
+                    ->setEmailFormat('html')
+                    ->setSubject('เปลี่ยนรหัสผ่านการเข้าใช้งาน Dog API')
+                    ->setTransport('gmail')
+                    ->setViewVars([
+                        'name' => $user->name,
+                        'verify' => $token
+                    ])
+                    ->viewBuilder()
+                    ->setTemplate('resetpassword');
+
+                $mailer->deliver();
+            } else {
+                $this->Flash->set('เปลี่ยนรหัสผ่านไม่สำเร็จ หรือข้อมูลไม่ถูกต้อง', ['element' => 'error']);
+            }
+        }
+    }
+    public function resetpassword($token)
+    {
+        if ($this->request->is('post')) {
+
+            $hasher = new DefaultPasswordHasher();
+            $pass = $hasher->hash($this->request->getData('password'));
+            $usertable = TableRegistry::getTableLocator()->get('users');
+            $user = $usertable->find('all')->where(['token' => $token])->first();
+            $user->password = $pass;
+            if ($usertable->save($user)) {
+                return $this->redirect(['action' => 'login']);
+            }
+        }
+    }
+
     public function verification($token)
     {
-
         $usertable = TableRegistry::getTableLocator()->get('users');
         $verify = $usertable->find('all')->where(['token' => $token])->first();
         $verify->verified = '1';

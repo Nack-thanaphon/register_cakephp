@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Routes configuration.
  *
@@ -46,7 +47,8 @@ return static function (RouteBuilder $routes) {
     $routes->connect('/users/register', ['controller' => 'users', 'action' => 'register']);
     $routes->connect('/users/verification', ['controller' => 'Users', 'action' => 'verification']);
     $routes->connect('/Home', ['controller' => 'Home', 'action' => 'index']);
-
+    $routes->connect('users/resetpassword', ['controller' => 'users', 'action' => 'resetpassword']);
+    $routes->connect('users/forgetpassword', ['controller' => 'users', 'action' => 'forgetpassword']);
     $routes->scope('/', function (RouteBuilder $builder) {
         /*
          * Here, we are connecting '/' (base path) to a controller called 'Pages',
@@ -59,7 +61,7 @@ return static function (RouteBuilder $routes) {
          * ...and connect the rest of 'Pages' controller's URLs.
          */
         $builder->connect('/pages/*', 'Pages::display');
-       
+
         /*
          * Connect catchall routes for all controllers.
          *

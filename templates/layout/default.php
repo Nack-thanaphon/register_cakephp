@@ -1,5 +1,5 @@
 <?php
-$cakeDescription = 'Dog API | Wellcome to Our world';
+$cakeDescription = 'DOG-API | Welcome to Our Puppy World';
 ?>
 <!DOCTYPE html>
 <html>
