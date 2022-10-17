@@ -1,40 +1,11 @@
-<?php
-/**
- * @var \App\View\AppView $this
- * @var \App\Model\Entity\Post $post
- */
-?>
-<div class="row">
-    <aside class="column">
-        <div class="side-nav">
-            <h4 class="heading"><?= __('Actions') ?></h4>
-            <?= $this->Html->link(__('Edit Post'), ['action' => 'edit', $post->id], ['class' => 'side-nav-item']) ?>
-            <?= $this->Form->postLink(__('Delete Post'), ['action' => 'delete', $post->id], ['confirm' => __('Are you sure you want to delete # {0}?', $post->id), 'class' => 'side-nav-item']) ?>
-            <?= $this->Html->link(__('List Posts'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
-            <?= $this->Html->link(__('New Post'), ['action' => 'add'], ['class' => 'side-nav-item']) ?>
+<div class="row m-0 p-0 shadow-sm mb-3">
+    <div class="col-12">
+        <div class="pt-2 pb-3">
+            <small class="text-muted"><?= $posts->poststype['pt_name'] ?></small>
+            <h1 class="text-success"><?= $posts->p_title ?></h1>
+            <small class="m-0"> <span>โดย</span> <?= $posts->user['name'] ?></small>
         </div>
-    </aside>
-    <div class="column-responsive column-80">
-        <div class="posts view content">
-            <h3><?= h($post->title) ?></h3>
-            <table>
-                <tr>
-                    <th><?= __('Id') ?></th>
-                    <td><?= $this->Number->format($post->id) ?></td>
-                </tr>
-            </table>
-            <div class="text">
-                <strong><?= __('Title') ?></strong>
-                <blockquote>
-                    <?= $this->Text->autoParagraph(h($post->title)); ?>
-                </blockquote>
-            </div>
-            <div class="text">
-                <strong><?= __('Detail') ?></strong>
-                <blockquote>
-                    <?= $this->Text->autoParagraph(h($post->detail)); ?>
-                </blockquote>
-            </div>
-        </div>
+        <img class="d-block w-100" src="<?= $this->Url->build($posts->p_img); ?>" alt="<?= $posts->p_title ?>">
+        <div class="text-secondary pt-4"><?= $posts->p_detail ?></div>
     </div>
 </div>

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Model\Table;
@@ -40,6 +41,17 @@ class PostsTable extends Table
         $this->setTable('posts');
         $this->setDisplayField('title');
         $this->setPrimaryKey('id');
+
+        $this->belongsTo('users', [
+            'foreignKey' => 'p_user_id',
+            'joinType' => 'INNER'
+        ]);
+
+
+        $this->belongsTo('poststype', [
+            'foreignKey' => 'p_type_id',
+            'joinType' => 'INNER'
+        ]);
     }
 
     /**
@@ -51,12 +63,48 @@ class PostsTable extends Table
     public function validationDefault(Validator $validator): Validator
     {
         $validator
-            ->scalar('title')
-            ->allowEmptyString('title');
+            ->scalar('p_title')
+            ->requirePresence('p_title', 'create')
+            ->notEmptyString('p_title');
 
         $validator
-            ->scalar('detail')
-            ->allowEmptyString('detail');
+            ->integer('p_type_id')
+            ->requirePresence('p_type_id', 'create')
+            ->notEmptyString('p_type_id');
+
+        $validator
+            ->integer('p_user_id')
+            ->requirePresence('p_user_id', 'create')
+            ->notEmptyString('p_user_id');
+
+        $validator
+            ->scalar('p_detail')
+            ->requirePresence('p_detail', 'create')
+            ->notEmptyString('p_detail');
+
+        $validator
+            ->scalar('p_status')
+            ->requirePresence('p_status', 'create')
+            ->notEmptyString('p_status');
+
+        $validator
+            ->integer('p_views')
+            ->requirePresence('p_views', 'create')
+            ->notEmptyString('p_views');
+
+        $validator
+            ->dateTime('p_created_at')
+            ->notEmptyDateTime('p_created_at');
+
+        $validator
+            ->dateTime('p_updated_at')
+            ->notEmptyDateTime('p_updated_at');
+
+        $validator
+            ->scalar('p_img')
+            ->maxLength('p_img', 255)
+            ->requirePresence('p_img', 'create')
+            ->notEmptyString('p_img');
 
         return $validator;
     }

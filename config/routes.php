@@ -24,6 +24,9 @@
 
 use Cake\Routing\Route\DashedRoute;
 use Cake\Routing\RouteBuilder;
+use Cake\Routing\Router;
+
+
 
 return static function (RouteBuilder $routes) {
     /*
@@ -43,19 +46,26 @@ return static function (RouteBuilder $routes) {
      * inconsistently cased URLs when used with `{plugin}`, `{controller}` and
      * `{action}` markers.
      */
+
     $routes->setRouteClass(DashedRoute::class);
-    $routes->connect('/users/register', ['controller' => 'users', 'action' => 'register']);
-    $routes->connect('/users/verification', ['controller' => 'Users', 'action' => 'verification']);
-    $routes->connect('/Home', ['controller' => 'Home', 'action' => 'index']);
-    $routes->connect('users/resetpassword', ['controller' => 'users', 'action' => 'resetpassword']);
-    $routes->connect('users/forgetpassword', ['controller' => 'users', 'action' => 'forgetpassword']);
+    $routes->connect('/', ['controller' => 'home', 'action' => 'index'], ['routeClass' => 'ADmad/I18n.I18nRoute']);
+    $routes->connect('/posts', ['controller' => 'posts', 'action' => 'index'], ['routeClass' => 'ADmad/I18n.I18nRoute']);
+    $routes->connect('/products', ['controller' => 'products', 'action' => 'index'], ['routeClass' => 'ADmad/I18n.I18nRoute']);
+
+    $routes->connect('api/product', ['controller' => 'api', 'action' => 'product']);
+    $routes->connect('/carts', ['controller' => 'cart', 'action' => 'index'], ['routeClass' => 'ADmad/I18n.I18nRoute']);
+    $routes->connect('/carts/add', ['controller' => 'cart', 'action' => 'add']);
+    $routes->connect('/Aboutus', ['controller' => 'aboutus', 'action' => 'index'],['routeClass' => 'ADmad/I18n.I18nRoute']);
+
+
     $routes->scope('/', function (RouteBuilder $builder) {
         /*
          * Here, we are connecting '/' (base path) to a controller called 'Pages',
          * its action called 'display', and we pass a param to select the view file
          * to use (in this case, templates/Pages/home.php)...
          */
-        $builder->connect('/', ['controller' => 'Home', 'action' => 'index']);
+        $builder->connect('/', ['controller' => 'Admin', 'action' => 'index']);
+        $builder->connect('/:language/:controller/:action/*', array(), array('language' => 'en|th'));
 
         /*
          * ...and connect the rest of 'Pages' controller's URLs.
@@ -78,6 +88,18 @@ return static function (RouteBuilder $routes) {
         $builder->fallbacks();
     });
 
+    $routes->prefix('Admin', function (RouteBuilder $routes) {
+        $routes->connect('/', ['controller' => 'users', 'action' => 'login']);
+        $routes->connect('/users/register', ['controller' => 'users', 'action' => 'register']);
+        $routes->connect('/users/verification', ['controller' => 'Users', 'action' => 'verification']);
+        $routes->connect('/users/resetpassword', ['controller' => 'users', 'action' => 'resetpassword']);
+        $routes->connect('/users/forgetpassword', ['controller' => 'users', 'action' => 'forgetpassword']);
+        $routes->connect('/posts', ['controller' => 'posts', 'action' => 'index']);
+        $routes->connect('/dashboard', ['controller' => 'dashboard', 'action' => 'index']);
+        $routes->connect('/products', ['controller' => 'products', 'action' => 'index']);
+        $routes->connect('/chat', ['controller' => 'chats', 'action' => 'index']);
+        $routes->fallbacks(DashedRoute::class);
+    });
     /*
      * If you need a different set of middleware or none at all,
      * open new scope and define routes there.

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Model\Table;
@@ -40,6 +41,15 @@ class UsersTable extends Table
         $this->setTable('users');
         $this->setDisplayField('name');
         $this->setPrimaryKey('id');
+
+        $this->belongsTo('usersrole', [
+            'foreignKey' => 'user_role_id',
+            'joinType' => 'INNER'
+        ]);
+        $this->belongsTo('userstype', [
+            'foreignKey' => 'user_type_id',
+            'joinType' => 'INNER'
+        ]);
     }
 
     /**
@@ -52,27 +62,53 @@ class UsersTable extends Table
     {
         $validator
             ->scalar('name')
-            ->allowEmptyString('name');
+            ->maxLength('name', 225)
+            ->requirePresence('name', 'create')
+            ->notEmptyString('name');
 
         $validator
             ->email('email')
-            ->allowEmptyString('email');
+            ->requirePresence('email', 'create')
+            ->notEmptyString('email');
 
         $validator
-            ->scalar('verified')
-            ->allowEmptyString('verified');
+            ->integer('user_type_id')
+            ->requirePresence('user_type_id', 'create')
+            ->notEmptyString('user_type_id');
+
+        $validator
+            ->integer('user_role_id')
+            ->requirePresence('user_role_id', 'create')
+            ->notEmptyString('user_role_id');
+
+        $validator
+            ->scalar('password')
+            ->requirePresence('password', 'create')
+            ->notEmptyString('password');
 
         $validator
             ->scalar('token')
-            ->allowEmptyString('token');
+            ->requirePresence('token', 'create')
+            ->notEmptyString('token');
+
+        $validator
+            ->scalar('verified')
+            ->requirePresence('verified', 'create')
+            ->notEmptyString('verified');
+
+        $validator
+            ->scalar('status')
+            ->maxLength('status', 255)
+            ->requirePresence('status', 'create')
+            ->notEmptyString('status');
 
         $validator
             ->dateTime('created_at')
-            ->allowEmptyDateTime('created_at');
+            ->notEmptyDateTime('created_at');
 
         $validator
             ->dateTime('updated_at')
-            ->allowEmptyDateTime('updated_at');
+            ->notEmptyDateTime('updated_at');
 
         return $validator;
     }

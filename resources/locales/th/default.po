@@ -1,0 +1,546 @@
+# LANGUAGE translation of CakePHP Application
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2022-10-10 03:17+0000\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: ./src/Controller/Admin/CartController.php:55
+#: ./src/Controller/Admin/CartController.php:79
+#: ./src/Controller/CartController.php:83
+msgid "The cart has been saved."
+msgstr ""
+
+#: ./src/Controller/Admin/CartController.php:59
+#: ./src/Controller/Admin/CartController.php:83
+#: ./src/Controller/CartController.php:87
+msgid "The cart could not be saved. Please, try again."
+msgstr ""
+
+#: ./src/Controller/Admin/CartController.php:100
+#: ./src/Controller/CartController.php:104
+msgid "The cart has been deleted."
+msgstr ""
+
+#: ./src/Controller/Admin/CartController.php:102
+#: ./src/Controller/CartController.php:106
+msgid "The cart could not be deleted. Please, try again."
+msgstr ""
+
+#: ./src/Controller/Admin/PostsController.php:54
+#: ./src/Controller/Admin/PostsController.php:78
+msgid "The post has been saved."
+msgstr ""
+
+#: ./src/Controller/Admin/PostsController.php:58
+#: ./src/Controller/Admin/PostsController.php:82
+msgid "The post could not be saved. Please, try again."
+msgstr ""
+
+#: ./src/Controller/Admin/PostsController.php:99
+msgid "The post has been deleted."
+msgstr ""
+
+#: ./src/Controller/Admin/PostsController.php:101
+msgid "The post could not be deleted. Please, try again."
+msgstr ""
+
+#: ./src/Controller/Admin/ProductsController.php:54
+#: ./src/Controller/Admin/ProductsController.php:78
+msgid "The product has been saved."
+msgstr ""
+
+#: ./src/Controller/Admin/ProductsController.php:58
+#: ./src/Controller/Admin/ProductsController.php:82
+msgid "The product could not be saved. Please, try again."
+msgstr ""
+
+#: ./src/Controller/Admin/ProductsController.php:99
+msgid "The product has been deleted."
+msgstr ""
+
+#: ./src/Controller/Admin/ProductsController.php:101
+msgid "The product could not be deleted. Please, try again."
+msgstr ""
+
+#: ./src/Controller/Admin/UsersController.php:63
+#: ./src/Controller/Admin/UsersController.php:87
+msgid "The user has been saved."
+msgstr ""
+
+#: ./src/Controller/Admin/UsersController.php:67
+#: ./src/Controller/Admin/UsersController.php:91
+msgid "The user could not be saved. Please, try again."
+msgstr ""
+
+#: ./src/Controller/Admin/UsersController.php:108
+msgid "The user has been deleted."
+msgstr ""
+
+#: ./src/Controller/Admin/UsersController.php:110
+msgid "The user could not be deleted. Please, try again."
+msgstr ""
+
+#: ./src/Controller/CartitemController.php:53
+#: ./src/Controller/CartitemController.php:77
+msgid "The cartitem has been saved."
+msgstr ""
+
+#: ./src/Controller/CartitemController.php:57
+#: ./src/Controller/CartitemController.php:81
+msgid "The cartitem could not be saved. Please, try again."
+msgstr ""
+
+#: ./src/Controller/CartitemController.php:98
+msgid "The cartitem has been deleted."
+msgstr ""
+
+#: ./src/Controller/CartitemController.php:100
+msgid "The cartitem could not be deleted. Please, try again."
+msgstr ""
+
+#: ./templates/Admin/Cart/add.php:10
+#: ./templates/Admin/Cart/edit.php:10
+#: ./templates/Admin/Cart/index.php:19
+#: ./templates/Admin/Cart/view.php:10
+#: ./templates/Admin/Posts/add.php:10
+#: ./templates/Admin/Posts/edit.php:10
+#: ./templates/Admin/Posts/index.php:22
+#: ./templates/Admin/Posts/view.php:10
+#: ./templates/Admin/Products/add.php:4
+#: ./templates/Admin/Products/edit.php:4
+#: ./templates/Admin/Products/view.php:10
+#: ./templates/Admin/Users/add.php:10
+#: ./templates/Admin/Users/edit.php:10
+#: ./templates/Admin/Users/index.php:21
+#: ./templates/Admin/Users/view.php:10
+#: ./templates/Cart/edit.php:10
+#: ./templates/Cartitem/add.php:10
+#: ./templates/Cartitem/edit.php:10
+#: ./templates/Cartitem/index.php:20
+#: ./templates/Cartitem/view.php:10
+#: ./templates/Posts/view.php:10
+#: ./templates/Products/add.php:4
+#: ./templates/Products/edit.php:4
+#: ./templates/Products/view.php:10
+msgid "Actions"
+msgstr "bdbdfghfhdfhdfh"
+
+#: ./templates/Admin/Cart/add.php:11
+#: ./templates/Admin/Cart/edit.php:16
+#: ./templates/Admin/Cart/view.php:13
+#: ./templates/Cart/edit.php:16
+msgid "List Cart"
+msgstr ""
+
+
+#: ./templates/Admin/Cart/add.php:18
+msgid "Add Cart"
+msgstr ""
+
+#: ./templates/Admin/Cart/add.php:27
+#: ./templates/Admin/Cart/edit.php:32
+#: ./templates/Admin/Posts/add.php:31
+#: ./templates/Admin/Posts/edit.php:36
+#: ./templates/Admin/Products/add.php:41
+#: ./templates/Admin/Products/edit.php:41
+#: ./templates/Admin/Users/add.php:29
+#: ./templates/Admin/Users/edit.php:34
+#: ./templates/Cart/edit.php:32
+#: ./templates/Cartitem/add.php:27
+#: ./templates/Cartitem/edit.php:32
+#: ./templates/Products/add.php:41
+#: ./templates/Products/edit.php:41
+msgid "Submit"
+msgstr ""
+
+#: ./templates/Admin/Cart/edit.php:12
+#: ./templates/Admin/Cart/index.php:33
+#: ./templates/Admin/Posts/edit.php:12
+#: ./templates/Admin/Posts/index.php:39
+#: ./templates/Admin/Products/index.php:27
+#: ./templates/Admin/Users/edit.php:12
+#: ./templates/Admin/Users/index.php:35
+#: ./templates/Cart/edit.php:12
+#: ./templates/Cartitem/edit.php:12
+#: ./templates/Cartitem/index.php:35
+#: ./templates/Products/index.php:28
+msgid "Delete"
+msgstr ""
+
+#: ./templates/Admin/Cart/edit.php:14
+#: ./templates/Admin/Cart/index.php:33
+#: ./templates/Admin/Cart/view.php:12
+#: ./templates/Admin/Posts/edit.php:14
+#: ./templates/Admin/Posts/index.php:39
+#: ./templates/Admin/Posts/view.php:12
+#: ./templates/Admin/Products/index.php:27
+#: ./templates/Admin/Products/view.php:12
+#: ./templates/Admin/Users/edit.php:14
+#: ./templates/Admin/Users/index.php:35
+#: ./templates/Admin/Users/view.php:12
+#: ./templates/Cart/edit.php:14
+#: ./templates/Cartitem/edit.php:14
+#: ./templates/Cartitem/index.php:35
+#: ./templates/Cartitem/view.php:12
+#: ./templates/Posts/view.php:12
+#: ./templates/Products/index.php:28
+#: ./templates/Products/view.php:12
+msgid "Are you sure you want to delete # {0}?"
+msgstr ""
+
+#: ./templates/Admin/Cart/edit.php:23
+#: ./templates/Admin/Cart/view.php:11
+#: ./templates/Cart/edit.php:23
+msgid "Edit Cart"
+msgstr ""
+
+#: ./templates/Admin/Cart/index.php:8
+#: ./templates/Admin/Cart/view.php:14
+msgid "New Cart"
+msgstr ""
+
+#: ./templates/Admin/Cart/index.php:9
+msgid "Cart"
+msgstr ""
+
+#: ./templates/Admin/Cart/index.php:31
+#: ./templates/Admin/Posts/index.php:37
+#: ./templates/Admin/Products/index.php:25
+#: ./templates/Admin/Users/index.php:33
+#: ./templates/Cartitem/index.php:33
+#: ./templates/Products/index.php:26
+msgid "View"
+msgstr ""
+
+#: ./templates/Admin/Cart/index.php:32
+#: ./templates/Admin/Posts/index.php:38
+#: ./templates/Admin/Products/index.php:26
+#: ./templates/Admin/Users/index.php:34
+#: ./templates/Cartitem/index.php:34
+#: ./templates/Products/index.php:27
+msgid "Edit"
+msgstr ""
+
+#: ./templates/Admin/Cart/index.php:42
+#: ./templates/Admin/Posts/index.php:48
+#: ./templates/Admin/Users/index.php:44
+#: ./templates/Cartitem/index.php:44
+msgid "first"
+msgstr ""
+
+#: ./templates/Admin/Cart/index.php:43
+#: ./templates/Admin/Posts/index.php:49
+#: ./templates/Admin/Users/index.php:45
+#: ./templates/Cartitem/index.php:45
+msgid "previous"
+msgstr ""
+
+#: ./templates/Admin/Cart/index.php:45
+#: ./templates/Admin/Posts/index.php:51
+#: ./templates/Admin/Users/index.php:47
+#: ./templates/Cartitem/index.php:47
+msgid "next"
+msgstr ""
+
+#: ./templates/Admin/Cart/index.php:46
+#: ./templates/Admin/Posts/index.php:52
+#: ./templates/Admin/Users/index.php:48
+#: ./templates/Cartitem/index.php:48
+msgid "last"
+msgstr ""
+
+#: ./templates/Admin/Cart/index.php:48
+#: ./templates/Admin/Posts/index.php:54
+#: ./templates/Admin/Users/index.php:50
+#: ./templates/Cartitem/index.php:50
+msgid "Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total"
+msgstr ""
+
+#: ./templates/Admin/Cart/view.php:12
+msgid "Delete Cart"
+msgstr ""
+
+#: ./templates/Admin/Cart/view.php:22
+msgid "C Status"
+msgstr ""
+
+#: ./templates/Admin/Cart/view.php:26
+msgid "C Id"
+msgstr ""
+
+#: ./templates/Admin/Cart/view.php:30
+msgid "C User Id"
+msgstr ""
+
+#: ./templates/Admin/Cart/view.php:34
+#: ./templates/Cartitem/view.php:38
+msgid "C Created At"
+msgstr ""
+
+#: ./templates/Admin/Cart/view.php:38
+#: ./templates/Cartitem/view.php:42
+msgid "C Updated At"
+msgstr ""
+
+#: ./templates/Admin/Cart/view.php:43
+msgid "C Detail"
+msgstr ""
+
+#: ./templates/Admin/Posts/add.php:11
+#: ./templates/Admin/Posts/edit.php:16
+#: ./templates/Admin/Posts/view.php:13
+#: ./templates/Posts/view.php:13
+msgid "List Posts"
+msgstr ""
+
+#: ./templates/Admin/Posts/add.php:18
+msgid "Add Post"
+msgstr ""
+
+#: ./templates/Admin/Posts/edit.php:23
+#: ./templates/Admin/Posts/view.php:11
+#: ./templates/Posts/view.php:11
+msgid "Edit Post"
+msgstr ""
+
+#: ./templates/Admin/Posts/index.php:8
+#: ./templates/Admin/Posts/view.php:14
+#: ./templates/Posts/view.php:14
+msgid "New Post"
+msgstr ""
+
+#: ./templates/Admin/Posts/index.php:9
+msgid "Posts"
+msgstr ""
+
+#: ./templates/Admin/Posts/view.php:12
+#: ./templates/Posts/view.php:12
+msgid "Delete Post"
+msgstr ""
+
+#: ./templates/Admin/Posts/view.php:22
+#: ./templates/Posts/view.php:22
+msgid "P Status"
+msgstr ""
+
+#: ./templates/Admin/Posts/view.php:26
+#: ./templates/Posts/view.php:26
+msgid "P Img"
+msgstr ""
+
+#: ./templates/Admin/Posts/view.php:30
+#: ./templates/Admin/Users/view.php:30
+#: ./templates/Posts/view.php:30
+msgid "Id"
+msgstr ""
+
+#: ./templates/Admin/Posts/view.php:34
+#: ./templates/Admin/Products/view.php:30
+#: ./templates/Posts/view.php:34
+#: ./templates/Products/view.php:30
+msgid "P Type Id"
+msgstr ""
+
+#: ./templates/Admin/Posts/view.php:38
+#: ./templates/Admin/Products/view.php:26
+#: ./templates/Posts/view.php:38
+#: ./templates/Products/view.php:26
+msgid "P User Id"
+msgstr ""
+
+#: ./templates/Admin/Posts/view.php:42
+#: ./templates/Posts/view.php:42
+msgid "P Views"
+msgstr ""
+
+#: ./templates/Admin/Posts/view.php:46
+#: ./templates/Admin/Products/view.php:46
+#: ./templates/Posts/view.php:46
+#: ./templates/Products/view.php:46
+msgid "P Created At"
+msgstr ""
+
+#: ./templates/Admin/Posts/view.php:50
+#: ./templates/Admin/Products/view.php:50
+#: ./templates/Posts/view.php:50
+#: ./templates/Products/view.php:50
+msgid "P Updated At"
+msgstr ""
+
+#: ./templates/Admin/Posts/view.php:55
+#: ./templates/Admin/Products/view.php:55
+#: ./templates/Posts/view.php:55
+#: ./templates/Products/view.php:55
+msgid "P Title"
+msgstr ""
+
+#: ./templates/Admin/Posts/view.php:61
+#: ./templates/Admin/Products/view.php:61
+#: ./templates/Posts/view.php:61
+#: ./templates/Products/view.php:61
+msgid "P Detail"
+msgstr ""
+
+#: ./templates/Admin/Products/add.php:5
+#: ./templates/Admin/Products/edit.php:5
+#: ./templates/Admin/Products/view.php:13
+#: ./templates/Products/add.php:5
+#: ./templates/Products/edit.php:5
+#: ./templates/Products/view.php:13
+msgid "List Products"
+msgstr ""
+
+#: ./templates/Admin/Products/add.php:12
+#: ./templates/Admin/Products/edit.php:12
+#: ./templates/Admin/Products/index.php:2
+#: ./templates/Products/add.php:12
+#: ./templates/Products/edit.php:12
+#: ./templates/Products/index.php:2
+msgid "เพิ่มสินค้า"
+msgstr ""
+
+#: ./templates/Admin/Products/view.php:11
+#: ./templates/Products/view.php:11
+msgid "Edit Product"
+msgstr ""
+
+#: ./templates/Admin/Products/view.php:12
+#: ./templates/Products/view.php:12
+msgid "Delete Product"
+msgstr ""
+
+#: ./templates/Admin/Products/view.php:14
+#: ./templates/Products/view.php:14
+msgid "New Product"
+msgstr ""
+
+#: ./templates/Admin/Products/view.php:22
+#: ./templates/Products/view.php:22
+msgid "P Id"
+msgstr ""
+
+#: ./templates/Admin/Products/view.php:34
+#: ./templates/Products/view.php:34
+msgid "P Price"
+msgstr ""
+
+#: ./templates/Admin/Products/view.php:38
+#: ./templates/Products/view.php:38
+msgid "P Promotion"
+msgstr ""
+
+#: ./templates/Admin/Products/view.php:42
+#: ./templates/Products/view.php:42
+msgid "P Image Id"
+msgstr ""
+
+#: ./templates/Admin/Users/add.php:11
+#: ./templates/Admin/Users/edit.php:16
+#: ./templates/Admin/Users/view.php:13
+msgid "List Users"
+msgstr ""
+
+#: ./templates/Admin/Users/add.php:18
+msgid "Add User"
+msgstr ""
+
+#: ./templates/Admin/Users/edit.php:23
+#: ./templates/Admin/Users/view.php:11
+msgid "Edit User"
+msgstr ""
+
+#: ./templates/Admin/Users/index.php:8
+#: ./templates/Admin/Users/view.php:14
+msgid "New User"
+msgstr ""
+
+#: ./templates/Admin/Users/index.php:9
+msgid "Users"
+msgstr ""
+
+#: ./templates/Admin/Users/view.php:12
+msgid "Delete User"
+msgstr ""
+
+#: ./templates/Admin/Users/view.php:22
+msgid "Name"
+msgstr ""
+
+#: ./templates/Admin/Users/view.php:26
+msgid "Verified"
+msgstr ""
+
+#: ./templates/Admin/Users/view.php:34
+msgid "Created At"
+msgstr ""
+
+#: ./templates/Admin/Users/view.php:38
+msgid "Updated At"
+msgstr ""
+
+#: ./templates/Admin/Users/view.php:43
+msgid "Email"
+msgstr ""
+
+#: ./templates/Admin/Users/view.php:49
+msgid "Password"
+msgstr ""
+
+#: ./templates/Cartitem/add.php:11
+#: ./templates/Cartitem/edit.php:16
+#: ./templates/Cartitem/view.php:13
+msgid "List Cartitem"
+msgstr ""
+
+#: ./templates/Cartitem/add.php:18
+msgid "Add Cartitem"
+msgstr ""
+
+#: ./templates/Cartitem/edit.php:23
+#: ./templates/Cartitem/view.php:11
+msgid "Edit Cartitem"
+msgstr ""
+
+#: ./templates/Cartitem/index.php:8
+#: ./templates/Cartitem/view.php:14
+msgid "New Cartitem"
+msgstr ""
+
+#: ./templates/Cartitem/index.php:9
+msgid "Cartitem"
+msgstr ""
+
+#: ./templates/Cartitem/view.php:12
+msgid "Delete Cartitem"
+msgstr ""
+
+#: ./templates/Cartitem/view.php:22
+msgid "Cart Id"
+msgstr ""
+
+#: ./templates/Cartitem/view.php:26
+msgid "Cart User Id"
+msgstr ""
+
+#: ./templates/Cartitem/view.php:30
+msgid "Cart Product Id"
+msgstr ""
+
+#: ./templates/Cartitem/view.php:34
+msgid "Cart Qty"
+msgstr ""
+
+#: ./templates/layout/error.php:38
+msgid "Back"
+msgstr ""
+

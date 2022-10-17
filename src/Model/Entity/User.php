@@ -9,12 +9,16 @@ use Cake\ORM\Entity;
  * User Entity
  *
  * @property int $id
- * @property string|null $name
- * @property string|null $email
- * @property string|null $verified
- * @property string|null $token
- * @property \Cake\I18n\FrozenTime|null $created_at
- * @property \Cake\I18n\FrozenTime|null $updated_at
+ * @property string $name
+ * @property string $email
+ * @property int $user_type_id
+ * @property int $user_role_id
+ * @property string $password
+ * @property string $token
+ * @property string $verified
+ * @property string $status
+ * @property \Cake\I18n\FrozenTime $created_at
+ * @property \Cake\I18n\FrozenTime $updated_at
  */
 class User extends Entity
 {
@@ -30,8 +34,12 @@ class User extends Entity
     protected $_accessible = [
         'name' => true,
         'email' => true,
-        'verified' => true,
+        'user_type_id' => true,
+        'user_role_id' => true,
+        'password' => true,
         'token' => true,
+        'verified' => true,
+        'status' => true,
         'created_at' => true,
         'updated_at' => true,
     ];
@@ -42,6 +50,7 @@ class User extends Entity
      * @var array<string>
      */
     protected $_hidden = [
+        'password',
         'token',
     ];
 }

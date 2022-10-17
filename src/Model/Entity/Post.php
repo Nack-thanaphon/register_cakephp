@@ -9,8 +9,18 @@ use Cake\ORM\Entity;
  * Post Entity
  *
  * @property int $id
- * @property string|null $title
- * @property string|null $detail
+ * @property string $p_title
+ * @property int $p_type_id
+ * @property int $p_user_id
+ * @property string $p_detail
+ * @property string $p_status
+ * @property int $p_views
+ * @property \Cake\I18n\FrozenTime $p_created_at
+ * @property \Cake\I18n\FrozenTime $p_updated_at
+ * @property string $p_img
+ *
+ * @property \App\Model\Entity\PostsType $poststype
+ * @property \App\Model\Entity\User $user
  */
 class Post extends Entity
 {
@@ -24,7 +34,16 @@ class Post extends Entity
      * @var array<string, bool>
      */
     protected $_accessible = [
-        'title' => true,
-        'detail' => true,
+        'p_title' => true,
+        'p_type_id' => true,
+        'p_user_id' => true,
+        'p_detail' => true,
+        'p_status' => true,
+        'p_views' => true,
+        'p_created_at' => true,
+        'p_updated_at' => true,
+        'p_img' => true,
+        'poststype' => true,
+        'user' => true,
     ];
 }
