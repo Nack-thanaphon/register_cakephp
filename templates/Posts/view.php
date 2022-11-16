@@ -1,11 +1,41 @@
-<div class="row m-0 p-0 shadow-sm mb-3">
-    <div class="col-12">
-        <div class="pt-2 pb-3">
-            <small class="text-muted"><?= $posts->poststype['pt_name'] ?></small>
-            <h1 class="text-success"><?= $posts->p_title ?></h1>
-            <small class="m-0"> <span>โดย</span> <?= $posts->user['name'] ?></small>
+<style>
+    .news_detail,img {
+        width: 100%;
+    }
+</style>
+
+<?php foreach ($posts as $data) : ?>
+
+    <?php $this->assign('title', $data->title); ?>
+    <title><?php echo $this->fetch('title'); ?></title>
+    <?= $this->Html->meta('icon', $this->Url->build($data->img)) ?>
+
+    <div class="container">
+        <!-- desktop -->
+        <div class="row m-0 p-sm-5 shadow-sm mb-3 d-none d-sm-block">
+            <div class="col-12">
+                <div class="pt-2 pb-3">
+                    <small class="text-muted"><?= $data->type ?></small>
+                    <h1 class="text-success"><?= $data->title ?></h1>
+                    <small class="m-0"> <span>โดย</span> <?= $data->user ?></small>
+                </div>
+
+                <img class="d-block w-100" src="<?= $this->Url->build($data->image); ?>" alt="<?= $data->title ?>">
+                <div class="text-secondary pt-4"><?= $data->detail ?></div>
+            </div>
         </div>
-        <img class="d-block w-100" src="<?= $this->Url->build($posts->p_img); ?>" alt="<?= $posts->p_title ?>">
-        <div class="text-secondary pt-4"><?= $posts->p_detail ?></div>
+        <!-- phone -->
+        <div class="row m-0 p-sm-5 shadow-sm mb-3 d-block d-sm-none">
+            <div class="col-12">
+                <div class="pt-2 pb-3">
+                    <small class="text-muted"><?= $data->type ?></small>
+                    <h4 class="text-success"><?= $data->title ?></h4>
+                    <small class="m-0"> <span>โดย</span> <?= $data->user ?></small>
+                </div>
+                <img class="d-block w-100" src="<?= $this->Url->build($data->image); ?>" alt="<?= $data->p_title ?>">
+                <div class="pt-4 news_detail w-100" ><?= $data->detail ?></div>
+            </div>
+        </div>
     </div>
-</div>
+
+<?php endforeach; ?>

@@ -22,13 +22,18 @@ $cakeDescription = 'FarmByMOM | ';
     <?= $this->Html->css(['back_end']) ?>
     <?= $this->Html->css(['OverlayScrollbars.min.css']) ?>
     <?= $this->Html->css(['summernote-bs4.min.css']) ?>
-
     <?= $this->Html->script("adminlte.js"); ?>
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.4.0/css/responsive.dataTables.min.css">
     <script src="https://www.gstatic.com/firebasejs/7.22.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.22.1/firebase-firestore.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script>
+    <script src="https://cdn.ckeditor.com/4.20.0/standard/ckeditor.js"></script>
+
+
+
+
+    <!-- <script>
         // Initialize Firebase
         var config = {
             apiKey: "AIzaSyBqTO2sznTFt81a0ZGo8BeIPROjXHFfxLY",
@@ -41,7 +46,7 @@ $cakeDescription = 'FarmByMOM | ';
             measurementId: "G-0NYGLHJCJZ"
         };
         firebase.initializeApp(config);
-    </script>
+    </script> -->
 
 </head>
 
@@ -53,21 +58,20 @@ $cakeDescription = 'FarmByMOM | ';
             <section class="content">
                 <div class="container-fluid">
                     <div class="row m-0">
-                        <div class="col-12">
+                        <div class="col-12 m-0 p-0">
                             <?= $this->fetch('content') ?>
                         </div>
                     </div>
                 </div>
             </section>
         </div>
-
+        <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
         <?= $this->Html->script("plugins/summernote/summernote-bs4.min.js"); ?>
         <?= $this->Html->script("plugins/jquery-ui/jquery-ui.min.js"); ?>
         <?= $this->Html->script("plugins/bootstrap/js/bootstrap.bundle.min.js"); ?>
         <?= $this->Html->script("plugins/summernote/summernote-bs4.min.js"); ?>
         <?= $this->Html->script("plugins/moment/moment.min.js"); ?>
         <?= $this->Html->script("plugins/bootstrap/js/bootstrap.bundle.min.js"); ?>
-        <?= $this->Html->script("plugins/chart/Chart.min.js"); ?>
         <?= $this->Html->script("plugins/sparklines/sparkline.js"); ?>
         <?= $this->Html->script("plugins/jqvmap/jquery.vmap.min.js"); ?>
         <?= $this->Html->script("plugins/jqvmap/maps/jquery.vmap.usa.js"); ?>
@@ -78,13 +82,12 @@ $cakeDescription = 'FarmByMOM | ';
         <?= $this->Html->script("plugins/summernote/summernote-bs4.min.js"); ?>
         <?= $this->Html->script("overlayScrollbars.min.js"); ?>
         <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
-        <script src="https://cdn.datatables.net/1.12.1/js/dataTables.bootstrap5.min.js"></script>
-
+        <script src="https://cdn.datatables.net/responsive/2.4.0/js/dataTables.responsive.min.js"></script>
         <script>
             $.widget.bridge('uibutton', $.ui.button)
         </script>
         <?= $this->Html->script("custom.js"); ?>
-
+        <?= $this->Html->script("fslightbox.js"); ?>
     </div>
 
 </body>

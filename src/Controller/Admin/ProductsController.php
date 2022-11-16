@@ -21,11 +21,48 @@ class ProductsController extends AppController
 
     public function index()
     {
-        $table = TableRegistry::getTableLocator()->get('Products');
-        $products = $this->paginate($this->Products);
-        $products = $table->find('all', ['contain' => ['productstype']])->all();
 
-        $this->set('product', $products);
+        $products = $this->paginate(
+            $this->Products->find()
+                ->select([
+                    'id' => 'products.p_id',
+                    'title' => 'products.p_title',
+                    'type' => 'p.pt_name',
+                    'price' => 'products.p_price',
+                    'status' => 'products.status',
+                    'user' => 's.name',
+                    'date' => 'products.p_created_at',
+                    'image' => 'd.name'
+                ])
+                ->from([
+                    'products'
+                ])
+                ->join([
+                    'd' => [
+                        'table' => 'image',
+                        'type' => 'INNER',
+                        'conditions' => 'd.product_id = products.p_id',
+                    ],
+                    'p' => [
+                        'table' => 'products_type',
+                        'type' => 'INNER',
+                        'conditions' => 'p.p_id = products.p_type_id',
+                    ],
+                    's' => [
+                        'table' => 'users',
+                        'type' => 'INNER',
+                        'conditions' => 's.id = products.p_user_id',
+                    ],
+                ])
+                ->where([
+                    'products.status' => 1,
+                    'd.cover' => 1,
+                    'd.status' => 1
+                ])
+                ->group('id,title')
+        );
+        $this->set(compact('products'));
+       
     }
 
     public function view()
@@ -35,7 +72,7 @@ class ProductsController extends AppController
             $product = $this->Products->get($id, [
                 'contain' => [],
             ]);
-    
+
             $this->set(['product' => $product]);
             $this->viewBuilder()->setOption('serialize', true);
             $this->RequestHandler->renderAs($this, 'json');
@@ -51,7 +88,7 @@ class ProductsController extends AppController
     {
 
         $this->set('promotion', $promotion =  $this->Custom->getPromotion());
-        $this->set('productsType',  $productsType =  $this->Custom->getProductType());
+        $this->set('ProductsType',  $ProductsType =  $this->Custom->getProductType());
 
         $product = $this->Products->newEmptyEntity();
 
@@ -82,7 +119,7 @@ class ProductsController extends AppController
                 $this->Flash->success("Product created successfully");
                 $this->redirect(([
                     'Prefix' => 'Admin',
-                    'controller' => 'products',
+                    'controller' => 'Products',
                     'action' => 'index'
                 ]));
             } else {

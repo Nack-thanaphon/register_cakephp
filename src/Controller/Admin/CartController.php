@@ -1,10 +1,8 @@
 <?php
 declare(strict_types=1);
-
 namespace App\Controller\Admin;
-
 use App\Controller\Admin\AppController;
-
+use Cake\ORM\TableRegistry;
 /**
  * Cart Controller
  *
@@ -21,10 +19,12 @@ class CartController extends AppController
     public function index()
     {
         $cart = $this->paginate($this->Cart);
-
         $this->set(compact('cart'));
+        $dataTest  = array(12,13);
+        $datatable = TableRegistry::getTableLocator()->get('cart');
+        $query = $datatable->find('all') ->where(['c_id IN' => $dataTest]);
+        $this->set('data',$query);
     }
-
     /**
      * View method
      *
@@ -37,10 +37,8 @@ class CartController extends AppController
         $cart = $this->Cart->get($id, [
             'contain' => [],
         ]);
-
         $this->set(compact('cart'));
     }
-
     /**
      * Add method
      *
@@ -53,14 +51,12 @@ class CartController extends AppController
             $cart = $this->Cart->patchEntity($cart, $this->request->getData());
             if ($this->Cart->save($cart)) {
                 $this->Flash->success(__('The cart has been saved.'));
-
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The cart could not be saved. Please, try again.'));
         }
         $this->set(compact('cart'));
     }
-
     /**
      * Edit method
      *
@@ -77,14 +73,12 @@ class CartController extends AppController
             $cart = $this->Cart->patchEntity($cart, $this->request->getData());
             if ($this->Cart->save($cart)) {
                 $this->Flash->success(__('The cart has been saved.'));
-
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('The cart could not be saved. Please, try again.'));
         }
         $this->set(compact('cart'));
     }
-
     /**
      * Delete method
      *
@@ -101,7 +95,6 @@ class CartController extends AppController
         } else {
             $this->Flash->error(__('The cart could not be deleted. Please, try again.'));
         }
-
         return $this->redirect(['action' => 'index']);
     }
 }

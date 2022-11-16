@@ -15,11 +15,12 @@ use Cake\ORM\Entity;
  * @property string $p_detail
  * @property string $p_price
  * @property int|null $p_promotion
+ * @property int $status
  * @property string $p_image_id
  * @property \Cake\I18n\FrozenTime $p_created_at
  * @property \Cake\I18n\FrozenTime $p_updated_at
  *
- * @property \App\Model\Entity\ProductsType $productstype
+ * @property \App\Model\Entity\ProductsType $products_type
  */
 class Product extends Entity
 {
@@ -39,9 +40,10 @@ class Product extends Entity
         'p_detail' => true,
         'p_price' => true,
         'p_promotion' => true,
+        'status' => true,
         'p_image_id' => true,
         'p_created_at' => true,
         'p_updated_at' => true,
-        'productstype' => true,
+        'products_type' => true,
     ];
 }

@@ -10,9 +10,9 @@
         <i class="fas fa-search"></i>
       </a>
       <div class="navbar-search-block">
-        <Form class="Form-inline">
+        <form class="form-inline">
           <div class="input-group input-group-sm">
-            <input class="Form-control Form-control-navbar" type="search" placeholder="Search" aria-label="Search">
+            <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
             <div class="input-group-append">
               <button class="btn btn-navbar" type="submit">
                 <i class="fas fa-search"></i>
@@ -22,7 +22,7 @@
               </button>
             </div>
           </div>
-        </Form>
+        </form>
       </div>
     </li>
 

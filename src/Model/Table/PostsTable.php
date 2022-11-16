@@ -1,5 +1,4 @@
 <?php
-
 declare(strict_types=1);
 
 namespace App\Model\Table;
@@ -11,6 +10,8 @@ use Cake\Validation\Validator;
 
 /**
  * Posts Model
+ *
+ * @property \App\Model\Table\ImageTable&\Cake\ORM\Association\HasMany $Image
  *
  * @method \App\Model\Entity\Post newEmptyEntity()
  * @method \App\Model\Entity\Post newEntity(array $data, array $options = [])
@@ -41,16 +42,14 @@ class PostsTable extends Table
         $this->setTable('posts');
         $this->setDisplayField('title');
         $this->setPrimaryKey('id');
-
-        $this->belongsTo('users', [
-            'foreignKey' => 'p_user_id',
-            'joinType' => 'INNER'
+        $this->hasMany('Image', [
+            'foreignKey' => 'post_id',
         ]);
-
-
-        $this->belongsTo('poststype', [
+        $this->belongsTo('PostsType', [
             'foreignKey' => 'p_type_id',
-            'joinType' => 'INNER'
+        ]);
+        $this->belongsTo('Users', [
+            'foreignKey' => 'p_user_id',
         ]);
     }
 
@@ -74,8 +73,7 @@ class PostsTable extends Table
 
         $validator
             ->integer('p_user_id')
-            ->requirePresence('p_user_id', 'create')
-            ->notEmptyString('p_user_id');
+            ->allowEmptyString('p_user_id');
 
         $validator
             ->scalar('p_detail')
@@ -83,14 +81,16 @@ class PostsTable extends Table
             ->notEmptyString('p_detail');
 
         $validator
-            ->scalar('p_status')
-            ->requirePresence('p_status', 'create')
-            ->notEmptyString('p_status');
+            ->date('p_date')
+            ->allowEmptyDate('p_date');
+
+        $validator
+            ->boolean('p_status')
+            ->allowEmptyString('p_status');
 
         $validator
             ->integer('p_views')
-            ->requirePresence('p_views', 'create')
-            ->notEmptyString('p_views');
+            ->allowEmptyString('p_views');
 
         $validator
             ->dateTime('p_created_at')
@@ -99,12 +99,6 @@ class PostsTable extends Table
         $validator
             ->dateTime('p_updated_at')
             ->notEmptyDateTime('p_updated_at');
-
-        $validator
-            ->scalar('p_img')
-            ->maxLength('p_img', 255)
-            ->requirePresence('p_img', 'create')
-            ->notEmptyString('p_img');
 
         return $validator;
     }

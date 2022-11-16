@@ -1,235 +1,206 @@
-<div class="col-12 py-5">
-    <h1>ตะกร้าสินค้า</h1>
-    <div class="" style="overflow:hidden;">
-        <div class="swiper-container mySwiper p-3 ">
-            <div class="swiper-wrapper" id="product_items">
-            </div>
-            <!-- <div class="swiper-button-next"></div>
-        <div class="swiper-button-prev"></div> -->
+<div class="container">
+    <div class="row my-3">
+        <div class="col-12  py-3">
+
+            <h1>ตะกร้าสินค้า</h1>
         </div>
-        <!-- <div class="swiper-pagination"></div> -->
-    </div>
-
-
-    <div class="row m-0 ">
-        <div class="col-12 col-sm-8">
-            <div class="m-1 h-100 card border shadow-sm  p-3">
+        <div class="col-12 col-sm-8 m-0 p-0" style="overflow:hidden;">
+            <div class="row m-0 p-0" id="product_items">
+            </div>
+        </div>
+        <div class="col-12 col-sm-4 m-0 p-0">
+            <div class="m-1 card border shadow-sm  p-3">
                 <h4>รายการสินค้า</h4>
                 <div class="col-12 p-0" id="product_cart">
-                    <!-- <div class="row m-0 p-1 border">
-                  <div class="">
-                    <div class="d-flex justify-content-between">
-                      <div class="d-flex flex-row align-items-center">
-                        <div>
-                          <img
-                            src="./img/2.jpg"
-                            class="img-fluid rounded-3"
-                            alt="Shopping item"
-                            style="width: 65px"
-                          />
-                        </div>
-                        <div class="ms-3">
-                          <h6>Iphone 11 pro</h6>
-                          <p class="small mb-0">256GB, Navy Blue</p>
-                        </div>
-                      </div>
-                      <div class="d-flex flex-row align-items-center">
-                        <div style="width: 50px">
-                          <h5 class="fw-normal mb-0">2</h5>
-                        </div>
-                        <div style="width: 80px">
-                          <h5 class="mb-0">$900</h5>
-                        </div>
-                        <a href="#!" style="color: #cecece"
-                          ><i class="fas fa-trash-alt"></i
-                        ></a>
-                      </div>
-                    </div>
-                  </div>
-                </div> -->
                 </div>
-
             </div>
-        </div>
-        <div class="col-12 col-sm-4">
             <div class="m-1  card  p-3 text-dark">
                 <h4 class="mb-1">ยอดรวมชำระ</h4>
                 <p class="p-0 m-0"></p>
-                <hr class="m-0 my-2">
                 <table>
-                    <tr>
+                    <tr class="m-0 p-0">
                         <th colspan="4">รายการ</th>
-                        <th>จำนวน</th>
+                        <th class="text-right">จำนวน</th>
                     </tr>
-                    <tbody>
-                        <tr>
-                            <td colspan="4">อโวคาโด</td>
-                            <td>3</td>
-                        </tr>
+                    <hr>
+                    <tbody id="tbody_precal">
+                        <!-- <tr>
+                                <td colspan="4">อโวคาโด</td>
+                                <td>3</td>
+                            </tr> -->
                     </tbody>
                 </table>
-
-
-
                 <div class="dropdown-divider"></div>
                 <div class="d-flex justify-content-between">
                     <h6 class="mb-3">ยอดรวมชำระ</h6>
-                    <h4 class="mb-3">500.00</h4>
+                    <h4 class="mb-3" id="precal_sum"></h4>
+                    <input type="hidden" id="price" value="">
                 </div>
-                <div class="btn btn-primary" onclick="gotoPayment()">ชำระเงิน</div>
+                <a class="btn btn-primary" onclick="gotoPayment()">ชำระเงิน</a>
+                <!-- <a class="btn btn-primary" href="<?= $this->Url->Build(['controller' => 'cart', 'action' => 'payment']) ?>" onclick="gotoPayment()">ชำระเงิน</a> -->
             </div>
         </div>
     </div>
-</div>
+    <script>
+        var productData = "";
+        $(document).ready(function() {
+            cart();
+            $.ajax({
+                url: "<?php echo $this->Url->build('/api/product', ['fullBase' => true]); ?>",
+                type: "GET",
+                dataType: "json", // added data type
+                success: function(result) {
+                    console.log(result);
+                    let productItem = "";
+                    for (i = 0; i < result.length; i++) {
+                        productData = result[i];
+                        let name = result[i].title.replace(/^\s+|\s+$/gm, '');;
 
-
-<script>
-    var swiper = new Swiper(".mySwiper", {
-        lazy: true,
-        slidesPerView: 1,
-        spaceBetween: 10,
-        pagination: {
-            el: ".swiper-pagination",
-        },
-        // navigation: {
-        //     nextEl: ".swiper-button-next",
-        //     prevEl: ".swiper-button-prev",
-        // },
-        breakpoints: {
-            640: {
-                slidesPerView: 1,
-                spaceBetween: 20,
-            },
-            768: {
-                slidesPerView: 2,
-                spaceBetween: 40,
-            },
-            1024: {
-                slidesPerView: 3,
-                spaceBetween: 50,
-            },
-        }
-    });
-
-    var productData = "";
-
-    $(document).ready(function() {
-        $.ajax({
-            url: "<?php echo $this->Url->build('/api/product', ['fullBase' => true]); ?>",
-            type: "GET",
-            dataType: "json", // added data type
-            success: function(result) {
-                let productItem = "";
-                for (i = 0; i < result.length; i++) {
-
-                    productData = result[i];
-                    productItem += ` 
-                    <div class="swiper-slide" id="productCart_list" >
+                        productItem += ` 
+                    <div class="swiper-slide col-sm-4 col-6 product_card" id="productCart_list" >
                         <div class="card ">
-                        <img class="w-100 border-full" src="<?php echo $this->Url->build('${result[i].p_image_id}', ['fullBase' => true]); ?>">
-                            <div class="card-body">
-                                <small>${result[i].productstype['pt_name']}</small>
-                                <h5 >${result[i].p_title}</h5>
-                                <a href="#" class="btn btn-primary" onclick="select_product(${result[i].p_id},'${result[i].p_title}','${result[i].p_image_id}',${result[i].p_id})" >เพิ่มในตะกร้าสินค้า</a>
+                            <img class="border-full" src="<?php echo $this->Url->build('${result[i].image}', ['fullBase' => true]); ?>">
+                            <div class="card-body p-1">
+                                <small>${result[i].title}</small>
+                                <h5 class="text-primary mt-1 m-0 p-0" >35.00 บาท/ชิ้น </h5>
+                                <small class="text-muted">ขายแล้ว 1000 ชิ้น</small>
+                                <a class="btn btn-primary p-1 w-100 mt-1" onclick="select_product(${result[i].id},'${name}','${result[i].image}',${result[i].id})">เพิ่มในตะกร้าสินค้า</a>
                             </div>
                         </div>
                     </div>`;
-
-                }
-
-                $("#product_items").html(productItem);
-            },
+                    }
+                    $("#product_items").html(productItem);
+                },
+            });
         });
-    });
+        var cart_list = []
+        var count = 0;
 
-
-
-    var cart_list = []
-
-    function select_product(product_id, product_name, product_img, product_price) {
-
-        let pass = true
-        for (i = 0; i < cart_list.length; i++) {
-            if (cart_list[i].id == product_id) {
-                cart_list[i].count++;
-                pass = false;
+        function select_product(id, name, image, price) {
+            count++;
+            let pass = true
+            for (i = 0; i < cart_list.length; i++) {
+                if (cart_list[i].id == id) {
+                    cart_list[i].count++;
+                    pass = false;
+                }
+            }
+            if (pass) {
+                cart_list.push({
+                    id: id,
+                    img: image,
+                    name: name,
+                    price: price,
+                    count: 1
+                })
+            }
+            cart();
+            precal()
+        }
+        //ตะกร้าสินค้า
+        function cart() {
+            var productCart_list = ''
+            if (cart_list.length > 0) {
+                for (i = 0; i < cart_list.length; i++) {
+                    if (cart_list[i].count > 0) {
+                        productCart_list +=
+                            `<div class="d-flex justify-content-between mb-1 py-1 " id="productItem${cart_list[i].id}">
+                            <div>
+                                <h6 class="text-success">${cart_list[i].name}</h6>
+                                <small id="countitems${i}">จำนวน : ${cart_list[i].count} ชิ้น</small>
+                            </div>
+                            <div>
+                                <i class="fas fa-trash-alt" onclick="delete_product(${i},${cart_list[i].id})"></i>
+                            </div>
+                        </div>
+                    </div> `
+                    }
+                    $("#product_cart").html(productCart_list)
+                    $("#cart_total").html(cart_list.length)
+                }
+            }
+            if (cart_list.length <= 0) {
+                $("#product_cart").html('ไม่มีสินค้า')
             }
         }
-        if (pass) {
-            cart_list.push({
-                id: product_id,
-                img: product_img,
-                name: product_name,
-                price: product_price,
-                count: 1
+
+        function numberWithCommas(x) {
+            x = x.toString();
+            var pattern = /(-?\d+)(\d{3})/;
+            while (pattern.test(x))
+                x = x.replace(pattern, "$1,$2");
+            return x;
+        }
+
+        function precal() {
+            var precal_sum = 0
+            var html = '';
+            cart_list.forEach((data) => {
+                if (data.count > 0) {
+                    precal_sum += data.price * data.count
+                    html +=
+                        `<tr id="precal${data.id}">
+                        <td colspan="4">- ${data.name}</td>
+                        <td>${data.count}</td>
+                    </tr>`
+                    $('#tbody_precal').html(html)
+                    $('#precal_sum').html(numberWithCommas((precal_sum).toFixed(2)) + ' บาท')
+                    $('#price').val(numberWithCommas((precal_sum).toFixed(2)))
+                }
+                if (data.count <= 0) {
+                    $("#precal" + data.id).remove();
+                    $('#precal_sum').html(numberWithCommas((precal_sum).toFixed(2)))
+                    $('#price').val(numberWithCommas((precal_sum).toFixed(2)))
+
+
+                }
             })
         }
-        cart();
-    }
+        //ลบสินค้า
+        function delete_product(i, id) {
+            count--;
+            if (cart_list[i].count > 0) {
+                cart_list[i].count--;
+                $("#countitems" + i).text(`จำนวน : ${cart_list[i].count} ชิ้น`)
+            }
+            if (cart_list[i].count <= 0) {
+                $("#productItem" + id).remove();
 
-    function cart() {
-        var productCart_list = ''
+            }
+            precal()
+        }
+        // ไปหน้าจ่ายเงิน
+        function gotoPayment() {
 
-        if (cart_list.length > 0) {
-            for (i = 0; i < cart_list.length; i++) {
-                if (cart_list[i].count > 0) {
-                    productCart_list +=
-                        `
-                <div class="row m-0 mb-2 p-1 border" id="productItem${cart_list[i].id}">
-                        <div class="col-3 ">
-                          <img
-                          src="<?php echo $this->Url->build('${cart_list[i].img}', ['fullBase' => true]); ?>"
-                            class="img-fluid rounded-3 m-1 w-100"
-                            alt="Shopping item"
-                          />
-                        </div>
-                          
-                        <div class="col-8  ">
-                          <h4>${cart_list[i].name}</h4>
-                          <h5 class="mb-0">ราคา : ${cart_list[i].price}</h5>
-                          <p id="countitems${i}"> จำนวน :${cart_list[i].count}</p>
-                        </div>
-                        <div class="col-1 d-flex justify-content-end "> 
-                            <a href="#!" style="color: #cecece">
-                            <i class="fas fa-trash-alt" onclick="delete_product(${i},${cart_list[i].id})"></i>
-                            </a>
-                        </div>
-                 
-                </div> `
+            let totalprice = $('#price').val()
+
+            $.ajax({
+                type: 'POST',
+                url: '<?php echo $this->Url->build(['controller' => 'cart', 'action' => 'add']); ?>',
+                data: {
+                    user_id: 1,
+                    totalprice: totalprice,
+                    c_detail: JSON.stringify(cart_list),
+                },
+                headers: {
+                    'X-CSRF-token': $('meta[name="csrfToken"]').attr('content')
+                },
+                success: function(res) {
+
+                    let resp = JSON.parse(res)
+                    if (resp.result = 200) {
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'success',
+                            title: 'เพิ่มสินค้าเรียบร้อย',
+                            showConfirmButton: true,
+                            confirmButtonText: 'ไปหน้าชำระเงิน',
+                        }).then((result) => {
+                            window.location.href = `<?= $this->Url->build(['action' => 'payment']) ?>/${resp.cart_token}`
+                        })
+                    }
                 }
-                $("#product_cart").html(productCart_list)
-                $("#cart_total").html(cart_list.length)
-
-            }
-        } else {
-            $("#product_cart").html('<p>ไม่มีสินค้า</p>')
+            });
         }
-    }
-
-    function delete_product(index, id) {
-        if (cart_list[index].count > 0) {
-            cart_list[index].count--;
-            $("#countitems" + index).text(cart_list[index].count)
-        }
-        if (cart_list[index].count <= 0) {
-            $("#productItem" + id).remove();
-        }
-    }
-
-    function gotoPayment() {
-        $.ajax({
-            type: 'POST',
-            url: '<?php echo $this->Url->build(['controller' => 'cart', 'action' => 'add']); ?>',
-            data: {
-                user_id: 1,
-                c_detail: JSON.stringify(cart_list),
-            },
-            headers: {
-                'X-CSRF-token': $('meta[name="csrfToken"]').attr('content')
-            },
-            success: function() {
-
-            }
-        });
-    }
-</script>
+    </script>
+</div>

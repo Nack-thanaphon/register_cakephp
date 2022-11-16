@@ -12,6 +12,8 @@ use Cake\ORM\Entity;
  * @property string $pt_name
  * @property \Cake\I18n\FrozenTime $pt_created_at
  * @property \Cake\I18n\FrozenTime $pt_updated_at
+ *
+ * @property \App\Model\Entity\Post $post
  */
 class PostsType extends Entity
 {
@@ -28,5 +30,6 @@ class PostsType extends Entity
         'pt_name' => true,
         'pt_created_at' => true,
         'pt_updated_at' => true,
+        'post' => true,
     ];
 }

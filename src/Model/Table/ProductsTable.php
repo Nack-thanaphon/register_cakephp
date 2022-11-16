@@ -1,5 +1,4 @@
 <?php
-
 declare(strict_types=1);
 
 namespace App\Model\Table;
@@ -42,11 +41,13 @@ class ProductsTable extends Table
         $this->setDisplayField('p_id');
         $this->setPrimaryKey('p_id');
         
-        $this->belongsTo('productstype', [
+        $this->belongsTo('ProductsType', [
             'foreignKey' => 'p_type_id',
             'joinType' => 'INNER'
         ]);
-
+        $this->hasMany('Image', [
+            'foreignKey' => 'product_id',
+        ]);
     }
 
     /**
@@ -85,6 +86,10 @@ class ProductsTable extends Table
         $validator
             ->integer('p_promotion')
             ->allowEmptyString('p_promotion');
+
+        $validator
+            ->requirePresence('status', 'create')
+            ->notEmptyString('status');
 
         $validator
             ->scalar('p_image_id')

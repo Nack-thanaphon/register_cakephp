@@ -97,15 +97,16 @@ implements AuthenticationServiceProviderInterface
 
             // Cross Site Request Forgery (CSRF) Protection Middleware
             // https://book.cakephp.org/4/en/security/csrf.html#cross-site-request-forgery-csrf-middleware
-            // ->add(new CsrfProtectionMiddleware([
-            //     'httponly' => true,
-            // ]))
+            ->add(new CsrfProtectionMiddleware([
+                'httponly' => true,
+            ]))
             ->add(new \ADmad\I18n\Middleware\I18nMiddleware([
-
                 'detectLanguage' => true,
-
                 'defaultLanguage' => 'th',
-
+                'languages' => [
+                    'en' => ['locale' => 'en_US'],
+                    'th' => ['locale' => 'th_TH']
+                ],
             ]));
 
 
@@ -142,13 +143,13 @@ implements AuthenticationServiceProviderInterface
     public function getAuthenticationService(ServerRequestInterface $request): AuthenticationServiceInterface
     {
         $authenticationService = new AuthenticationService([
-            'unauthenticatedRedirect' => Router::url(
-                [
-                    'prefix' => "Admin",
-                    "controller" => "Users",
-                    "action" => "login",
-                ]
-            )
+            'unauthenticatedRedirect' =>
+            [
+                "prefix" => "Admin",
+                "controller" => "Users",
+                "Action" => "login",
+            ],
+            'queryParam' => 'redirect',
         ]);
 
         // Load identifiers, ensure we check email and password fields
@@ -167,7 +168,7 @@ implements AuthenticationServiceProviderInterface
             'userModel' => 'Users',
             'loginUrl' =>  Router::url(
                 [
-                    'prefix' => "Admin",
+                    "prefix" => "Admin",
                     "controller" => "Users",
                     "Action" => "login",
                 ]

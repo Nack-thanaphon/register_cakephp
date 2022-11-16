@@ -63,3 +63,12 @@ body {
     height: 250px;
     overflow: hidden;
 }
+
+.product_card {
+    height: 250px;
+    overflow: hidden;
+}
+.product_card img {
+    height: 150px;
+    object-fit: cover;
+}

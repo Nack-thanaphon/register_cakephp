@@ -37,12 +37,10 @@ class ProductsTypeTable extends Table
     public function initialize(array $config): void
     {
         parent::initialize($config);
-      
-        $this->setTable('productstype');
+
+        $this->setTable('products_type');
         $this->setDisplayField('p_id');
         $this->setPrimaryKey('p_id');
-
-       
     }
 
     /**

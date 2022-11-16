@@ -25,27 +25,27 @@ $cakeDescription = 'FarmByMOM | ';
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
-
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body>
-    <div class="container-fluid m-0 ">
-        <div class="row m-0 p-0">
-            <div class="col-12 m-0 p-0">
-                <?= $this->element('/component/front_navbar') ?>
-            </div>
-            <div class="col-12 m-0 p-0">
-                <?= $this->fetch('content') ?>
-            </div>
+
+    <div class="row m-0 p-0">
+        <div class="col-12 m-0 p-0">
+            <?= $this->element('/component/front_navbar') ?>
         </div>
-        <?= $this->element('/component/subscribe') ?>
-        
+        <div class="col-12 m-0 p-0">
+            <?= $this->fetch('content') ?>
+        </div>
     </div>
+    <?= $this->element('/component/subscribe') ?>
+
     <?= $this->element('/component/footer') ?>
 
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <?= $this->Html->script("plugins/jquery-ui/jquery-ui.min.js"); ?>
+    <?= $this->Html->script("fslightbox.js"); ?>
     <?= $this->Html->script("plugins/bootstrap/js/bootstrap.bundle.min.js"); ?>
     <?= $this->Html->script("plugins/bootstrap/js/bootstrap.bundle.min.js"); ?>
     <?= $this->Html->script("plugins/sparklines/sparkline.js"); ?>
@@ -57,6 +57,7 @@ $cakeDescription = 'FarmByMOM | ';
     <?= $this->Html->script("plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"); ?>
     <?= $this->Html->script("plugins/summernote/summernote-bs4.min.js"); ?>
     <?= $this->Html->script("overlayScrollbars.min.js"); ?>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
     <script>
         $.widget.bridge('uibutton', $.ui.button)

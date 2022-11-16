@@ -1,26 +1,24 @@
-<div class="row mt-3 text-white m-0 my-success p-3 m-0 text-md-left ">
+<div class="row mt-3 text-white m-0 my-success py-5 m-0 text-md-left ">
   <div class="col-md-8 col-lg-8 col-xl-6 mx-auto mb-4">
     <h3 class="text-uppercase font-weight-bold">แม่ปลูกลูกขาย</h3>
     <hr class="my-secondary accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
-    <p>Here you can use rows and columns to organize your footer content. Lorem ipsum dolor sit amet,
-      consectetur
-      adipisicing elit.</p>
+    <p>สตรอเบอรี่แม่ปลูกลูกขาย แบรนด์ดังในเชียงใหม่ 
+      ที่มีลูกค้าทั้งปลีกและส่งทั่วประเทศ <br> 
+      สนใจเป็นตัวแทนจำหน่ายติดต่อได้ 0818451588</p>
 
   </div>
   <div class="col-md-4 col-lg-4 col-xl-4 mx-auto mb-md-0 mb-4">
     <h6 class="text-uppercase font-weight-bold">Contact</h6>
     <hr class="my-secondary  accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
     <p>
-      <i class="fas fa-home mr-3"></i> 52/1 Changklan Rd, Pa Daet Sub-district, เมือง Chiang Mai 50100
+      <i class="fas fa-home mr-3"></i> 52/1 Changklan Rd, Pa Daet Sub-district,
+       Muang Chiang Mai 50100
     </p>
     <p>
-      <i class="fas fa-envelope mr-3"></i> info@example.com
+      <i class="fas fa-envelope mr-3"></i> farmbymom@gmail.com
     </p>
     <p>
-      <i class="fas fa-phone mr-3"></i> XXX-XXX-XXXX
-    </p>
-    <p>
-      <i class="fas fa-print mr-3"></i> XXX-XXX-XXXX
+      <i class="fas fa-phone mr-3"></i> 081-845-1588
     </p>
   </div>
 </div>

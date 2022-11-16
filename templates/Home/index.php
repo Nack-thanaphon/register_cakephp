@@ -1,76 +1,96 @@
-<div id="banner" class="carousel slide" data-ride="carousel">
-
-    <div class="carousel-inner " id="main_slider">
-        <div class="carousel-item active">
-            <img class="d-block w-100" src="<?= $this->Url->image("mainbanner.png") ?>">
+<div class="row m-sm-5 m-0 p-0 p-sm-5 mb-4">
+    <div class="carousel slide my-3" data-ride="carousel">
+        <div class="carousel-inner " id="main_slider">
+            <div class="carousel-item active">
+                <img class="d-block w-100" src="<?= $this->Url->image("mainbanner.png") ?>">
+            </div>
         </div>
-
+        <a class="carousel-control-prev" href="#banner" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#banner" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
     </div>
-    <a class="carousel-control-prev" href="#banner" role="button" data-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="sr-only">Previous</span>
-    </a>
-    <a class="carousel-control-next" href="#banner" role="button" data-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="sr-only">Next</span>
-    </a>
+</div>
+
+
+<div class="row m-sm-5 m-0 p-0 p-sm-5 d-sm-flex justify-content-between d-none ">
+    <!-- bg-desktop -->
+    <div class="col-12 col-sm-6  m-0">
+        <a href="<?= $this->Url->build(['prefix' => false, 'controller' => 'aboutus', 'action' => 'ourbranch']) ?>" class="row m-0 d-flex justify-content-between  bg-success p-4 rounded mb-2 border shadow-sm">
+            <div class=" col-4 mx-auto w-100">
+                <i class="fas fa-store" style="font-size:7rem ;"></i>
+            </div>
+            <div class="col-7 my-auto">
+                <h4>สาขาทั้งหมด</h4>
+                <h1 style="font-size:4rem ;">20 สาขา </h1>
+            </div>
+        </a>
+    </div>
+    <div class="col-12 col-sm-6  m-0">
+        <a href="<?= $this->Url->build(['prefix' => false, 'controller' => 'products', 'action' => 'index']) ?>" class="row m-0 d-flex justify-content-between  bg-white p-4 rounded mb-2 border  shadow-sm">
+            <div class=" col-4 mx-auto w-100">
+                <i class="fas fa-utensils" style="font-size:7rem ;"></i>
+            </div>
+            <div class="col-7 my-auto">
+                <h4>เมนูทั้งหมด</h4>
+                <h1 class="text-success" style="font-size:4rem ;">10 เมนู </h1>
+            </div>
+        </a>
+    </div>
 </div>
 
 
-<div class="row m-0 d-flex justify-content-between my-5 ">
-    <div class="col-12 col-sm-6  m-0">
-        <div class="row m-0  bg-white p-4 rounded mb-2 border shadow-sm">
-            <div class=" col-4 mx-auto w-100">
-                <h1 class="m-0 p-2" style="font-size:4rem ;">
-                    <i class="fas fa-store"></i>
-                </h1>
+<!-- bg-mobile -->
+
+<div class="row  my-4 p-0 m-0 p-sm-5  d-flex d-sm-none">
+    <div class="col-6 col-sm-6  m-0">
+        <a href="<?= $this->Url->build(['prefix' => false, 'controller' => 'aboutus', 'action' => 'ourbranch']) ?>" class="row m-0 d-flex justify-content-between  bg-success p-2 rounded mb-2 border shadow-sm">
+            <div class="col-12 my-auto p-0 m-0">
+                <h6>สาขาทั้งหมด</h6>
+                <h1  class=" m-0 p-0" style="font-size:2rem ;">20 สาขา </h1>
             </div>
-            <div class="col-8">
-                <h5>สาขาทั้งหมด</h5>
-                <h1 class="text-success">70 สาขา </h1>
-            </div>
-        </div>
+        </a>
     </div>
-    <div class="col-12 col-sm-6  m-0">
-        <div class="row m-0  bg-white p-4 rounded mb-2 border  shadow-sm">
-            <div class=" col-4 mx-auto w-100">
-                <h1 class="m-0 p-2" style="font-size:4rem ;">
-                    <i class="fas fa-utensils"></i>
-                </h1>
+    <div class="col-6 col-sm-6  m-0">
+        <a href="<?= $this->Url->build(['prefix' => false, 'controller' => 'products', 'action' => 'index']) ?>" class="row m-0 d-flex justify-content-between  bg-white p-2 rounded mb-2 border  shadow-sm">
+            <div class="col-12 my-auto p-0 m-0">
+                <h6>เมนูทั้งหมด</h6>
+                <h1 class="text-success m-0 p-0" style="font-size:2rem ;">10 เมนู </h1>
             </div>
-            <div class="col-8">
-                <h5>เมนูทั้งหมด</h5>
-                <h1 class="text-success">50 เมนู </h1>
-            </div>
-        </div>
+        </a>
     </div>
 </div>
-<div class="row m-0 p-0 py-sm-5">
-    <div class="col-12 col-sm-6 m-0 p-0 mb-3">
-        <div class="">
-            <h1 class="text-success">สาขา</h1>
-            <h5>เรามีสาขามากกว่า 17 สาขาทั่วประเทศ</h5>
-            <a href="">ดูสาขาใกล้ฉัน</a>
-        </div>
+<div class="row m-sm-5 m-0 p-0 p-sm-5 d-flex justify-content-between">
+
+    <div class="col-12 col-sm-5 py-3 p-2 h-100 text-sm-center text-start  mb-2">
+        <h1 class="text-success">สาขาของเรา</h1>
+        <h5>สาขาที่เรามีทั้งหมด</h5>
+        <a href="/about/ourBranch">อ่านทั้งหมด</a>
+
     </div>
+
     <div class="col-12 col-sm-6 m-0 p-0 mb-3">
-        <div id="OurBranch" class="carousel slide" data-ride="carousel">
+        <div id="OurBranch" class="carousel slide m-0 p-2" data-ride="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item active border-sm">
                     <div class="branch-title">
-                        <div class="btn btn-success rounded">เชียงใหม่</div>
+                        <div class="btn btn-success rounded-full">เชียงใหม่</div>
                     </div>
                     <img class="d-block w-100" src="https://resource.nationtv.tv/uploads/images/md/2021/10/RFYjf49ZwTS0tXu2x0zZ.jpg" alt="First slide">
                 </div>
                 <div class="carousel-item">
                     <div class="branch-title border-sm">
-                        <div class="btn btn-success rounded">กรุงเทพ</div>
+                        <div class="btn btn-success rounded-full">กรุงเทพ</div>
                     </div>
                     <img class="d-block w-100" src="https://thailandproperty.knightfrank.co.th/news/wp-content/uploads/2018/10/3252164.png" alt="Second slide">
                 </div>
                 <div class="carousel-item">
                     <div class="branch-title">
-                        <div class="btn btn-success rounded">อยุธยา</div>
+                        <div class="btn btn-success rounded-full">อยุธยา</div>
                     </div>
                     <img class="d-block w-100" src="https://travel.mthai.com/app/uploads/2018/01/ayudta.jpg" alt="Third slide">
                 </div>
@@ -88,161 +108,123 @@
     </div>
 </div>
 
-<div class="row m-0 p-0 py-sm-5">
-    <div class="col-12 py-3 d-flex justify-content-between ">
-        <h1 class="text-success">
-            Our Product
-        </h1>
-        <a href="#" class="my-auto">Seeall</a>
+<div class="row m-sm-5 m-0 p-0 py-sm-5">
+    <div class="col-12  py-3 p-2 h-100 text-sm-center text-start  mb-2">
+        <h1 class="text-success">สินค้าของเรา</h1>
+        <h5>สินค้าภายในร้านของเรา</h5>
+        <a href="/Products">อ่านทั้งหมด</a>
+
     </div>
-    <div class="col-12 col-sm-4 m-0">
-        <div class="card ">
-            <img class="card-img-top w-100" src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=Format&fit=crop&w=580&q=80" alt="Third slide">
-            <div class="btn-group w-100 " role="group">
-                <button type="button" class="btn btn-success w-100 py-3"><i class="fas fa-cart-plus"></i> เพิ่มในตะกร้า</button>
-                <button type="button" class="btn btn w-100 py-3">
-                    <i class="far fa-heart"></i> 150k
-                </button>
+    <?php foreach ($Products as $value) : ?>
+
+        <div class="col-6 col-sm-4 p-sm-3 m-0">
+            <div class="card m-sm-4 ">
+                <img class="card-img-top w-100" src="<?= $this->Url->build($value->image); ?>" alt="Third slide">
             </div>
         </div>
-    </div>
-    <div class="col-12 col-sm-4 m-0">
-        <div class="card ">
-            <img class="card-img-top w-100" src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=Format&fit=crop&w=580&q=80" alt="Third slide">
-            <div class="btn-group w-100 " role="group">
-                <button type="button" class="btn btn-success w-100 py-3"><i class="fas fa-cart-plus"></i> เพิ่มในตะกร้า</button>
-                <button type="button" class="btn btn w-100 py-3">
-                    <i class="far fa-heart"></i> 150k
-                </button>
-            </div>
-        </div>
-    </div>
-    <div class="col-12 col-sm-4 m-0">
-        <div class="card ">
-            <img class="card-img-top w-100" src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=Format&fit=crop&w=580&q=80" alt="Third slide">
-            <div class="btn-group w-100 " role="group">
-                <button type="button" class="btn btn-success w-100 py-3"><i class="fas fa-cart-plus"></i> เพิ่มในตะกร้า</button>
-                <button type="button" class="btn btn w-100 py-3">
-                    <i class="far fa-heart"></i> 150k
-                </button>
-            </div>
-        </div>
-    </div>
+    <?php endforeach; ?>
+
+
 </div>
 
-<div class="row m-0 p-0 py-sm-5">
-    <div class="col-12 col-sm-4 m-0 p-0 mb-3">
-        <div class="">
-            <h1 class="text-success">รีวิวจากลูกค้า</h1>
-            <h5>ความประทับใจของลูกค้าที่มีต่อเรา</h5>
-            <a href="">อ่านทั้งหมด</a>
-        </div>
+<div class="row m-sm-5 m-0 p-0 p-sm-5 d-flex justify-content-between ">
+    <div class="col-12 col-sm-4 py-3 p-2 h-100 text-start text-sm-start mb-2">
+        <h1 class="text-success">รีวิวจากลูกค้า</h1>
+        <h5>ความประทับใจของลูกค้าที่มีต่อเรา</h5>
+        <a href="/about/ourCustomer">อ่านทั้งหมด</a>
+
     </div>
-    <div class="col-12 col-sm-8 m-0 p-0 mb-3">
-        <div class="">
-            <div class="carousel slide" data-ride="carousel">
-                <div class="carousel-inner">
-                    <div class="carousel-item active">
-                        <div class="row m-0 p-0">
-                            <div class="col-4 col-sm-2 m-0 p-2  ">
-                                <img class="d-block w-100" src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=Format&fit=crop&w=580&q=80" alt="Third slide">
-                            </div>
-                            <div class="col-8 col-sm-10 m-0 p-2">
-                                <h5>Lorem ipsum dolor sit.</h5>
-                                <h6 class="text-secondary">Lorem ipsum dolor sit.</h6>
-                                <hr>
-                                <p class="m-0">Thew Kung</p>
-                            </div>
+    <div class="col-12 col-sm-8 py-3 p-2 m-0 p-0 mb-3">
+        <div class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div class="row m-0 p-0">
+                        <div class="col-4 col-sm-2 m-0 p-2  ">
+                            <img class="d-block w-75 justify-item-center " src="https://scontent.fbkk12-5.fna.fbcdn.net/v/t39.30808-1/305087796_642308717321314_5834137490196069048_n.jpg?stp=dst-jpg_p160x160&_nc_cat=105&ccb=1-7&_nc_sid=7206a8&_nc_eui2=AeG0tNF2bBRZd6Nl1J5qy8IjX6twctv04Utfq3By2_ThS4HzslP5OZOG9DSQgVO-h4zyskMcxsfm_Eiv-cbXztEM&_nc_ohc=uXTgw446BYcAX-_TNO6&_nc_ht=scontent.fbkk12-5.fna&oh=00_AfAzKhDAeshKxe156x9yZFO3BprWTcRNAQSCyjyblhfAsg&oe=635F5F1E" class="rounded-full" alt="Third slide">
                         </div>
-                    </div>
-                    <div class="carousel-item">
-                        <div class="row m-0 p-0">
-                            <div class="col-4 col-sm-2 m-0 p-2  ">
-                                <img class="d-block w-100" src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=Format&fit=crop&w=580&q=80" alt="Third slide">
-                            </div>
-                            <div class="col-8 col-sm-10 m-0 p-2">
-                                <h5>Lorem ipsum dolor sit.</h5>
-                                <h6 class="text-secondary">Lorem ipsum dolor sit.</h6>
-                                <hr>
-                                <div class="d-flex">
-                                    <section>
-                                        <h6>โดย</h6>
-                                    </section>
-                                    <section class="mx-3">
-                                        <p class="m-0">Thew Kung</p>
-                                        <p class="badge badge-pill my-success m-0 ">Onwer</p>
-                                    </section>
-                                </div>
-                            </div>
+                        <div class="col-8 col-sm-10 m-0 p-2">
+                            <h4 class="m-0 p-0 mb-1"><q>ชอบการบริการครับ ประทับใจ</q></h4>
+                            <p class="m-0 p-0">Nack Thanaphon</p>
+                            <small class="m-0">11 พฤศจิกายน 2565</small>
                         </div>
                     </div>
                 </div>
-                <a class="carousel-control-prev" href="#OurReviews" role="button" data-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Previous</span>
-                </a>
-                <a class="carousel-control-next" href="#OurReviews" role="button" data-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="sr-only">Next</span>
-                </a>
+
             </div>
         </div>
     </div>
 </div>
-<div class="row m-0 p-0 py-sm-5">
-    <div class="col-12 py-3 d-flex justify-content-between ">
-        <h1 class="text-success">
-            Our Bussiness
+<div class="row m-sm-5 m-0 p-0 py-sm-5">
+    <div class="col-12  py-3 p-2 h-100 text-sm-center text-start mb-2">
+        <h1 class="text-success ">
+            ธุรกิจของเรา
         </h1>
-        <a href="#" class="my-auto">Seeall</a>
+        <h5>ครอบคุมทั้งภายในและส่งออก</h5>
+        <a href="/about/ourBusiness">อ่านทั้งหมด</a>
+
     </div>
     <div class="col-12 col-sm-4  mb-2">
-        <div class="my-success p-3 d-flex rounded text-white">
-            <i class="fas fa-plane " style="font-size: 3.4rem;"></i>
-            <h3 class="m-2 my-auto p-0"> ธุรกิจส่งออก</h3>
+        <div class="alert alert-success m-0 p-2 p-sm-3 d-flex justify-content-between rounded text-white">
+            <div class="my-auto p-0">
+                <h2 class="m-0 p-0">ธุรกิจส่งออก</h2>
+                <small class="mb-3">เครื่องใช้ และ ผลไม้ต่างๆ</small> <br>
+                <a href="http://">
+                    <small>อ่านเพิ่มเติม..</small>
+                </a>
+            </div>
+            <i class="fas fa-plane my-auto" style="font-size: 4.4rem;"></i>
         </div>
     </div>
     <div class="col-12 col-sm-4  mb-2">
-        <div class="my-success  p-3 d-flex rounded text-white">
-            <i class="fas fa-people-arrows " style="font-size: 3.4rem;"></i>
-            <h3 class="m-2 my-auto p-0"> ธุรกิจแฟรนไชส์</h3>
+        <div class="alert alert-success  m-0 p-2 p-sm-3 d-flex justify-content-between rounded text-white">
+            <div class=" my-auto p-0">
+                <h2 class="m-0 p-0">ธุรกิจแฟรนไชส์</h2>
+                <small class="mb-3">น้ำปั่นสมูทตี้ แม่ปลูกลูกขาย </small> <br>
+                <a href="http://">
+                    <small>อ่านเพิ่มเติม..</small>
+                </a>
+            </div>
+            <i class="fas fa-people-arrows my-auto" style="font-size: 4.4rem;"></i>
         </div>
     </div>
     <div class="col-12 col-sm-4  mb-2">
-        <div class="my-success p-3 d-flex rounded text-white">
-            <i class="fas fa-seedling " style="font-size: 3.4rem;"></i>
-            <h3 class="m-2 my-auto p-0"> ธุรกิจการผลิต</h3>
+        <div class="alert alert-success m-0 p-2 p-sm-3 d-flex justify-content-between rounded text-white">
+            <div class="my-auto p-0">
+                <h2 class="m-0 p-0">ธุรกิจการผลิต</h2>
+                <small class="mb-3">ผลไม้และอาหารแปรรูป</small> <br>
+                <a href="http://">
+                    <small>อ่านเพิ่มเติม..</small>
+                </a>
+            </div>
+            <i class="fas fa-seedling my-auto" style="font-size: 4.4rem;"></i>
         </div>
     </div>
 </div>
 
-<div class="row m-0 p-0 py-sm-5">
-    <div class="col-12 py-3 d-flex justify-content-between ">
+<div class="row m-sm-5 m-0 p-0 py-sm-5">
+    <div class="col-12  py-3 p-2 h-100 text-sm-center text-start  mb-2">
         <h1 class="text-success">
-            Our Knowledge
+            บทความ
         </h1>
-        <a href="<?= $this->Url->build(['controller' => 'posts', 'action' => 'index']) ?> " class="my-auto">Seeall</a>
+        <h5>บทความต่างๆและความรู้ของเรา</h5>
+        <a href="<?= $this->Url->build(['prefix' => false, 'controller' => 'posts', 'action' => 'index']) ?>">อ่านทั้งหมด</a>
     </div>
     <div class="col-12  m-0">
-        <?php foreach ($posts as $post) : ?>
-            <div class="row m-0 p-0 shadow-sm mb-3">
-                <div class="col-12 col-sm-3  m-0 p-2 ">
-                    <img class="d-block w-100" src="<?= $this->Url->build($post->p_img); ?>" alt="<?= $post->p_title ?>">
-                </div>
-                <div class="col-12 col-sm-8  m-0 p-2">
-                    <div class="d-flex w-100 justify-content-between">
-                        <div>
-                            <small class="text-muted"><?= $post->poststype['pt_name'] ?></small>
-                            <h5 class="my-1"><?= $post->p_title ?></h5>
-                            <p class=" text-truncate m-0 p-0" style="max-width: 350px;"><?= $post->p_detail ?></p>
+        <div class="row m-0 p-0 mb-3">
+            <?php foreach ($posts as $key => $post) : ?>
+                <div class="col-sm-4 col-12 m-0 p-0">
+                    <div class="card m-1 p-2">
+                        <img class="d-block w-100" src="<?= $this->Url->build($post->image); ?>" alt="<?= $post->p_title ?>">
+                        <div class="my-2">
+                            <small class="text-muted"><?= $post->type ?></small>
+                            <h6 class="my-1"><?= $post->title ?></h6>
                         </div>
-                        <small><?= $post->p_created_at ?></small>
+                        <p class="m-0 mt-3"><?= $post->user ?></p>
+                        <small class="text-muted"><i class="fas fa-clock"></i> <?= $post->date ?></small> <br>
+                        <?= $this->Html->link('อ่านต่อ..', ['controller' => 'posts', 'action' => 'view', $post->id]) ?>
                     </div>
-                    <hr>
-                    <p class="m-0"><?= $post->user['name'] ?></p>
-                    <?= $this->Html->link('อ่านต่อ..', ['controller' => 'posts', 'action' => 'view', $post->id]) ?>
                 </div>
-            </div>
-        <?php endforeach; ?>
+            <?php endforeach; ?>
+        </div>
     </div>
 </div>

@@ -1,7 +1,12 @@
-<div class="d-flex justify-content-between py-2">
+<div class="d-sm-flex justify-content-between py-2 p-2 d-none ">
   <div class="p-0 my-auto">
-    <p class="m-0 p-0"><span class="text-uppercase">language : </span><a href="/en/"> EN</a> /<a href="/th/"> TH</a></p>
+    <select class="m-0 p-0 form-control lang" >
+      <option  disabled>กรุณาเลือกภาษา</option>
+      <option value="1" >English</option>
+      <option value="2"  selected="selected">Thailand</option>
+    </select>
   </div>
+
   <div class="d-flex">
     <a href="<?= $this->Url->build(['prefix' => 'Admin', 'controller' => 'users', 'action' => 'register']) ?>" class="m-1">สมัครสมาชิก</a>
     <a href="<?= $this->Url->build(['prefix' => 'Admin', 'controller' => 'users', 'action' => 'login']) ?>" class="m-1 text-muted">เข้าสู่ระบบ</a>
@@ -11,55 +16,83 @@
   <a class="navbar-brand" href="<?= $this->Url->build(['prefix' => false, 'controller' => 'Home', 'action' => 'index']) ?>">
     <img src="<?= $this->Url->image('logo.png') ?> " width="50" height="50" alt="">
   </a>
-  <button class="navbar-toggler text-white" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+
+  <div class="btn-group d-lg-none" role="group" aria-label="Basic example">
+
+    <a href="<?= $this->Url->build(['controller' => 'cart', 'action' => 'index']) ?>" type="button" class="btn btn-muted text-white">สั่งซื้อสินค้า</a>
+    <button type="button" class="btn btn-tranparent" data-toggle="collapse" data-target="#navbarSupportedContent"><i class="fas fa-bars"></i></button>
+
+  </div>
+
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
+    <ul class="navbar-nav mr-auto p-2">
       <li class="nav-item active">
-        <a class="nav-link text-white" href="<?= $this->Url->build(['controller' => 'Aboutus', 'action' => 'index']) ?> "><i class="fas fa-chevron-circle-right d-lg-none d-sm-md-block "></i> Our Business <span class="sr-only">(current)</span></a>
+        <a class="nav-link text-white" href="<?= $this->Url->build(['prefix' => false, 'controller' => 'Aboutus', 'action' => 'index']) ?> "> ธุรกิจของเรา <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link text-white" href="<?= $this->Url->build(['controller' => 'products', 'action' => 'index']) ?> "><i class="fas fa-chevron-circle-right d-lg-none d-sm-md-block "></i> Our Product</a>
+        <a class="nav-link text-white" href="<?= $this->Url->build(['prefix' => false, 'controller' => 'Products', 'action' => 'index']) ?> "> สินค้าของเรา</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link text-white" href="<?= $this->Url->build(['controller' => 'posts', 'action' => 'index']) ?> "><i class="fas fa-chevron-circle-right d-lg-none d-sm-md-block "></i> Blog</a>
+        <a class="nav-link text-white" href="<?= $this->Url->build(['prefix' => false, 'controller' => 'posts', 'action' => 'index']) ?> "> บทความ</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link text-white" href="#"><i class="fas fa-chevron-circle-right d-lg-none d-sm-md-block "></i> Our Customer</a>
+        <a class="nav-link text-white" href="<?= $this->Url->build(['prefix' => false, 'controller' => 'aboutus', 'action' => 'ourcustomer']) ?>"> ลูกค้าของเรา</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-white" href="<?= $this->Url->build(['prefix' => false, 'controller' => 'aboutus', 'action' => 'ourbranch']) ?>"> สาขาของเรา</a>
       </li>
 
       <li class="nav-item">
-        <a class="nav-link text-white" href="#"><i class="fas fa-chevron-circle-right d-lg-none d-sm-md-block "></i> Contact</a>
+        <a class="nav-link text-white" href="<?= $this->Url->build(['prefix' => false, 'controller' => 'aboutus', 'action' => 'aboutus']) ?>"> เกี่ยวกับเรา</a>
       </li>
-
-      <div class="dropdown-divider"></div>
+      <li class="nav-item d-sm-none d-block">
+        <a class="nav-link text-white" href="<?= $this->Url->build(['prefix' => 'Admin', 'controller' => 'users', 'action' => 'login']) ?>" class="m-1 text-muted">เข้าสู่ระบบ</a>
+      </li>
     </ul>
-    <div class=" d-flex justify-content-end col-12 col-sm-4 col-md-12 col-lg-4 m-0 p-0 mt-2 mt-sm-0">
+    <div class=" d-none d-lg-flex justify-content-end col-12 col-sm-4 col-md-12 col-lg-4 m-0 p-0 mt-2 mt-sm-0">
       <!-- <div class="my-auto"><i class="fas fa-cart-arrow-down"><span></span></i></div> -->
-      <div class="btn btn-success  m-1">สั่งซื้อสินค้า</div>
-      <a class="nav-link my-auto text-white" data-toggle="dropdown" href="<?= $this->Url->build(['controller' => 'carts', 'action' => 'index']) ?>">
+      <a href="<?= $this->Url->build(['controller' => 'cart', 'action' => 'index']) ?>" class="btn btn-success  m-1 d-sm-block d-none">สั่งซื้อสินค้า</a>
+      <a class="nav-link   my-auto text-white" data-toggle="dropdown" href="<?= $this->Url->build(['controller' => 'carts', 'action' => 'index']) ?>">
         <i class="fas fa-cart-shopping"></i>
-        <span class="badge badge-danger navbar-badge" id="cart_total"></span>
+        <span class="badge badge-danger navbar-badge" onclick="getlang()" id="cart_total"></span>
       </a>
     </div>
   </div>
-
-
-
 </nav>
 
 
 
 
 <script>
+  var selected = localStorage.getItem('selected');
+
+  if (selected) {
+    $(".lang").val(selected);
+  }
+
+  $(".lang").change(function() {
+    let value = $('.lang').val()
+    if (value == 1) {
+      window.location.href = '/en/'
+      localStorage.setItem('selected', $(this).val());
+    }
+    if (value == 2) {
+      window.location.href = '/th/'
+      localStorage.setItem('selected', $(this).val());
+    }
+
+  });
+
+
+
+
   ` <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
 
           <div class="dropdown-divider"></div>
           <a href="#" class="dropdown-item">
             <!-- Message Start -->
             <div class="media">
-              <img src="https://images.unsplash.com/photo-1560859253-341f42b25e20?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=Format&fit=crop&w=1170&q=80" alt="User Avatar" class="img-size-50 img-circle mr-3">
+              <img src="https://images.unsplash.com/photo-1560859253-341f42b25e20?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" alt="User Avatar" class="img-size-50 img-circle mr-3">
               <div class="media-body">
                 <h3 class="dropdown-item-title">
                   น้ำสมุนไพร

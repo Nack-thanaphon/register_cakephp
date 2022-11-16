@@ -44,15 +44,14 @@ class CartController extends AppController
         }
         $id1 = $arr['c_id'];
 
-        $table = TableRegistry::getTableLocator()->get('products');
+        $table = TableRegistry::getTableLocator()->get('Products');
         $product = $table->get($id1, []);
 
-        $result=[];
+        $result = [];
         $result = array($detail, $product);
-      
+
 
         $this->set(compact('result'));
-
     }
 
 
@@ -60,14 +59,38 @@ class CartController extends AppController
 
     public function add()
     {
-        $usertable = TableRegistry::getTableLocator()->get('cart');
-        $cart = $usertable->newemptyEntity();
+        $carttable = TableRegistry::getTableLocator()->get('Cart');
+        $ordertable = TableRegistry::getTableLocator()->get('Orders');
+        $cart = $carttable->newemptyEntity();
+        $orders = $ordertable->newemptyEntity();
 
-        if ($this->request->isPost()) {
+        if ($this->request->is('post')) {
             // get values here 
             $cdetail = $this->request->getData('c_detail');
+            $totalprice = $this->request->getData('totalprice');
             $cart->c_detail = $cdetail;
-            $usertable->save($cart);
+            $carttable->save($cart);
+
+
+            $uniqueId = time();
+            $mytoken = Security::hash(Security::randomBytes(32));
+            $orders = $ordertable->patchEntity($orders, array(
+                "orders_code" => $uniqueId,
+                "orders_token" => $mytoken,
+                "orders_user_id" => 1,
+                "orders_admin_id" => 1,
+                "orders_detail" => $cdetail,
+                "total_price" => $totalprice,
+                "status" => 1,
+
+            ));
+            $ordertable->save($orders);
+
+            echo json_encode(array(
+                'cart_token' => $mytoken,
+                'result' => 200
+            ));
+            die;
         }
     }
 
@@ -107,5 +130,50 @@ class CartController extends AppController
         }
 
         return $this->redirect(['action' => 'index']);
+    }
+
+    public function payment($token = null)
+    {
+        $ProductsTable = TableRegistry::getTableLocator()->get('Products');
+        $OrdersTable = TableRegistry::getTableLocator()->get('Orders');
+
+        $order = $OrdersTable->find()
+            ->where([
+                "Orders.orders_token =" => $token
+            ])->toArray();
+
+        $itemDetail = json_decode($order[0]['orders_detail'], true);
+        $itemId = [];
+        $itemPrice = [];
+        $itemCount = [];
+
+        foreach ($itemDetail as $key => $rowData) {
+            $itemId[$key] = $rowData['id'];
+            $itemPrice[$key] = $rowData['price'];
+            $itemCount[$key] = $rowData['count'];
+        }
+
+        $ProductsData = $ProductsTable->find('all')
+            ->where([
+                'Products.p_id IN' => $itemId
+            ]);
+
+
+        $OrdersData = [];
+        foreach ($ProductsData as $key => $rowData) {
+            $OrdersData[] = ([
+                'id' => $order[0]['orders_code'],
+                'title' => $rowData['p_title'],
+                'date' => $order[0]['updated_at'],
+                'image' => $rowData['p_image_id'],
+                'price' => $itemPrice[$key],
+                'Total_price' => array_sum($itemPrice),
+                'status' => $itemPrice[$key],
+                'total' => $itemCount[$key]
+            ]);
+        }
+        $this->sendLineNotify();
+
+        $this->set(compact('order', 'OrdersData'));
     }
 }

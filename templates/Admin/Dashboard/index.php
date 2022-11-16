@@ -1,55 +1,53 @@
-<div class="row  m-0 py-3">
+<div class="row  m-0 py-3 p-0">
     <div class="col-12 col-md-12 col-lg-12 p-3">
-        <h1>Dashboard</h1>
+        <h3>หน้าหลัก</h3>
     </div>
     <div class="col-12 col-md-12 col-lg-8 ">
         <div class="row m-0 p-0">
-            <div class="col-12  col-lg-4 ">
-                <div class="card p-2 mb-2 py-2 rounded bg-primary">
-                    <div class="card-header m-0 p-0">
-                        <small class="mb-2">จำนวนยอดขายทั้งหมด</small>
+            <div class="col-12  col-lg-4 m-0">
+                <div class="d-none d-sm-block card p-2 mb-2  m-0 py-2 rounded bg-primary">
+                    <div class="card-header m-0 p-0 text-center">
+                        <p class="mb-2 "><i class="fas fa-credit-card p-1" style="font-size: 1.5rem ;"></i>จำนวนยอดขายทั้งหมด</p>
                     </div>
-                    <h4 class="pt-1">
-                        <i class="fas fa-credit-card p-1" style="font-size: 2.5rem ;"></i>
-                        100,000 <span><small>บาท</small></span>
-                    </h4>
+                    <h5 class="  pt-2 text-center text-sm-right">
+                        <?= number_format((float)100000) ?> <span><small>/ บาท</small></span>
+                        <!-- <?= number_format((float)$this->Custom->countBalance()) ?> <span><small>/ บาท</small></span> -->
+                    </h5>
+                </div>
+                <!-- mobile -->
+                <div class="d-sm-none d-block card p-2 mb-2  m-0 py-2 rounded bg-primary">
+                    <div class="card-header m-0 p-0 text-start p-1">
+                        <h5 class="mb-2 "><i class="fas fa-credit-card p-1" style="font-size: 1.5rem ;"></i> จำนวนยอดขายทั้งหมด</h5>
+                    </div>
+                    <h1 class="-sm  pt-2 text-start p-1">
+                        <?= number_format((float)100000) ?> <span><small>/ บาท</small></span>
+                        <!-- <?= number_format((float)$this->Custom->countBalance()) ?> <span><small>/ บาท</small></span> -->
+                    </h1>
                 </div>
             </div>
-            <div class="col-12  col-lg-4 ">
-                <div class="card p-2 mb-2 py-2 rounded bg-primary">
-                    <div class="card-header m-0 p-0">
-                        <small class="mb-2">จำนวนพนักงานทั้งหมด</small>
+            <div class="col-6  col-lg-4 m-0">
+                <div class="card p-2 mb-2  m-0 py-2 rounded ">
+                    <div class="card-header m-0 p-0 text-center">
+
+                        <p class="mb-2 text-primary"> <i class="fas fa-user-friends p-1" style="font-size: 1.5rem ;"></i>จำนวนเมนูทั้งหมด</p>
                     </div>
-                    <h4 class="pt-1">
-                        <i class="fas fa-user-friends p-1" style="font-size: 2.5rem ;"></i>
-                        30 <span><small>คน</small></span>
-                    </h4>
+                    <h5 class="pt-2 text-right">
+                        <?= $countProduct ?> <span><small>/ เมนู</small></span>
+                    </h5>
                 </div>
             </div>
-            <div class="col-12  col-lg-4 ">
-                <div class="card p-2 mb-2 py-2 rounded bg-primary">
-                    <div class="card-header m-0 p-0">
-                        <small class="mb-2">จำนวนสาขาทั้งหมด</small>
+            <div class="col-6  col-lg-4 m-0">
+                <div class="card p-2 mb-2  m-0 py-2 rounded ">
+                    <div class="card-header m-0 p-0 text-center">
+                        <p class="mb-2 text-primary"> <i class="fas fa-store p-1" style="font-size: 1.5rem ;"></i>จำนวนสาขาทั้งหมด</p>
                     </div>
-                    <h4 class="pt-1">
-                        <i class="fas fa-store p-1" style="font-size: 2.5rem ;"></i>
-                        17 <span><small>สาขา</small></span>
-                    </h4>
+                    <h5 class="pt-2 text-right">
+                        <?= $countBranch  ?> <span><small>/ สาขา</small></span>
+                    </h5>
                 </div>
             </div>
             <div class="col-12 ">
                 <div class="card card-primary h-100">
-                    <div class="card-header">
-                        <h3 class="card-title">ยอดขายแบบรายปี</h3>
-                        <div class="card-tools">
-                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                <i class="fas fa-minus"></i>
-                            </button>
-                            <button type="button" class="btn btn-tool" data-card-widget="remove">
-                                <i class="fas fa-times"></i>
-                            </button>
-                        </div>
-                    </div>
                     <div class="card-body">
                         <div class="chart">
                             <div class="chartjs-size-monitor">
@@ -60,7 +58,10 @@
                                     <div class=""></div>
                                 </div>
                             </div>
-                            <canvas id="areaChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%; display: block;" width="386" height="250" class="chartjs-render-monitor"></canvas>
+                            <div id="chart" class="h-100">
+                                <p class="text-primary">ยอดขายแบบรายปี</p>
+                            </div>
+
                         </div>
                     </div>
 
@@ -70,15 +71,90 @@
         </div>
     </div>
     <div class="col-12 col-md-12 col-lg-4 h-100">
-        <div class="row m-0 p-0">
-            <div class="card  w-100 p-1 m-2 m-sm-0">
-                <div class="btn-group">
-                    <div class="btn btn-primary">
-                        รายงานประจำเดือน
-                    </div>
-                    <div class="btn btn">
-                        รายงานประจำปี
-                    </div>
+        <div class="row m-0 p-0 mb-2">
+            <div class="card  w-100 p-3 m-2 m-sm-0">
+                <p class="text-primary m-0 p-0">ออเดอร์วันนี้</p>
+                <hr class="m-0 pb-2">
+                <table>
+                    <tbody>
+                        <?php
+                        // $order = $this->Custom->();
+                        if ($ordersToday) {
+                            foreach ($ordersToday as $key => $value) : ?>
+                                <tr>
+                                    <td colspan="2" class="pb-3">
+                                        <p class="m-0 p-0">#<?= $value->orders_code ?></p>
+                                        <small class="m-0 p-0 text-muted">เวลา: <?= $value->created_at ?></small>
+
+                                    </td>
+                                    <td colspan="1" class="text-right pb-3">
+                                        <p class="text-muted m-0 p-0"><?= $value->user['name'] ?></p>
+                                        <?php
+                                        $orderStatus = $value->status;
+                                        if ($orderStatus == 0) {
+                                            echo '<div class="badge badge-danger">ยกเลิก</div>';
+                                        }
+                                        if ($orderStatus == 1) {
+                                            echo '<div class="badge badge-primary">ชำระเงินแล้ว</div>';
+                                        }
+                                        if ($orderStatus == 2) {
+                                            echo '<div class="badge badge-warning">รอการชำระเงิน</div>';
+                                        }
+                                        if ($orderStatus == 3) {
+                                            echo '<div class="badge badge text-primary">กำลังดำเนินการ</div>';
+                                        }
+                                        if ($orderStatus == 4) {
+                                            echo '<div class="badge badge-success">จัดส่งแล้ว</div>';
+                                        }
+
+                                        ?>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        <?php } else { ?>
+                            <tr>
+                                <td>
+                                    <p class="text-muted m-0 p-0">ไม่มีข้อมูล</p>
+                                </td>
+                            </tr>
+                        <?php } ?>
+                    </tbody>
+                </table>
+                <div class="btn btn text-right m-0 p-0 mt-3">
+                    <a href="<?= $this->Url->build(['controller' => 'orders', 'action' => 'index']) ?>" class="text-muted">อ่านต่อทั้งหมด </a>
+                </div>
+            </div>
+        </div>
+        <div class="row m-0 p-0 mb-2">
+            <div class="card h-100 w-100 p-3 m-2 m-sm-0">
+                <p class="text-primary m-0 p-0">ข่าวสารล่าสุด</p>
+                <hr class="m-0 pb-2">
+                <table>
+                    <tbody>
+                        <?php
+                        $posts = $this->Custom->countPost();
+                        if ($posts) {
+                            foreach ($posts as $key => $value) : ?>
+                                <tr>
+                                    <td colspan="2" class="pb-2 ">
+                                        <small class="text-muted">ข่าวทั่วไป |<?= date('d-m-y') ?></small>
+                                        <p class="m-0 p-0"><?= $value->p_title ?></p>
+                                        <small class="text-muted">Nack | ผู้เขียน</small>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        <?php } else { ?>
+                            <tr>
+                                <td>
+                                    <p class="text-muted m-0 p-0">ไม่มีข้อมูล</p>
+                                </td>
+                            </tr>
+                        <?php } ?>
+
+                    </tbody>
+                </table>
+                <div class="btn btn text-right m-0 p-0 mt-3">
+                    <a href="<?= $this->Url->build(['controller' => 'posts', 'action' => 'index']) ?>" class="text-muted">อ่านต่อทั้งหมด </a>
                 </div>
             </div>
         </div>
@@ -87,173 +163,22 @@
 
 <script>
     $(function() {
-
-        var areaChartCanvas = $('#areaChart').get(0).getContext('2d')
-
-        var areaChartData = {
-            labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-            datasets: [{
-                    label: 'Digital Goods',
-                    backgroundColor: 'rgba(60,141,188,0.9)',
-                    borderColor: 'rgba(60,141,188,0.8)',
-                    pointRadius: false,
-                    pointColor: '#3b8bba',
-                    pointStrokeColor: 'rgba(60,141,188,1)',
-                    pointHighlightFill: '#fff',
-                    pointHighlightStroke: 'rgba(60,141,188,1)',
-                    data: [28, 48, 40, 19, 86, 27, 90]
-                },
-                {
-                    label: 'Electronics',
-                    backgroundColor: 'rgba(210, 214, 222, 1)',
-                    borderColor: 'rgba(210, 214, 222, 1)',
-                    pointRadius: false,
-                    pointColor: 'rgba(210, 214, 222, 1)',
-                    pointStrokeColor: '#c1c7d1',
-                    pointHighlightFill: '#fff',
-                    pointHighlightStroke: 'rgba(220,220,220,1)',
-                    data: [65, 59, 80, 81, 56, 55, 40]
-                },
-            ]
-        }
-
-        var areaChartOptions = {
-            maintainAspectRatio: false,
-            responsive: true,
-            legend: {
-                display: false
+        var options = {
+            chart: {
+                type: 'bar',
+                height: 'auto'
             },
-            scales: {
-                xAxes: [{
-                    gridLines: {
-                        display: false,
-                    }
-                }],
-                yAxes: [{
-                    gridLines: {
-                        display: false,
-                    }
-                }]
+            series: [{
+                name: 'sales',
+                data: [30, 40, 45, 50, 49, 60, 70, 91, 125]
+            }],
+            xaxis: {
+                categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999]
             }
         }
 
-        // This will get the first returned node in the jQuery collection.
-        new Chart(areaChartCanvas, {
-            type: 'line',
-            data: areaChartData,
-            options: areaChartOptions
-        })
+        var chart = new ApexCharts(document.querySelector("#chart"), options);
 
-        //-------------
-        //- LINE CHART -
-        //--------------
-        var lineChartCanvas = $('#lineChart').get(0).getContext('2d')
-        var lineChartOptions = $.extend(true, {}, areaChartOptions)
-        var lineChartData = $.extend(true, {}, areaChartData)
-        lineChartData.datasets[0].fill = false;
-        lineChartData.datasets[1].fill = false;
-        lineChartOptions.datasetFill = false
-
-        var lineChart = new Chart(lineChartCanvas, {
-            type: 'line',
-            data: lineChartData,
-            options: lineChartOptions
-        })
-
-        //-------------
-        //- DONUT CHART -
-        //-------------
-        // Get context with jQuery - using jQuery's .get() method.
-        var donutChartCanvas = $('#donutChart').get(0).getContext('2d')
-        var donutData = {
-            labels: [
-                'Chrome',
-                'IE',
-                'FireFox',
-                'Safari',
-                'Opera',
-                'Navigator',
-            ],
-            datasets: [{
-                data: [700, 500, 400, 600, 300, 100],
-                backgroundColor: ['#f56954', '#00a65a', '#f39c12', '#00c0ef', '#3c8dbc', '#d2d6de'],
-            }]
-        }
-        var donutOptions = {
-            maintainAspectRatio: false,
-            responsive: true,
-        }
-        //Create pie or douhnut chart
-        // You can switch between pie and douhnut using the method below.
-        new Chart(donutChartCanvas, {
-            type: 'doughnut',
-            data: donutData,
-            options: donutOptions
-        })
-
-        //-------------
-        //- PIE CHART -
-        //-------------
-        // Get context with jQuery - using jQuery's .get() method.
-        var pieChartCanvas = $('#pieChart').get(0).getContext('2d')
-        var pieData = donutData;
-        var pieOptions = {
-            maintainAspectRatio: false,
-            responsive: true,
-        }
-        //Create pie or douhnut chart
-        // You can switch between pie and douhnut using the method below.
-        new Chart(pieChartCanvas, {
-            type: 'pie',
-            data: pieData,
-            options: pieOptions
-        })
-
-        //-------------
-        //- BAR CHART -
-        //-------------
-        var barChartCanvas = $('#barChart').get(0).getContext('2d')
-        var barChartData = $.extend(true, {}, areaChartData)
-        var temp0 = areaChartData.datasets[0]
-        var temp1 = areaChartData.datasets[1]
-        barChartData.datasets[0] = temp1
-        barChartData.datasets[1] = temp0
-
-        var barChartOptions = {
-            responsive: true,
-            maintainAspectRatio: false,
-            datasetFill: false
-        }
-
-        new Chart(barChartCanvas, {
-            type: 'bar',
-            data: barChartData,
-            options: barChartOptions
-        })
-
-        //---------------------
-        //- STACKED BAR CHART -
-        //---------------------
-        var stackedBarChartCanvas = $('#stackedBarChart').get(0).getContext('2d')
-        var stackedBarChartData = $.extend(true, {}, barChartData)
-
-        var stackedBarChartOptions = {
-            responsive: true,
-            maintainAspectRatio: false,
-            scales: {
-                xAxes: [{
-                    stacked: true,
-                }],
-                yAxes: [{
-                    stacked: true
-                }]
-            }
-        }
-
-        new Chart(stackedBarChartCanvas, {
-            type: 'bar',
-            data: stackedBarChartData,
-            options: stackedBarChartOptions
-        })
+        chart.render();
     })
 </script>

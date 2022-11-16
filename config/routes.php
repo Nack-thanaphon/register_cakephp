@@ -48,71 +48,49 @@ return static function (RouteBuilder $routes) {
      */
 
     $routes->setRouteClass(DashedRoute::class);
-    $routes->connect('/', ['controller' => 'home', 'action' => 'index'], ['routeClass' => 'ADmad/I18n.I18nRoute']);
-    $routes->connect('/posts', ['controller' => 'posts', 'action' => 'index'], ['routeClass' => 'ADmad/I18n.I18nRoute']);
-    $routes->connect('/products', ['controller' => 'products', 'action' => 'index'], ['routeClass' => 'ADmad/I18n.I18nRoute']);
 
-    $routes->connect('api/product', ['controller' => 'api', 'action' => 'product']);
-    $routes->connect('/carts', ['controller' => 'cart', 'action' => 'index'], ['routeClass' => 'ADmad/I18n.I18nRoute']);
-    $routes->connect('/carts/add', ['controller' => 'cart', 'action' => 'add']);
-    $routes->connect('/Aboutus', ['controller' => 'aboutus', 'action' => 'index'],['routeClass' => 'ADmad/I18n.I18nRoute']);
+    $routes->connect('/', ['controller' => 'home', 'action' => 'index'], ['routeClass' => 'ADmad/I18n.I18nRoute']);
+    $routes->connect('blogs', ['controller' => 'posts', 'action' => 'index'], ['routeClass' => 'ADmad/I18n.I18nRoute']);
+    $routes->connect('products', ['controller' => 'products', 'action' => 'index'], ['routeClass' => 'ADmad/I18n.I18nRoute']);
+    $routes->connect('ourBusiness', ['controller' => 'Aboutus', 'action' => 'index'], ['routeClass' => 'ADmad/I18n.I18nRoute']);
+    $routes->connect('ourCustomer', ['controller' => 'Aboutus', 'action' => 'ourcustomer'], ['routeClass' => 'ADmad/I18n.I18nRoute']);
+    $routes->connect('ourBranch', ['controller' => 'Aboutus', 'action' => 'ourbranch'], ['routeClass' => 'ADmad/I18n.I18nRoute']);
+    $routes->connect('AboutUs',  ['controller' => 'Aboutus', 'action' => 'aboutus'], ['routeClass' => 'ADmad/I18n.I18nRoute']);
+    $routes->connect('carts', ['controller' => 'cart', 'action' => 'index'], ['routeClass' => 'ADmad/I18n.I18nRoute']);
+    $routes->connect('api/product', ['controller' => 'api', 'action' => 'product'], ['routeClass' => 'ADmad/I18n.I18nRoute']);
 
 
     $routes->scope('/', function (RouteBuilder $builder) {
-        /*
-         * Here, we are connecting '/' (base path) to a controller called 'Pages',
-         * its action called 'display', and we pass a param to select the view file
-         * to use (in this case, templates/Pages/home.php)...
-         */
-        $builder->connect('/', ['controller' => 'Admin', 'action' => 'index']);
-        $builder->connect('/:language/:controller/:action/*', array(), array('language' => 'en|th'));
-
-        /*
-         * ...and connect the rest of 'Pages' controller's URLs.
-         */
+        $builder->setextensions(['json']);
         $builder->connect('/pages/*', 'Pages::display');
-
-        /*
-         * Connect catchall routes for all controllers.
-         *
-         * The `fallbacks` method is a shortcut for
-         *
-         * ```
-         * $builder->connect('/{controller}', ['action' => 'index']);
-         * $builder->connect('/{controller}/{action}/*', []);
-         * ```
-         *
-         * You can remove these routes once you've connected the
-         * routes you want in your application.
-         */
+        $builder->connect(
+            '/{controller}',
+            ['action' => 'index'],
+            ['routeClass' => 'ADmad/I18n.I18nRoute']
+        );
+        $builder->connect(
+            '/{controller}/{action}/*',
+            [],
+            ['routeClass' => 'ADmad/I18n.I18nRoute']
+        );
         $builder->fallbacks();
     });
 
-    $routes->prefix('Admin', function (RouteBuilder $routes) {
-        $routes->connect('/', ['controller' => 'users', 'action' => 'login']);
+    $routes->prefix('admin', function (RouteBuilder $routes) {
+        $routes->connect('/', ['controller' => 'dashboard', 'action' => 'index']);
+        $routes->connect('/users', ['controller' => 'users', 'action' => 'index']);
         $routes->connect('/users/register', ['controller' => 'users', 'action' => 'register']);
         $routes->connect('/users/verification', ['controller' => 'Users', 'action' => 'verification']);
         $routes->connect('/users/resetpassword', ['controller' => 'users', 'action' => 'resetpassword']);
         $routes->connect('/users/forgetpassword', ['controller' => 'users', 'action' => 'forgetpassword']);
         $routes->connect('/posts', ['controller' => 'posts', 'action' => 'index']);
+        $routes->connect('/postcover', ['controller' => 'posts', 'action' => 'postcover']);
         $routes->connect('/dashboard', ['controller' => 'dashboard', 'action' => 'index']);
+        $routes->connect('/branch', ['controller' => 'branch', 'action' => 'index']);
+        $routes->connect('/contact', ['controller' => 'contact', 'action' => 'index']);
         $routes->connect('/products', ['controller' => 'products', 'action' => 'index']);
-        $routes->connect('/chat', ['controller' => 'chats', 'action' => 'index']);
+        $routes->connect('/carts', ['controller' => 'cart', 'action' => 'index']);
+        $routes->connect('/orders', ['controller' => 'orders', 'action' => 'index']);
         $routes->fallbacks(DashedRoute::class);
     });
-    /*
-     * If you need a different set of middleware or none at all,
-     * open new scope and define routes there.
-     *
-     * ```
-     * $routes->scope('/api', function (RouteBuilder $builder) {
-     *     // No $builder->applyMiddleware() here.
-     *
-     *     // Parse specified extensions from URLs
-     *     // $builder->setExtensions(['json', 'xml']);
-     *
-     *     // Connect API actions here.
-     * });
-     * ```
-     */
 };

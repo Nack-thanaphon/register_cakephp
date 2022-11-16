@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Controller;
@@ -10,15 +11,21 @@ namespace App\Controller;
  */
 class AboutusController extends AppController
 {
-    /**
-     * Index method
-     *
-     * @return \Cake\Http\Response|null|void Renders view
-     */
-    public function index()
-    {
-       
-    }
-
-   
+  /**
+   * Index method
+   *
+   * @return \Cake\Http\Response|null|void Renders view
+   */
+  public function index()
+  {
   }
+  public function ourcustomer()
+  {
+  }
+  public function ourbranch()
+  {
+  }
+  public function aboutus()
+  {
+  }
+}

@@ -23,16 +23,16 @@
             <tbody>
                 <?php foreach ($cartitem as $cartitem): ?>
                 <tr>
-                    <td><?= $this->Number->Format($cartitem->cart_id) ?></td>
-                    <td><?= $this->Number->Format($cartitem->cart_user_id) ?></td>
-                    <td><?= $this->Number->Format($cartitem->cart_product_id) ?></td>
-                    <td><?= $this->Number->Format($cartitem->cart_qty) ?></td>
+                    <td><?= $this->Number->format($cartitem->cart_id) ?></td>
+                    <td><?= $this->Number->format($cartitem->cart_user_id) ?></td>
+                    <td><?= $this->Number->format($cartitem->cart_product_id) ?></td>
+                    <td><?= $this->Number->format($cartitem->cart_qty) ?></td>
                     <td><?= h($cartitem->c_created_at) ?></td>
                     <td><?= h($cartitem->c_updated_at) ?></td>
                     <td class="actions">
                         <?= $this->Html->link(__('View'), ['action' => 'view', $cartitem->cart_id]) ?>
                         <?= $this->Html->link(__('Edit'), ['action' => 'edit', $cartitem->cart_id]) ?>
-                        <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $cartitem->cart_id], ['confirm' => __('Are you sure you want to delete # {0}?', $cartitem->cart_id)]) ?>
+                        <?= $this->form->postLink(__('Delete'), ['action' => 'delete', $cartitem->cart_id], ['confirm' => __('Are you sure you want to delete # {0}?', $cartitem->cart_id)]) ?>
                     </td>
                 </tr>
                 <?php endforeach; ?>

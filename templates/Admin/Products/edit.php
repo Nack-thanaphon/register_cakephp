@@ -7,37 +7,37 @@
     </aside> -->
 <div class="card p-1 m-1 ">
     <div class="m-3">
-        <?= $this->Form->create($product, ["enctype" => "multipart/Form-data"]) ?>
-        <div class="Form-group">
+        <?= $this->form->create($product, ["enctype" => "multipart/form-data"]) ?>
+        <div class="form-group">
             <h3 class="font-weight-bold"><?= __('เพิ่มสินค้า') ?></h3>
-            <div class="Form-floating mb-1">
-                <?= $this->Form->input('p_promotion', ['class' => 'Form-control ']); ?>
+            <div class="form-floating mb-1">
+                <?= $this->form->input('p_promotion', ['class' => 'form-control ']); ?>
                 <label for="floatingemail">โปรโมชั่น</label>
             </div>
-            <div class="Form-floating mb-1">
-                <?= $this->Form->input('p_title', ['class' => 'Form-control ']); ?>
+            <div class="form-floating mb-1">
+                <?= $this->form->input('p_title', ['class' => 'form-control ']); ?>
                 <label for="floatingemail">ชื่อสินค้า</label>
             </div>
-            <div class="Form-floating mb-1">
-                <?= $this->Form->input('p_type_id', ['class' => 'Form-control ']); ?>
+            <div class="form-floating mb-1">
+                <?= $this->form->input('p_type_id', ['class' => 'form-control ']); ?>
                 <label for="floatingemail">ชนิดสินค้า</label>
             </div>
-            <div class="Form-floating mb-1">
-                <?= $this->Form->input('p_detail', ['class' => 'Form-control ']); ?>
+            <div class="form-floating mb-1">
+                <?= $this->form->input('p_detail', ['class' => 'form-control ']); ?>
                 <label for="floatingemail">รายละเอียดสินค้า</label>
             </div>
-            <div class="Form-floating mb-1">
-                <?= $this->Form->input('p_price', ['class' => 'Form-control ']); ?>
+            <div class="form-floating mb-1">
+                <?= $this->form->input('p_price', ['class' => 'form-control ']); ?>
                 <label for="floatingemail">ราคาสินค้า</label>
             </div>
-            <div class="Form-group my-2">
+            <div class="form-group my-2">
                 <small>ภาพสินค้า</small>
 
-                <input type="file" name="p_image_id" class="Form-control" class="image">
+                <input type="file" name="p_image_id" class="form-control" class="image">
             </div>
 
 
         </div>
-        <?= $this->Form->button(__('Submit'), ['class' => 'btn btn-primary w-100']) ?>
-        <?= $this->Form->end() ?>
+        <?= $this->form->button(__('Submit'), ['class' => 'btn btn-primary w-100']) ?>
+        <?= $this->form->end() ?>
     </div>
