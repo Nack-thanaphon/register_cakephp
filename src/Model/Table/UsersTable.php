@@ -1,12 +1,11 @@
 <?php
-
 declare(strict_types=1);
 
 namespace App\Model\Table;
 
-use Cake\ORM\Table;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
+use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
 /**
@@ -41,7 +40,7 @@ class UsersTable extends Table
         $this->setTable('users');
         $this->setDisplayField('name');
         $this->setPrimaryKey('id');
-
+        
         $this->belongsTo('UsersRole', [
             'foreignKey' => 'user_role_id',
             'joinType' => 'INNER'
@@ -80,6 +79,11 @@ class UsersTable extends Table
             ->integer('user_role_id')
             ->requirePresence('user_role_id', 'create')
             ->notEmptyString('user_role_id');
+
+        $validator
+            ->scalar('image')
+            ->requirePresence('image', 'create')
+            ->notEmptyFile('image');
 
         $validator
             ->scalar('password')

@@ -73,17 +73,14 @@ class BranchController extends AppController
 
     public function update()
     {
-        $editid = $this->request->getData('id');
-        $Branch = $this->Branch->get($editid, [
-            'contain' => [],
-        ]);
-        if ($this->request->is('post')) {
-            $Branch = $this->Branch->patchEntity($Branch, $this->request->getData());
+        $BranchTable = TableRegistry::getTableLocator()->get('Branch');
+        $BranchData = $BranchTable->newEmptyEntity();
 
-            if ($this->Branch->save($Branch)) {
-                $responseData = ['success' => true];
-                $this->set('responseData', $responseData);
-                $this->set('_serialize', ['responseData']);
+        if ($this->request->is('post')) {
+            $BranchData =  $BranchTable->patchEntity($BranchData, $this->request->getData());
+
+            if ($BranchTable->save($BranchData)) {
+               
             }
         }
     }

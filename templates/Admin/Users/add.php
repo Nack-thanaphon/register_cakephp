@@ -17,15 +17,15 @@
                 <?= $this->Form->create($user,['action' => 'register', "enctype" => "multipart/form-data"]); ?>
                 <div class="form-floating mb-3">
                     <label for="floatingemail">ชื่อ-นามสกุล</label>
-                    <?= $this->form->input('name', ['class' => 'form-control ', 'placeholder' => 'ชื่อ-นามสกุล']); ?>
+                    <?= $this->Form->input('name', ['class' => 'form-control ', 'placeholder' => 'ชื่อ-นามสกุล']); ?>
                 </div>
                 <div class="form-floating mb-3">
                     <label for="floatingemail">อีเมลล์ผู้ใช้งาน</label>
-                    <?= $this->form->input('email', ['class' => 'form-control ', 'placeholder' => 'อีเมลล์ผู้ใช้งาน']); ?>
+                    <?= $this->Form->input('email', ['class' => 'form-control ', 'placeholder' => 'อีเมลล์ผู้ใช้งาน']); ?>
                 </div>
                 <div class="form-floating mb-3">
                     <label for="floatingemail">รหัสผ่าน</label>
-                    <?= $this->form->input('password', ['type' => 'password', 'class' => 'form-control ', 'placeholder' => 'รหัสผ่าน']); ?>
+                    <?= $this->Form->input('password', ['type' => 'password', 'class' => 'form-control ', 'placeholder' => 'รหัสผ่าน']); ?>
                 </div>
                 <div class="form-floating mb-3">
                     <label for="floatingemail">ตำแหน่งผู้ใช้งาน</label>
@@ -53,8 +53,8 @@
                     </div>
 
                 </div>
-                <?= $this->form->button(__('บันทึกข้อมูล'), ['class' => 'btn btn-primary w-100 mt-2 m-0']) ?>
-                <?= $this->form->end() ?>
+                <?= $this->Form->button(__('บันทึกข้อมูล'), ['class' => 'btn btn-primary w-100 mt-2 m-0']) ?>
+                <?= $this->Form->end() ?>
             </div>
         </div>
     </div>

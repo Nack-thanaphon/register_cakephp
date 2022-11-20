@@ -1,34 +1,41 @@
 <div class="row my-3 m-2">
-    <div class="col-12 d-flex justify-content-between">
+    <div class="col-12 d-flex justify-content-between my-4">
         <h3 class="font-weight-bold"><?= __('อัพเดตข้อมูลผู้ใช้งาน') ?></h3>
         <?= $this->Html->link(__('Back to'), ['action' => 'index'], ['class' => ' mb-2']) ?>
     </div>
     <div class="col-12 col-md-12 col-lg-12 card">
+        <?= $this->Form->create($user, ["enctype" => "multipart/form-data"]) ?>
         <div class="row p-3 ">
-            <div class="col-12 col-sm-6 my-2">
+            <div class="col-12  my-2">
                 <h3>รูปภาพประจำตัว</h3>
-                <input type="file" name="" id="">
-                <img src="https://www.pngall.com/wp-content/uploads/5/User-Profile-PNG.png" class="w-100 my-auto" alt="">
             </div>
-            <div class="form-group col-12 col-sm-6 my-auto ">
-                <?= $this->form->create($user, ["enctype" => "multipart/form-data"]) ?>
+            <div class="col-12 col-sm-6 my-2">
+                <input type="file" name="image" id="user_image" value="<?php echo $this->Url->build($user->image, ['fullBase' => true]); ?>">
+                <div class="row m-0 py-3 my-auto w-100" style="overflow: hidden;">
+                    <a data-fslightbox href="<?php echo $this->Url->build($user->image, ['fullBase' => true]); ?>">
+                        <img id="user_image_file" src="<?php echo $this->Url->build($user->image, ['fullBase' => true]); ?>" class="p-3 w-100">
+                    </a>
+                </div>
+                <!-- <img src="https://www.pngall.com/wp-content/uploads/5/User-Profile-PNG.png" class="w-100 " alt=""> -->
+            </div>
+            <div class="form-group col-12 col-sm-6 mt-2">
 
                 <div class="form-floating mb-3">
                     <label for="floatingemail">ชื่อ-นามสกุล</label>
-                    <?= $this->form->input('name', ['class' => 'form-control ', 'placeholder' => 'ชื่อ-นามสกุล']); ?>
+                    <?= $this->Form->input('name', ['class' => 'form-control ', 'placeholder' => 'ชื่อ-นามสกุล']); ?>
                 </div>
                 <div class="form-floating mb-3">
                     <label for="floatingemail">อีเมลล์ผู้ใช้งาน</label>
-                    <?= $this->form->input('email', ['class' => 'form-control ', 'placeholder' => 'อีเมลล์ผู้ใช้งาน']); ?>
+                    <?= $this->Form->input('email', ['class' => 'form-control ', 'placeholder' => 'อีเมลล์ผู้ใช้งาน']); ?>
                 </div>
 
                 <div class="form-floating mb-3">
                     <label for="floatingemail">ตำแหน่งผู้ใช้งาน</label>
                     <select name="user_role_id" class="form-control selectpicker">
-                        <option value="1">ผู้ใช้งานทั่วไป</option>
-                        <option value="2">ผู้จัดการร้านค้า</option>
-                        <option value="3">ผู้จัดการเว็บไซต์</option>
-                        <option value="4">เจ้าของร้านค้า</option>
+                        <option value="4" <?php echo ($user['user_role_id'] == 1) ? 'selected' : '' ?>>เจ้าของร้านค้า</option>
+                        <option value="1" <?php echo ($user['user_role_id'] == 2) ? 'selected' : '' ?>>ผู้ใช้งานทั่วไป</option>
+                        <option value="2" <?php echo ($user['user_role_id'] == 3) ? 'selected' : '' ?>>ผู้จัดการร้านค้า</option>
+                        <option value="3" <?php echo ($user['user_role_id'] == 4) ? 'selected' : '' ?>>ผู้จัดการเว็บไซต์</option>
                     </select>
                 </div>
                 <div class="form-floating mb-3">
@@ -45,37 +52,40 @@
 
                 </div>
                 <div class="form-floating mb-3">
-                    <label>ต้องการเปลี่ยนรหัสผ่าน</label>
-                    <div type="button" class="input-group-append">
-                        <div class="input-group-text">
-                            <small><i class="fas fa-envelope p-0"></i>
-                                ส่งอีเมลล์เพื่อเปลี่ยนรหัสผ่าน
-                            </small>
+                    <form action="forgetpassword">
+                        <label>ต้องการเปลี่ยนรหัสผ่าน</label>
+                        <div type="button" class="input-group-append">
+                            <div class="input-group-text">
+                                <small type="button" id="resetpass"><i class="fas fa-envelope p-0"></i>
+                                    ส่งอีเมลล์เพื่อเปลี่ยนรหัสผ่าน
+                                </small>
+                                <input type="hidden" id="emailreset" value="<?= $user['email'] ?>">
+                            </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
                 <div class="form-floating mb-3">
                     <label for="floatingemail">สถานะผู้ใช้งาน</label>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="p_status[]" value='1'>
+                        <input class="form-check-input" type="radio" name="p_status[]" value='1' <?php echo ($user['status'] == 0) ? "checked" : ""  ?>>
                         <label class="form-check-label" for="flexRadioDefault1">
                             ปิดการใช้งาน
                         </label>
                     </div>
                     <div class="form-check">
-                        <input class="form-check-input" type="radio" name="p_status[]" value='0'>
+                        <input class="form-check-input" type="radio" name="p_status[]" value='0' <?php echo ($user['status'] == 1) ? "checked" : ""  ?>>
                         <label class="form-check-label" for="flexRadioDefault2">
                             เปิดการใช้งาน
                         </label>
                     </div>
                 </div>
                 <div class="btn-group w-100 mt-4">
-                    <?= $this->Form->button('ลบผู้ใช้งาน', ['class' => "btn btn-danger  w-100"]); ?>
-                    <?= $this->form->button(__('บันทึกข้อมูล'), ['class' => 'btn btn-primary  w-100 ']) ?>
+                    <!-- <?= $this->Form->button('ลบผู้ใช้งาน', ['class' => "btn btn text-danger border  w-100"]); ?> -->
+                    <?= $this->Form->button(__('บันทึกข้อมูล'), ['class' => 'btn btn-primary  w-100 ']) ?>
                 </div>
-                <?= $this->form->end() ?>
             </div>
         </div>
+        <?= $this->Form->end() ?>
     </div>
 
     <!-- <div class="col-12 col-md-12 col-lg-4">
@@ -83,7 +93,7 @@
             <div class="form-group my-2">
                 <small>ภาพบทความ</small>
             </div>
-            <input type="file" name="p_image_id[]" id="files" class="form-control" class="image" multiple id="gallery-photo-add">
+            <input type="file" name="p_image_id[]" id="files" class="form-control" class="image" multiple id="user_image">
 
             <section class="uploaded-area"></section>
         </div>
@@ -93,60 +103,59 @@
 
 
 <script>
-    CKEDITOR.replace('editor1');
-    const uploadedArea = document.querySelector(".uploaded-area");
-
-    function bytesToSize(bytes) {
-        var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
-        if (bytes == 0) return '0 Byte';
-        var i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)));
-        return Math.round(bytes / Math.pow(1024, i), 2) + ' ' + sizes[i];
-    }
+    $("#resetpass").click(function() {
+        let email = $("#emailreset").val()
+        Swal.fire({
+            title: 'คุณแน่ใจใช่ไหม?',
+            text: "คุณต้องการเปลี่ยนรหัสผ่าน " + email + " ใช่ไหม !",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'ใช่, ลบเลย!',
+            cancelButtonText: 'ยกเลิก'
+        }).then((result) => {
+            $.ajax({
+                url: "<?= $this->Url->build(['controller' => 'Users', 'action' => 'forgetpassword']) ?>",
+                type: "post",
+                data: {
+                    email: email
+                },
+                dataType: 'json',
+                headers: {
+                    'X-CSRF-token': $('meta[name="csrfToken"]').attr('content')
+                },
+                success: function(resp) {
+                    if (result.isConfirmed) {
+                        Swal.fire(
+                            'ส่งอีเมลล์เรียบร้อย!',
+                            'ดำเนินการเรียบร้อย.',
+                            'success'
+                        )
+                    } else {
+                        Swal.fire(
+                            'ส่งอีเมลล์เรียบร้อย!',
+                            'ดำเนินการเรียบร้อย.',
+                            'error'
+                        )
+                    }
+                }
+            })
+        })
+    })
 
     $(document).ready(function() {
-        if (window.File &&
-            window.FileList &&
-            window.FileReader) {
-            $("#files").on("change", async function(e) {
-                var files = e.target.files,
-                    filesLength = files.length;
-                var filemore = '';
-                //เช็คค่า
-                for (var i = 0; i < filesLength; i++) {
-                    var filesize = files[i].size;
-                    var filename = files[i].name
-                    var fileSize = bytesToSize(filesize)
-                    //เช็คชื่อ
-                    if (filename.length >= 12) {
-                        let splitName = filename.split('.');
-                        filename = splitName[0].substring(0, 13) + "... ." + splitName[1];
-                    }
-                    // check ขนาดไฟล์
-                    if (filesize <= 5000000) {
-                        var fileReader = await new FileReader();
-                        let uploadedHTML =
-                            `<li class="d-flex justify-content-between row m-0 p-0 my-2">
-                    <div class="content upload align-items-center d-flex content">
-                        <i class="fas fa-file-alt"></i>
-                        <div class="ml-3 details">
-                        <span class="name">${filename}|</span>
-                        <span class="size text-muted">${fileSize}</span>
-                        </div>
-                    </div>
-                    <i class="fas fa-trash m-0 p-0 remove" ></i>
-                </li>`;
-                        uploadedArea.insertAdjacentHTML("afterbegin", uploadedHTML);
-                        $(".remove").click(function() {
-                            $(this).parent(".row").remove();
-                        });
-                        await fileReader.readAsDataURL(f);
-                    } else {
-                        filemore += filename + '\n'
-                    }
-                } //end loop
-                if (filemore)
-                    alert('File size > 3MB \n' + filemore)
-            });
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    $('#user_image_file').attr('src', e.target.result);
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
         }
-    });
+        $("#user_image").change(function() {
+            readURL(this);
+        });
+    })
 </script>

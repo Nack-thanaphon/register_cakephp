@@ -115,11 +115,6 @@ class PostsController extends AppController
         }
     }
 
-    /**
-     * Add method
-     *
-     * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
-     */
     public function add()
     {
         $PostTypeTable = TableRegistry::getTableLocator()->get('Poststype');

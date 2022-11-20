@@ -7,27 +7,27 @@
     </aside> -->
 <div class="card p-1 m-1 ">
     <div class="m-3">
-        <?= $this->form->create($product, ["enctype" => "multipart/form-data"]) ?>
+        <?= $this->Form->create($product, ["enctype" => "multipart/form-data"]) ?>
         <div class="form-group">
             <h3 class="font-weight-bold"><?= __('เพิ่มสินค้า') ?></h3>
             <div class="form-floating mb-1">
-                <?= $this->form->input('p_promotion', ['class' => 'form-control ']); ?>
+                <?= $this->Form->input('p_promotion', ['class' => 'form-control ']); ?>
                 <label for="floatingemail">โปรโมชั่น</label>
             </div>
             <div class="form-floating mb-1">
-                <?= $this->form->input('p_title', ['class' => 'form-control ']); ?>
+                <?= $this->Form->input('p_title', ['class' => 'form-control ']); ?>
                 <label for="floatingemail">ชื่อสินค้า</label>
             </div>
             <div class="form-floating mb-1">
-                <?= $this->form->input('p_type_id', ['class' => 'form-control ']); ?>
+                <?= $this->Form->input('p_type_id', ['class' => 'form-control ']); ?>
                 <label for="floatingemail">ชนิดสินค้า</label>
             </div>
             <div class="form-floating mb-1">
-                <?= $this->form->input('p_detail', ['class' => 'form-control ']); ?>
+                <?= $this->Form->input('p_detail', ['class' => 'form-control ']); ?>
                 <label for="floatingemail">รายละเอียดสินค้า</label>
             </div>
             <div class="form-floating mb-1">
-                <?= $this->form->input('p_price', ['class' => 'form-control ']); ?>
+                <?= $this->Form->input('p_price', ['class' => 'form-control ']); ?>
                 <label for="floatingemail">ราคาสินค้า</label>
             </div>
             <div class="form-group my-2">
@@ -38,6 +38,6 @@
 
 
         </div>
-        <?= $this->form->button(__('Submit'), ['class' => 'btn btn-primary w-100']) ?>
-        <?= $this->form->end() ?>
+        <?= $this->Form->button(__('Submit'), ['class' => 'btn btn-primary w-100']) ?>
+        <?= $this->Form->end() ?>
     </div>

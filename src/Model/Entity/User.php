@@ -13,12 +13,16 @@ use Cake\ORM\Entity;
  * @property string $email
  * @property int $user_type_id
  * @property int $user_role_id
+ * @property string $image
  * @property string $password
  * @property string $token
  * @property string $verified
  * @property string $status
  * @property \Cake\I18n\FrozenTime $created_at
  * @property \Cake\I18n\FrozenTime $updated_at
+ *
+ * @property \App\Model\Entity\UsersRole $users_role
+ * @property \App\Model\Entity\UsersType $users_type
  */
 class User extends Entity
 {
@@ -36,12 +40,15 @@ class User extends Entity
         'email' => true,
         'user_type_id' => true,
         'user_role_id' => true,
+        'image' => true,
         'password' => true,
         'token' => true,
         'verified' => true,
         'status' => true,
         'created_at' => true,
         'updated_at' => true,
+        'users_role' => true,
+        'users_type' => true,
     ];
 
     /**

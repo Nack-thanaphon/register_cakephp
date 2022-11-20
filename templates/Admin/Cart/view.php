@@ -9,7 +9,7 @@
         <div class="side-nav">
             <h4 class="heading"><?= __('Actions') ?></h4>
             <?= $this->Html->link(__('Edit Cart'), ['action' => 'edit', $cart->c_id], ['class' => 'side-nav-item']) ?>
-            <?= $this->form->postLink(__('Delete Cart'), ['action' => 'delete', $cart->c_id], ['confirm' => __('Are you sure you want to delete # {0}?', $cart->c_id), 'class' => 'side-nav-item']) ?>
+            <?= $this->Form->postLink(__('Delete Cart'), ['action' => 'delete', $cart->c_id], ['confirm' => __('Are you sure you want to delete # {0}?', $cart->c_id), 'class' => 'side-nav-item']) ?>
             <?= $this->Html->link(__('List Cart'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
             <?= $this->Html->link(__('New Cart'), ['action' => 'add'], ['class' => 'side-nav-item']) ?>
         </div>

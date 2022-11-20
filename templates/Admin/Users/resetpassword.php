@@ -5,9 +5,9 @@
 
         <?= $this->flash->render() ?>
 
-        <?= $this->form->create() ?>
+        <?= $this->Form->create() ?>
         <div class="form-floating mb-2">
-            <?= $this->form->input('password', ['class' => 'form-control', 'id' => 'floatingpassword', 'type' => "password"]) ?>
+            <?= $this->Form->input('password', ['class' => 'form-control', 'id' => 'floatingpassword', 'type' => "password"]) ?>
             <label for="floatingpassword">Your Password</label>
         </div>
         <div class="form-floating mb-2">
@@ -15,11 +15,11 @@
             <label for="floatingpassword2">Your Password (อีกครั้ง)</label>
         </div>
 
-        <?= $this->form->button('เปลี่ยนรหัสผ่าน', ['class' => 'btn btn-secondary ', 'id' => 'resetpassword']) ?>
+        <?= $this->Form->button('เปลี่ยนรหัสผ่าน', ['class' => 'btn btn-secondary ', 'id' => 'resetpassword']) ?>
 
         <!-- <button class="w-100 btn btn-lg btn-primary" type=#resetpassword">Sign in</button> -->
       
-        <?= $this->form->end() ?>
+        <?= $this->Form->end() ?>
 
     </main>
 

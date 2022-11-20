@@ -70,7 +70,7 @@
                                 <td class="w-50 p-3">
                                     <h5 class="font-weight-bold">หมายเลข : <?= $order->orders_code ?></h5>
                                     <p class="m-0 p-0 text-muted">ชื่อลูกค้า: <a href="http://">ธนพล กัลปพฤกษ์</a></p>
-                                    <p class="m-0 p-0 text-muted"> วันที่สั่งซื้อ : 10/06/2565</p>
+                                    <p class="m-0 p-0 text-muted"> วันที่สั่งซื้อ :<?= $order->created_at ?></p>
                                 </td>
                                 <td class="w-10 p-3">
                                     <small class="badge badge-primary">ชำระเงินเรียบร้อย</small>

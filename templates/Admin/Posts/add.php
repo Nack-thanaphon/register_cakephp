@@ -2,7 +2,7 @@
     <?= $this->Html->link(__('Back to'), ['action' => 'index'], ['class' => 'col-12 d-flex justify-content-end mb-2']) ?>
     <div class="col-12 col-md-12 col-lg-8">
         <div class="card p-3">
-            <?= $this->form->create($PostsData, ["enctype" => "multipart/form-data"]) ?>
+            <?= $this->Form->create($PostsData, ["enctype" => "multipart/form-data"]) ?>
             <div class="form-group">
                 <h3 class="font-weight-bold"><?= __('เพิ่มบทความ') ?></h3>
                 <div class="form-floating mb-1">
@@ -22,7 +22,7 @@
                 </div>
                 <div class="form-floating mb-1">
                     <label for="floatingemail">หัวข้อบทความ</label>
-                    <?= $this->form->input('p_title', ['class' => 'form-control ', 'placeholder' => 'กรุณาใส่หัวข้อบทความ']); ?>
+                    <?= $this->Form->input('p_title', ['class' => 'form-control ', 'placeholder' => 'กรุณาใส่หัวข้อบทความ']); ?>
                 </div>
                 <div class="form-floating mb-1">
                     <label for="floatingemail">ชนิดบทความ</label>
@@ -66,8 +66,8 @@
             <input type="file" name="p_image_id[]" id="files" class="form-control" class="image" multiple id="gallery-photo-add">
 
             <section class="uploaded-area"></section>
-            <?= $this->form->button(__('บันทึกข้อมูล'), ['class' => 'btn btn-primary w-100 mt-2']) ?>
-            <?= $this->form->end() ?>
+            <?= $this->Form->button(__('บันทึกข้อมูล'), ['class' => 'btn btn-primary w-100 mt-2']) ?>
+            <?= $this->Form->end() ?>
         </div>
     </div>
 </div>

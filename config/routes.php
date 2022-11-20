@@ -57,7 +57,7 @@ return static function (RouteBuilder $routes) {
     $routes->connect('ourBranch', ['controller' => 'Aboutus', 'action' => 'ourbranch'], ['routeClass' => 'ADmad/I18n.I18nRoute']);
     $routes->connect('AboutUs',  ['controller' => 'Aboutus', 'action' => 'aboutus'], ['routeClass' => 'ADmad/I18n.I18nRoute']);
     $routes->connect('carts', ['controller' => 'cart', 'action' => 'index'], ['routeClass' => 'ADmad/I18n.I18nRoute']);
-    $routes->connect('api/product', ['controller' => 'api', 'action' => 'product'], ['routeClass' => 'ADmad/I18n.I18nRoute']);
+    $routes->connect('api/product', ['controller' => 'api', 'action' => 'product']);
 
 
     $routes->scope('/', function (RouteBuilder $builder) {

@@ -1,20 +1,23 @@
 <div class="row my-3">
+    <div class="col-12 d-flex justify-content-between my-4">
+        <h3 class="font-weight-bold"><?= __('ข้อมูลออเดอร์') ?></h3>
+        <?= $this->Html->link(__('Back to'), ['action' => 'index'], ['class' => ' mb-2']) ?>
+    </div>
     <div class="col-12 col-sm-8 ">
         <div class="card p-3 m-1 mb-2">
             <div class="row m-0 p-0 d-flex my-auto justify-content-between">
                 <h6 for="" class="text-muted">รหัสออเดอร์</h6>
-                <a class="">กลับ</a>
             </div>
             <h2 class="text-primary">#<?= $OrdersData[0]['id'] ?></h2>
             <small>วันที่สั่งซื้อ: <?= $OrdersData[0]['date'] ?></small>
         </div>
-        <div class="card p-3 m-1">
-            <div class="col-12 d-flex justify-content-between m-0 p-0">
+        <div class="card p-3 m-1 ">
+            <div class="col-12 d-flex justify-content-between m-0 p-0 ">
                 <b class="mb-2 text-muted">รายละเอียดออเดอร์</b>
                 <a class="btn btn"><i class="fa-solid fa-print"></i></a>
             </div>
             <?php foreach ($OrdersData as $rowData) : ?>
-                <div class="row m-0  mb-1 px-2">
+                <div class="row m-0  mb-1 px-2 ">
                     <div class="col-2 m-0 p-0">
                         <img class="w-100 d-flex justify-content-center" src="https://cdn.britannica.com/72/170772-050-D52BF8C2/Avocado-fruits.jpg" alt="">
                     </div>

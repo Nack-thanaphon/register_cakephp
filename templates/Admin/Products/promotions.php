@@ -3,7 +3,7 @@
     <div class="col-12 col-md-12 col-lg-8">
         <div class="card p-3">
             <?= $this->Flash->render() ?>
-            <?= $this->form->create($product, ["enctype" => "multipart/form-data"]) ?>
+            <?= $this->Form->create($product, ["enctype" => "multipart/form-data"]) ?>
             <div class="form-group">
                 <h3 class="font-weight-bold"><?= __('เพิ่มสินค้า') ?></h3>
                 <div class="form-floating mb-1">
@@ -18,7 +18,7 @@
                 </div>
                 <div class="form-floating mb-1">
                     <label>ชื่อสินค้า</label>
-                    <?= $this->form->input('p_title', ['class' => 'form-control ','placeholder'=>'ชื่อสินค้า']); ?>
+                    <?= $this->Form->input('p_title', ['class' => 'form-control ','placeholder'=>'ชื่อสินค้า']); ?>
                 </div>
                 <div class="form-floating mb-1">
                     <label>ชนิดสินค้า</label>
@@ -38,11 +38,11 @@
                 <div class=" row m-0 p-0 ">
                     <div class="col-12 col-sm-6 m-0">
                         <label for="p_total">จำนวนสินค้า</label>
-                        <?= $this->form->input('p_total', ['class' => 'form-control', 'id' => 'p_total','placeholder'=>'ตัวอย่าง : 20']); ?>
+                        <?= $this->Form->input('p_total', ['class' => 'form-control', 'id' => 'p_total','placeholder'=>'ตัวอย่าง : 20']); ?>
                     </div>
                     <div class="col-12 col-sm-6 m-0">
                         <label for="p_price">ราคาสินค้า</label>
-                        <?= $this->form->input('p_price', ['class' => 'form-control', 'id' => 'p_price','placeholder'=>'ตัวอย่าง : 250']); ?>
+                        <?= $this->Form->input('p_price', ['class' => 'form-control', 'id' => 'p_price','placeholder'=>'ตัวอย่าง : 250']); ?>
                     </div>
                 </div>
                 <div class="form-floating mb-1">
@@ -73,8 +73,8 @@
             </div>
             <input type="file" name="p_image_id" class="form-control" class="image" multiple id="gallery-photo-add">
             <div class="gallery row m-0 p-0"></div>
-            <?= $this->form->button(__('Submit'), ['class' => 'btn btn-primary w-100']) ?>
-            <?= $this->form->end() ?>
+            <?= $this->Form->button(__('Submit'), ['class' => 'btn btn-primary w-100']) ?>
+            <?= $this->Form->end() ?>
         </div>
     </div>
 </div>

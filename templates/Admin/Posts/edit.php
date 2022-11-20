@@ -3,7 +3,7 @@
 
         <div class="col-12 col-sm-8">
             <div class="card m-2 p-3">
-                <?= $this->form->create($post, ["enctype" => "multipart/form-data"]) ?>
+                <?= $this->Form->create($post, ["enctype" => "multipart/form-data"]) ?>
                 <div class="form-group">
                     <h3 class="font-weight-bold"><?= __('อัพเดตบทความ') ?></h3>
                     <div class="form-floating mb-1">
@@ -25,7 +25,7 @@
                     </div>
                     <div class="form-floating mb-1">
                         <label for="floatingemail">หัวข้อบทความ</label>
-                        <?= $this->form->input('p_title', ['class' => 'form-control ', 'placeholder' => 'กรุณาใส่หัวข้อบทความ']); ?>
+                        <?= $this->Form->input('p_title', ['class' => 'form-control ', 'placeholder' => 'กรุณาใส่หัวข้อบทความ']); ?>
                     </div>
                     <div class="form-floating mb-1">
                         <label for="floatingemail">ชนิดบทความ</label>
@@ -77,10 +77,10 @@
                         </div>
                     <?php endforeach; ?>
                 </div>
-                <?= $this->form->button(__('บันทึกข้อมูล'), ['class' => 'btn btn-primary w-100 mt-2']) ?>
+                <?= $this->Form->button(__('บันทึกข้อมูล'), ['class' => 'btn btn-primary w-100 mt-2']) ?>
                 <button class="btn btn danger mt-3" id="deletepost" value="<?= $post->id ?>">ลบข้อมูล</button>
             </div>
-            <?= $this->form->end() ?>
+            <?= $this->Form->end() ?>
         </div>
     </div>
 </div>

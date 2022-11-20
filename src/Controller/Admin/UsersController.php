@@ -38,12 +38,17 @@ class UsersController extends AppController
         $this->set(compact('usersUnVerifiled', 'users'));
     }
 
-    public function view($id = null)
+    public function view($token = null)
     {
-        $user = $this->Users->get($id, [
-            'contain' => [],
-        ]);
+        $user = $this->Users->find()
+            ->where([
+                'token =' => $token
+            ])
+            ->contain(['UsersType', 'UsersRole'])
+            ->first();
 
+        // pr($user);
+        // die;
         $this->set(compact('user'));
     }
 
@@ -54,13 +59,34 @@ class UsersController extends AppController
         $this->set(compact('user'));
     }
 
-    public function edit($id = null)
+    public function edit($token = null)
     {
-        $user = $this->Users->get($id, [
-            'contain' => [],
-        ]);
+        $user = $this->Users->find()
+        ->where([
+            'token =' => $token
+        ])
+        ->contain(['UsersType', 'UsersRole'])
+        ->first();
         if ($this->request->is(['patch', 'post', 'put'])) {
+            // pr($this->request->getData());die;
             $user = $this->Users->patchEntity($user, $this->request->getData());
+            $userimg = $this->request->getData("image");
+            $hasFileError = $userimg->getError();
+
+            if ($hasFileError > 0) {
+                $data["image"] = "";
+            } else {
+                // file uploaded
+                $fileName = $userimg->getClientFilename();
+                $fileType = $userimg->getClientMediaType();
+
+                if ($fileType == "image/png" || $fileType == "image/jpeg" || $fileType == "image/jpg") {
+                    $imagePath = WWW_ROOT . "img/user/" . DS . $fileName;
+                    $userimg->moveTo($imagePath);
+                    $data["image"] = "img/user/" . $fileName;
+                }
+            }
+            $user = $this->Users->patchEntity($user, $data);
             if ($this->Users->save($user)) {
                 $this->Flash->success(__('The user has been saved.'));
 
@@ -168,10 +194,10 @@ class UsersController extends AppController
                 ]);
 
                 $mailer = new Mailer('default');
-                $mailer->setFrom(['e21bvz@gmail.com' => 'DOG-API |TEAM'])
+                $mailer->setFrom(['e21bvz@gmail.com' => 'แม่ปลูกลูกขาย'])
                     ->setTo($myemail)
                     ->setEmailFormat('html')
-                    ->setSubject('กรุณายืนยันอีเมลล์ของคุณเพื่อเข้าใช้งาน Dog API')
+                    ->setSubject('กรุณายืนยันอีเมลล์ของคุณเพื่อเข้าใช้งาน แม่ปลูกลูกขาย')
                     ->setTransport('gmail')
                     ->setViewVars([
                         'name' => $myname,
@@ -200,42 +226,54 @@ class UsersController extends AppController
             $token = Security::hash(Security::randomBytes(25));
             $usertable = TableRegistry::getTableLocator()->get('users');
             $user = $usertable->find('all')->where(['email' => $email])->first();
+            if ($user != null) {
+                $user->password = '';
+                $user->token = $token;
 
-            $user->password = '';
-            $user->token = $token;
+                if ($usertable->save($user)) {
+                    $this->Flash->set('กรุณาเช็คในอีเมลล์ ' . $email . ' เพื่อยืนยันการเปลี่ยนรหัสผ่าน', ['element' => 'success']);
+                    TransportFactory::setConfig('gmail', [
+                        'host' => 'smtp.gmail.com',
+                        'port' => 587,
+                        'username' => 'e21bvz@gmail.com',
+                        'password' => 'jxcsblueiiwjzvxd',
+                        'className' => 'Smtp',
+                        'tls' => true
+                    ]);
 
-            if ($usertable->save($user)) {
-                $this->Flash->set('กรุณาเช็คในอีเมลล์ ' . $email . ' เพื่อยืนยันการเปลี่ยนรหัสผ่าน', ['element' => 'success']);
-                TransportFactory::setConfig('gmail', [
-                    'host' => 'smtp.gmail.com',
-                    'port' => 587,
-                    'username' => 'e21bvz@gmail.com',
-                    'password' => 'jxcsblueiiwjzvxd',
-                    'className' => 'Smtp',
-                    'tls' => true
-                ]);
+                    $mailer = new Mailer('default');
+                    $mailer->setFrom(['e21bvz@gmail.com' => 'แม่ปลูกลูกขาย'])
+                        ->setTo($email)
+                        ->setEmailFormat('html')
+                        ->setSubject('เปลี่ยนรหัสผ่านการเข้าใช้งาน แม่ปลูกลูกขาย')
+                        ->setTransport('gmail')
+                        ->setViewVars([
+                            'name' => $user->name,
+                            'verify' => $token
+                        ])
+                        ->viewBuilder()
+                        ->setTemplate('resetpassword');
 
-                $mailer = new Mailer('default');
-                $mailer->setFrom(['e21bvz@gmail.com' => 'DOG-API |TEAM'])
-                    ->setTo($email)
-                    ->setEmailFormat('html')
-                    ->setSubject('เปลี่ยนรหัสผ่านการเข้าใช้งาน Dog API')
-                    ->setTransport('gmail')
-                    ->setViewVars([
-                        'name' => $user->name,
-                        'verify' => $token
-                    ])
-                    ->viewBuilder()
-                    ->setTemplate('resetpassword');
-
-                $mailer->deliver();
+                    $mailer->deliver();
+                    $htmlStatusCode = 200;
+                    $response = [
+                        'status' => $htmlStatusCode,
+                        'message' => 'OK',
+                    ];
+                    $this->set(compact('response'));
+                    $this->viewBuilder()->setOption('serialize', ['response']);
+                    $this->setResponse($this->response->withStatus($htmlStatusCode));
+                } else {
+                    $this->Flash->set('เปลี่ยนรหัสผ่านไม่สำเร็จ หรือข้อมูลไม่ถูกต้อง', ['element' => 'error']);
+                }
             } else {
-                $this->Flash->set('เปลี่ยนรหัสผ่านไม่สำเร็จ หรือข้อมูลไม่ถูกต้อง', ['element' => 'error']);
+                $this->Flash->set('ไม่มีข้อมูลในระบบ', ['element' => 'error']);
             }
         } else {
             $this->Flash->set('กรุณากรอกข้อมูลให้ถูกต้อง', ['element' => 'error']);
         }
     }
+
     public function resetpassword($token)
     {
         if ($this->request->is('post')) {

@@ -20,6 +20,11 @@
             </div>
 
             <div class="col-12 mt-4 p-0">
+                <div class="row m-0 p-0">
+                    <div class="col-12 mt-4 p-0">
+                        <?= $this->Form->button('เปลี่ยนรหัสผ่าน', ['class' => "btn btn-primary btn-block"]); ?>
+                    </div>
+                </div>
             </div>
         </div>
         <!-- <div class="social-auth-links text-center mt-2 mb-3">

@@ -163,7 +163,7 @@
         let phone = $('#phone').val()
         let map = $('#map').val()
         $.ajax({
-            url: "<?= $this->Url->build(['controller' => 'Branch', 'action' => 'update']) ?>",
+            url: "<?= $this->Url->build(['controller' => 'branch', 'action' => 'update']) ?>",
             type: "post",
             data: {
                 id: id,
