@@ -1,107 +1,318 @@
-<div class="container">
-    <div class="row m-0 p-0 my-3">
+<style>
+    label#largeFile:after {
+        position: absolute;
+        width: 100%;
+        max-width: 800px;
 
-        <div class="col-12 col-sm-8">
-            <div class="card m-2 p-3">
-                <?= $this->Form->create($post, ["enctype" => "multipart/form-data"]) ?>
-                <div class="form-group">
-                    <h3 class="font-weight-bold"><?= __('อัพเดตบทความ') ?></h3>
-                    <div class="form-floating mb-1">
-                        <label for="floatingemail">วัน/เดือน/ปี</label>
-                        <br>
-                        <?=
-                        $this->Form->input(
-                            'p_date',
-                            array(
-                                'label' => true,
-                                'type' => 'date',
-                                'dateFormat' => 'YMD',
-                                'minYear' => date('Y') - 70,
-                                'maxYear' => date('Y') + 10,
-                                'value' => $post->p_date,
-                            )
-                        );
+    }
+
+    label#largeFile input#file {
+        width: 0px;
+        height: 0px;
+    }
+
+
+
+    .image-area {
+        width: 100%;
+    }
+
+    .image-area img {
+        position: relative;
+        max-width: 100%;
+        height: auto;
+    }
+
+    .remove-image {
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        padding-right: 5px;
+        text-decoration: none;
+        -webkit-transition: background 0.5s;
+        transition: background 0.5s;
+    }
+</style>
+
+<div class="row my-3">
+    <div class="col-12 col-md-12 col-lg-12 d-flex justify-content-end">
+        <?= $this->Html->link(__('Back to'), ['action' => 'index']) ?>
+    </div>
+    <div class="col-12 col-md-12 col-lg-8">
+        <div class="card p-3">
+            <div class="d-flex justify-content-between py-2 my-auto">
+                <h3 class="font-weight-bold"><?= __('อัพเดตสินค้า') ?></h3>
+                <h6 class="fas fa-trash-alt my-auto" type="button" onclick="deletePosts(<?= $Posts->id ?>)"></h6>
+            </div>
+            <?= $this->Form->create($Posts, ["enctype" => "multipart/form-data"]) ?>
+            <input type="hidden" id="pId" value="<?= $Posts->id ?>">
+
+            <div class="form-group">
+
+                <div class="form-floating mb-1">
+                    <label>วันเดือนปี</label>
+                    <?= $this->Form->input(
+                        'p_date',
+                        [
+                            'type' => 'date',
+                            'class' => 'form-control ',
+                            'id' => 'datetimepicker',
+                            'default' => date('Y-m-d H:i') #Set time for today
+                        ]
+                    );
+                    ?>
+
+                </div>
+                <div class="form-floating mb-1">
+                    <label>หัวข้อ</label>
+                    <?= $this->Form->input('p_title', ['class' => 'form-control ', 'placeholder' => 'ชื่อสินค้า']); ?>
+                </div>
+                <div class="form-floating mb-1">
+                    <label>ชนิดบทความ</label>
+                    <select name="p_type_id" class="form-control selectpicker">
+                        <?php
+                        foreach ($PostsType as $row) {
+                            echo '<option value="' . $row->pt_id . '" >' . $row->pt_name . '</option>';
+                        }
                         ?>
-                    </div>
-                    <div class="form-floating mb-1">
-                        <label for="floatingemail">หัวข้อบทความ</label>
-                        <?= $this->Form->input('p_title', ['class' => 'form-control ', 'placeholder' => 'กรุณาใส่หัวข้อบทความ']); ?>
-                    </div>
-                    <div class="form-floating mb-1">
-                        <label for="floatingemail">ชนิดบทความ</label>
-                        <select name="p_type_id" class="form-control selectpicker">
-                            <select name="p_type_id" class="form-control selectpicker">
-                                <option value="1">ข่าวทั่วไป</option>
-                                <option value="2">ข่าวประชาสัมพันธ์</option>
-                                <option value="3">บทความ</option>
-                                <option value="4">เรื่องน่ารู้</option>
-                                <option value="4">วิธีทำอาหาร</option>
-                            </select>
-                        </select>
-                    </div>
-                    <div class="form-floating mb-1">
-                        <label for="floatingemail">รายละเอียดบทความ</label>
-                        <textarea name="p_detail" id="editor1" rows="10" cols="80" required><?= $post->p_detail; ?></textarea>
-                    </div>
-                    <div class="form-floating mb-1">
-                        <label for="floatingemail">สถานะบทความ</label>
-                        <div class="form-check">
-                            <?php echo '<input class="form-check-input" type="radio" name="p_status" value= 1  ' . (($post->p_status == 1) ? "checked" : "") . '  >' ?>
-
-                            <label class="form-check-label" for="flexRadioDefault1">
-                                เผยแพร่
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <?php echo '<input class="form-check-input" type="radio" name="p_status" value= 0  ' . (($post->p_status == 0) ? "checked" : "") . '  >' ?>
-
-                            <label class="form-check-label" for="flexRadioDefault2">
-                                ไม่เผยแพร่
-                            </label>
-                        </div>
-                    </div>
-
+                    </select>
+                </div>
+                <div class="form-floating mb-1">
+                    <label>รายละเอียดบทความ</label>
+                    <textarea name="p_detail" id="editor1" rows="10" cols="80" required><?= $Posts->p_detail ?></textarea>
                 </div>
 
-            </div>
-
-        </div>
-        <div class="col-12 col-sm-4">
-            <div class="card m-2 p-2">
-                <p>รูปภาพในระบบ</p>
-                <div class="row m-0 p-0">
-                    <?php foreach ($coverimage as $image) : ?>
-                        <div class="col-6 ">
-                            <img src="<?= $this->Url->build($image->image) ?>" class="w-75 h-75" alt="">
-                            <!-- <div class="btn btn-primary my-1 " onclick="selected(<?= $image->id ?>)">เลือกเป็นภาพหน้าปก</div> -->
+                <div class=" row m-0 p-0 ">
+                    <div class="col-12 col-sm-12 m-0 p-0">
+                        <div class="form-floating mb-1">
+                            <label>สถานะบทความ</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="p_status" value='1' <?php echo ($Posts->p_status == 1) ? "checked" : ""  ?>>
+                                <label class="form-check-label" for="flexRadioDefault1">
+                                    เผยแพร่
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="p_status" value='0' <?php echo ($Posts->p_status == 0) ? "checked" : ""  ?>>
+                                <label class="form-check-label" for="flexRadioDefault2">
+                                    ไม่เผยแพร่
+                                </label>
+                            </div>
                         </div>
-                    <?php endforeach; ?>
+                    </div>
                 </div>
-                <?= $this->Form->button(__('บันทึกข้อมูล'), ['class' => 'btn btn-primary w-100 mt-2']) ?>
-                <button class="btn btn danger mt-3" id="deletepost" value="<?= $post->id ?>">ลบข้อมูล</button>
             </div>
-            <?= $this->Form->end() ?>
         </div>
     </div>
+    <div class="col-12 col-md-12 col-lg-4 m-0">
+        <div class="card m-2 p-2">
+            <div class="d-flex justify-content-between my-auto m-1">
+                <p class="my-2 p-0">รูปภาพปก<br>
+                    <span>
+                        <small class="text-muted cover-warning">**กรุณาอัพโหลดภาพหน้าปก</small>
+                    </span>
+                </p>
+                <label class="my-2 p-0" for="imagecover"><i class="fas fa-arrow-circle-up"></i></label>
+
+                <input type="file" id="imagecover" class="d-none">
+
+            </div>
+
+            <div class="row m-0 p-0">
+                <div class="col-12  m-0 p-0" id="getPostsCoverImg">
+                </div>
+            </div>
+        </div>
+        <div class="card m-2 p-2">
+            <div class="d-flex justify-content-between my-auto m-1">
+                <p class="my-2 p-0">รูปภาพประกอบ
+                    <br>
+                    <span>
+                        <small class="text-muted img-warning">**กรุณาอัพโหลดภาพสินค้า</small>
+                    </span>
+                </p>
+                <label class="my-2 p-0" for="images"><i class="fas fa-arrow-circle-up"></i></label>
+                <input type="file" id="images" class="d-none" multiple>
+
+            </div>
+
+            <div class="multiimages row" id="getPostsImg">
+
+            </div>
+        </div>
+        <?= $this->Form->button(__('บันทึกข้อมูล'), ['class' => 'btn btn-primary w-100 m-1']) ?>
+        <?= $this->Form->end() ?>
+    </div>
+
 </div>
+
 
 <script>
     CKEDITOR.replace('editor1');
-    $('#deletepost').click(function() {
-        let id = $('#deletepost').val()
+    var PostsId = $('#pId').val();
+    var CoverId = 0
+    GetPostsImg()
+
+    function GetPostsImg() {
         $.ajax({
-            url: "<?= $this->Url->build(['controller' => 'Posts', 'action' => 'delete']) ?>",
+            url: "<?= $this->Url->build(['controller' => 'Posts', 'action' => 'getPostsImg']) ?>",
             type: "post",
             data: {
-                id: id
+                id: PostsId
             },
             dataType: 'json',
             headers: {
                 'X-CSRF-token': $('meta[name="csrfToken"]').attr('content')
             },
             success: function(resp) {
+                let CoverImageData = resp.cover
+                let ImageData = resp.img
+                let CoverImg = ''
+                let Img = ''
 
+                for (i = 0; i < CoverImageData.length; i++) {
+                    CoverId = CoverImageData[i].id
+                    CoverImg += `<img id="singleimages" src="<?php echo $this->Url->build('${CoverImageData[i].name}', ['fullBase' => true]); ?>" class="w-100">`
+                }
+                for (i = 0; i < ImageData.length; i++) {
+                    Img += ` <div class="image-area col-3 m-0 p-0">
+                    <img src="<?php echo $this->Url->build('${ImageData[i].name}', ['fullBase' => true]); ?>" class="p-1">
+                    <a type="button" class="remove-image" onclick="delete_img(${ImageData[i].id})" style="display: inline;">&#215;</a>
+                    </div>`
+                }
+
+                $("#getPostsCoverImg").html(CoverImg)
+                $("#getPostsImg").html(Img)
+            }
+        })
+    }
+
+    $('#imagecover').on('change', function() {
+        var formData = new FormData();
+        let id = CoverId
+        let post_id = PostsId
+
+        formData.append("id", id)
+        formData.append("post_id", post_id)
+        formData.append('files', $('input[type=file]')[0].files[0]);
+
+        $.ajax({
+            url: "<?= $this->Url->build(['controller' => 'Image', 'action' => 'postsCoverAdd']) ?>",
+            type: 'post',
+            data: formData,
+            id,
+            PostsId,
+            contentType: false,
+            cache: false,
+            processData: false,
+            headers: {
+                'X-CSRF-token': $('meta[name="csrfToken"]').attr('content')
+            },
+            success: function(response) {
+                Swal.fire({
+                    text: 'อัพเดตข้อมูลเรียบร้อย',
+                    icon: 'success',
+                    confirmButtonText: 'ตกลง',
+                })
+                GetPostsImg()
             }
         })
     })
+
+    $('#images').on('change', function() {
+        var formData = new FormData();
+        let post_id = ProductId
+        formData.append("post_id", post_id)
+        var totalfiles = document.getElementById('images').files.length;
+        for (var index = 0; index < totalfiles; index++) {
+            formData.append("files[]", document.getElementById('images').files[index]);
+        }
+
+        $.ajax({
+            url: "<?= $this->Url->build(['controller' => 'Image', 'action' => 'postsImageAdd']) ?>",
+            type: 'post',
+            data: formData,
+            product_id,
+            contentType: false,
+            cache: false,
+            processData: false,
+            headers: {
+                'X-CSRF-token': $('meta[name="csrfToken"]').attr('content')
+            },
+            success: function(response) {
+                Swal.fire({
+                    text: 'อัพเดตข้อมูลเรียบร้อย',
+                    icon: 'success',
+                    confirmButtonText: 'ตกลง',
+                })
+                GetPostsImg()
+            }
+        })
+    })
+
+    function deletePosts(id) {
+        Swal.fire({
+            title: 'คุณแน่ใจใช่ไหม?',
+            text: "คุณต้องการลบข้อมูล " + id + " ใช่ไหม !",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'ใช่, ลบเลย!',
+            cancelButtonText: 'ยกเลิก'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: "<?= $this->Url->build(['controller' => 'posts', 'action' => 'delete']) ?>",
+                    type: "post",
+                    dataType: 'json',
+                    data: {
+                        id: id
+                    },
+                    headers: {
+                        'X-CSRF-token': $('meta[name="csrfToken"]').attr('content')
+                    },
+                })
+                Swal.fire(
+                    'ลบเรียบร้อย!',
+                    'ดำเนินการเรียบร้อย.',
+                    'success'
+                )
+                window.location = ('<?= $this->Url->build(['action' => 'index']) ?>')
+            }
+        })
+    }
+
+    function delete_img(id) {
+        Swal.fire({
+            title: 'คุณแน่ใจใช่ไหม?',
+            text: "คุณต้องการลบข้อมูล " + id + " ใช่ไหม !",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'ใช่, ลบเลย!',
+            cancelButtonText: 'ยกเลิก'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: "<?= $this->Url->build(['controller' => 'image', 'action' => 'delete']) ?>",
+                    type: "post",
+                    dataType: 'json',
+                    data: {
+                        id: id
+                    },
+                    headers: {
+                        'X-CSRF-token': $('meta[name="csrfToken"]').attr('content')
+                    },
+                })
+                Swal.fire(
+                    'ลบเรียบร้อย!',
+                    'ดำเนินการเรียบร้อย.',
+                    'success'
+                )
+                GetPostsImg()
+            }
+        })
+    }
 </script>

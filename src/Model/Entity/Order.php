@@ -14,11 +14,14 @@ use Cake\ORM\Entity;
  * @property int|null $orders_user_id
  * @property int|null $orders_admin_id
  * @property string|null $orders_detail
+ * @property string|null $delivery_service
+ * @property string|null $delivery_code
  * @property string|null $total_price
  * @property int|null $status
  * @property \Cake\I18n\FrozenTime|null $created_at
  * @property \Cake\I18n\FrozenTime|null $updated_at
  *
+ * @property \App\Model\Entity\Image[] $image
  * @property \App\Model\Entity\User $user
  */
 class Order extends Entity
@@ -38,10 +41,13 @@ class Order extends Entity
         'orders_user_id' => true,
         'orders_admin_id' => true,
         'orders_detail' => true,
+        'delivery_service' => true,
+        'delivery_code' => true,
         'total_price' => true,
         'status' => true,
         'created_at' => true,
         'updated_at' => true,
+        'image' => true,
         'user' => true,
     ];
 }

@@ -1,3 +1,4 @@
+<?php $this->assign('title','เกี่ยวกับเรา'); ?>
 <div class="jumbotron jumbotron-fluid bg-success">
     <div class="container ">
         <?= $this->element('/component/breadcrumb') ?>
@@ -65,10 +66,7 @@
         </div>
 
         <div class="d-block   col-12 col-md-12 col-lg-6 mx-auto">
-            <img src="<?= $this->Url->build('img/311812887_5665071656882467_4874281708304381448_n.jpg') ?>" class="mx-auto d-block w-100 mb-3" alt="">
-            <img src="<?= $this->Url->build('img/311292179_5650997224956577_5108881546119223933_n.jpg') ?>" class="mx-auto d-block w-100 mb-3" alt="">
-            <iframe width="100%" height="315" src="https://www.youtube.com/embed/xVQsFMk2T6s" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-        </div>
+                </div>
 
     </div>
 

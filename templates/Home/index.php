@@ -1,3 +1,4 @@
+<?php $this->assign('title', 'หน้าหลัก'); ?>
 <div class="row m-sm-5 m-0 p-0 p-sm-5 mb-4">
     <div class="carousel slide my-3" data-ride="carousel">
         <div class="carousel-inner " id="main_slider">
@@ -51,7 +52,7 @@
         <a href="<?= $this->Url->build(['prefix' => false, 'controller' => 'aboutus', 'action' => 'ourbranch']) ?>" class="row m-0 d-flex justify-content-between  bg-success p-2 rounded mb-2 border shadow-sm">
             <div class="col-12 my-auto p-0 m-0">
                 <h6>สาขาทั้งหมด</h6>
-                <h1  class=" m-0 p-0" style="font-size:2rem ;">20 สาขา </h1>
+                <h1 class=" m-0 p-0" style="font-size:2rem ;">20 สาขา </h1>
             </div>
         </a>
     </div>
@@ -64,15 +65,33 @@
         </a>
     </div>
 </div>
-<div class="row m-sm-5 m-0 p-0 p-sm-5 d-flex justify-content-between">
+<div class="row  m-0 p-0 p-sm-5 d-flex justify-content-between">
 
-    <div class="col-12 col-sm-5 py-3 p-2 h-100 text-sm-center text-start  mb-2">
-        <h1 class="text-success">สาขาของเรา</h1>
-        <h5>สาขาที่เรามีทั้งหมด</h5>
-        <a href="/about/ourBranch">อ่านทั้งหมด</a>
-
+    <div class="col-12  py-3 p-2 h-100 text-sm-center text-start  mb-2">
+        <h1 class="text-success">
+            สาขา
+        </h1>
+        <a href="<?= $this->Url->build(['prefix' => false, 'controller' => 'about', 'action' => 'ourBranch']) ?>">อ่านทั้งหมด</a>
     </div>
-
+    <div class="col-12  m-0">
+        <div class="row m-0 p-0 mb-3">
+            <?php foreach ($posts as $key => $post) : ?>
+                <div class="col-sm-4 col-4 m-0 p-0">
+                    <div class="card m-1 p-2">
+                        <img class="d-block w-100" src="<?= $this->Url->build($post->image); ?>" alt="<?= $post->p_title ?>">
+                        <div class="my-2">
+                            <small class="text-muted"><?= $post->type ?></small>
+                            <h6 class="my-1"><?= $post->title ?></h6>
+                        </div>
+                        <p class="m-0 mt-3"><?= $post->user ?></p>
+                        <small class="text-muted"><i class="fas fa-clock"></i> <?= $post->date ?></small> <br>
+                        <?= $this->Html->link('อ่านต่อ..', ['controller' => 'posts', 'action' => 'view', $post->id]) ?>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        </div>
+    </div>
+    <!-- 
     <div class="col-12 col-sm-6 m-0 p-0 mb-3">
         <div id="OurBranch" class="carousel slide m-0 p-2" data-ride="carousel">
             <div class="carousel-inner">
@@ -105,32 +124,37 @@
             </a>
         </div>
 
-    </div>
+    </div> -->
 </div>
 
 <div class="row m-sm-5 m-0 p-0 py-sm-5">
     <div class="col-12  py-3 p-2 h-100 text-sm-center text-start  mb-2">
-        <h1 class="text-success">สินค้าของเรา</h1>
-        <h5>สินค้าภายในร้านของเรา</h5>
+        <h1 class="text-success">สินค้า</h1>
         <a href="/Products">อ่านทั้งหมด</a>
-
     </div>
-    <?php foreach ($Products as $value) : ?>
-
-        <div class="col-6 col-sm-4 p-sm-3 m-0">
-            <div class="card m-sm-4 ">
-                <img class="card-img-top w-100" src="<?= $this->Url->build($value->image); ?>" alt="Third slide">
-            </div>
+    <div class="col-12  m-0">
+        <div class="row m-0 p-0 mb-3">
+            <?php foreach ($Products as $key => $value) : ?>
+                <div class="col-sm-4 col-4 m-0 p-0">
+                    <div class="card m-1 p-2">
+                        <img class="d-block w-100" src="<?= $this->Url->build($value->image); ?>" alt="<?= $post->p_title ?>">
+                        <div class="my-2">
+                            <small class="text-muted"><?= $post->type ?></small>
+                            <h6 class="my-1"><?= $post->title ?></h6>
+                        </div>
+                        <p class="m-0 mt-3"><?= $post->user ?></p>
+                        <small class="text-muted"><i class="fas fa-clock"></i> <?= $post->date ?></small> <br>
+                        <?= $this->Html->link('อ่านต่อ..', ['controller' => 'posts', 'action' => 'view', $post->id]) ?>
+                    </div>
+                </div>
+            <?php endforeach; ?>
         </div>
-    <?php endforeach; ?>
-
-
+    </div>
 </div>
 
-<div class="row m-sm-5 m-0 p-0 p-sm-5 d-flex justify-content-between ">
+<!-- <div class="row m-sm-5 m-0 p-0 p-sm-5 d-flex justify-content-between ">
     <div class="col-12 col-sm-4 py-3 p-2 h-100 text-start text-sm-start mb-2">
         <h1 class="text-success">รีวิวจากลูกค้า</h1>
-        <h5>ความประทับใจของลูกค้าที่มีต่อเรา</h5>
         <a href="/about/ourCustomer">อ่านทั้งหมด</a>
 
     </div>
@@ -153,13 +177,12 @@
             </div>
         </div>
     </div>
-</div>
-<div class="row m-sm-5 m-0 p-0 py-sm-5">
+</div> -->
+<!-- <div class="row m-sm-5 m-0 p-0 py-sm-5">
     <div class="col-12  py-3 p-2 h-100 text-sm-center text-start mb-2">
         <h1 class="text-success ">
             ธุรกิจของเรา
         </h1>
-        <h5>ครอบคุมทั้งภายในและส่งออก</h5>
         <a href="/about/ourBusiness">อ่านทั้งหมด</a>
 
     </div>
@@ -199,14 +222,13 @@
             <i class="fas fa-seedling my-auto" style="font-size: 4.4rem;"></i>
         </div>
     </div>
-</div>
+</div> -->
 
 <div class="row m-sm-5 m-0 p-0 py-sm-5">
     <div class="col-12  py-3 p-2 h-100 text-sm-center text-start  mb-2">
         <h1 class="text-success">
             บทความ
         </h1>
-        <h5>บทความต่างๆและความรู้ของเรา</h5>
         <a href="<?= $this->Url->build(['prefix' => false, 'controller' => 'posts', 'action' => 'index']) ?>">อ่านทั้งหมด</a>
     </div>
     <div class="col-12  m-0">

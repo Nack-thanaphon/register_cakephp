@@ -1,33 +1,60 @@
+<?php $this->assign('title', 'ออเดอร์'); ?>
+
+
 <div class="container-fluid">
     <div class="row my-5 h-100 ">
         <div class="col-sm-4  col-12 news_orders">
 
-            <div class="card  p-3 mb-2 m-1">
-                <div class="row m-0 p-0">
-                    <div class="col-sm-8 col-12">
-                        <div>
-                            <h5 class="m-0 p-0">#15433</h5>
-                            <small class="text-muted">วันที่ : <?= date('d-m-Y') ?></small>
-                        </div>
-                    </div>
-                    <div class=" d-none d-sm-flex justify-content-between m-0 p-0 col-12 col-sm-4 ">
-                        <p type="button" class="m-0 p-0">ยืนยัน</p>
-                        <p type="button" class="m-0 p-0 text-danger">ไม่ยืนยัน</p>
-                    </div>
-                    <div class="col-12">
-                        <section class="text-muted mt-1">
-                            <small>1.อโวคาโด / 2กิโล..</small><br>
-                            <small>2.สตอเบอรี่ / 1กิโล..</small><br>
-                        </section>
-                        <div class="d-block d-sm-none mt-3 m-0 p-0 col-12 ">
-                            <div class="btn-group w-100" role="group" aria-label="Basic example">
-                                <button type="button" class="btn btn">ยกเลิก</button>
-                                <button type="button" class="btn btn-primary">ยืนยัน</button>
+            <?php if (!empty($ordersToday)) {
+                foreach ($ordersToday as $key => $value) : ?>
+                    <div class="card  p-3 mb-2 m-1">
+                        <div class="row m-0 p-0 ">
+                            <div class="col-sm-12 col-12 p-0">
+                                <div>
+                                    <h5 class="m-0 p-0">#<?= $value->orders_code ?></h5>
+                                    <small class="text-muted">วันที่ : <?= $value->created_at ?></small>
+                                </div>
                             </div>
+                            <hr>
+                            <div class="col-sm-12 col-12 p-0">
+                                <p class="m-0 p-0">ลูกค้า : <?= (!empty(($value->user['name']))) ? $value->user['name'] : "รอข้อมูลผู้ใช้งาน" ?> </p>
+                                <small class="text-muted ">สถานะ :
+                                    <?php
+                                    $orderStatus = $value->status;
+                                    if ($orderStatus == 0) {
+                                        echo '<div class="badge badge-danger">ยกเลิก</div>';
+                                    }
+                                    if ($orderStatus == 1) {
+                                        echo '<div class="badge badge-warning">รอการชำระเงิน</div>';
+                                    }
+                                    if ($orderStatus == 2) {
+                                        echo '<div class="badge badge-primary">ชำระเงินแล้ว</div>';
+                                    }
+                                    if ($orderStatus == 3) {
+                                        echo '<div class="badge badge text-primary">กำลังดำเนินการ</div>';
+                                    }
+                                    if ($orderStatus == 4) {
+                                        echo '<div class="badge badge-success">จัดส่งแล้ว</div>';
+                                    }
+                                    ?>
+                                </small>
+                            </div>
+                            <!-- <div class="col-12">
+                                <section class="text-muted mt-1">
+                                    <small>1.อโวคาโด / 2กิโล..</small><br>
+                                    <small>2.สตอเบอรี่ / 1กิโล..</small><br>
+                                </section>
+                            </div> -->
                         </div>
+                    </div>
+                <?php endforeach; ?>
+            <?php } else { ?>
+                <div class="card  p-3 mb-2 m-1">
+                    <div class="row m-0 p-0">
+                        <p class="text-muted m-0 p-0">ไม่มีข้อมูล</p>
                     </div>
                 </div>
-            </div>
+            <?php } ?>
         </div>
         <div class="col-sm-8  col-12 order_table">
             <div class="row  m-0 p-0">
@@ -59,13 +86,13 @@
                 <table id="ordersTable" class="display responsive nowrap" style="width:100%">
                     <thead>
                         <tr>
-                            <th >รายละเอียด</th>
+                            <th>รายละเอียด</th>
                             <th>สถานะ</th>
-                            <th >จัดการ</th>
+                            <th>จัดการ</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($orders as $order) : ?>
+                        <?php foreach ($ordersAll as $order) : ?>
                             <tr class="shadow-sm">
                                 <td class="w-50 p-3">
                                     <h5 class="font-weight-bold">หมายเลข : <?= $order->orders_code ?></h5>
@@ -73,12 +100,28 @@
                                     <p class="m-0 p-0 text-muted"> วันที่สั่งซื้อ :<?= $order->created_at ?></p>
                                 </td>
                                 <td class="w-10 p-3">
-                                    <small class="badge badge-primary">ชำระเงินเรียบร้อย</small>
+                                    <?php
+                                    if ($order->status == 0) {
+                                        echo '<div class="text-danger">ยกเลิก</div>';
+                                    }
+                                    if ($order->status == 1) {
+                                        echo '<div class="text-warning">รอการชำระเงิน</div>';
+                                    }
+                                    if ($order->status == 2) {
+                                        echo '<div class="text-primary">ชำระเงินแล้ว</div>';
+                                    }
+                                    if ($order->status == 3) {
+                                        echo '<div class="text-muted">กำลังดำเนินการ</div>';
+                                    }
+                                    if ($order->status == 4) {
+                                        echo '<div class="text-success">จัดส่งแล้ว</div>';
+                                    }
+                                    ?>
                                 </td>
 
                                 <td class="actions w-30">
-                                    <a href="<?= $this->Url->build(['controller' => 'Orders', 'action' => 'edit', $order->id]) ?>" type="button" class=" p-1 text-muted">อัพเดต</a>
-                                    <a href="<?= $this->Url->build(['controller' => 'Orders', 'action' => 'view', $order->id]) ?>" class="p-1 text-primary">ดูข้อมูล</a>
+                                    <a href="<?= $this->Url->build(['controller' => 'Orders', 'action' => 'edit', $order->id]) ?>" type="button" class=" p-1 text-muted"><i class="fa-solid fa-pen-to-square"></i> </a>
+                                    <a href="<?= $this->Url->build(['controller' => 'Orders', 'action' => 'view', $order->id]) ?>" class="p-1 text-primary"><i class="fas fa-circle-info"></i> </a>
                                 </td>
                             </tr>
                         <?php endforeach ?>
@@ -94,7 +137,7 @@
 
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+<!-- <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -136,12 +179,16 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 
 <script>
     $(document).ready(function() {
         var t = $('#ordersTable').DataTable({
             responsive: true,
+            "order": [
+                [0, 'desc'],
+                [1, 'desc']
+            ]
         });
 
     });

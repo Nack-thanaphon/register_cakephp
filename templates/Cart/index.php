@@ -1,5 +1,5 @@
 <div class="container">
-    <div class="row my-3">
+    <div class="row m-1 my-3">
         <div class="col-12  py-3">
 
             <h1>ตะกร้าสินค้า</h1>
@@ -19,8 +19,8 @@
                 <p class="p-0 m-0"></p>
                 <table>
                     <tr class="m-0 p-0">
-                        <th colspan="4">รายการ</th>
-                        <th class="text-right">จำนวน</th>
+                        <th colspan="4" class="text-muted">รายการ</th>
+                        <th class="text-right text-muted">จำนวน</th>
                     </tr>
                     <hr>
                     <tbody id="tbody_precal">
@@ -50,7 +50,6 @@
                 type: "GET",
                 dataType: "json", // added data type
                 success: function(result) {
-                    console.log(result);
                     let productItem = "";
                     for (i = 0; i < result.length; i++) {
                         productData = result[i];
@@ -62,9 +61,11 @@
                             <img class="border-full" src="<?php echo $this->Url->build('${result[i].image}', ['fullBase' => true]); ?>">
                             <div class="card-body p-1">
                                 <small>${result[i].title}</small>
-                                <h5 class="text-primary mt-1 m-0 p-0" >35.00 บาท/ชิ้น </h5>
-                                <small class="text-muted">ขายแล้ว 1000 ชิ้น</small>
-                                <a class="btn btn-primary p-1 w-100 mt-1" onclick="select_product(${result[i].id},'${name}','${result[i].image}',${result[i].id})">เพิ่มในตะกร้าสินค้า</a>
+                                <div class="text-right m-0 p-0">
+                                <h5 class="text-primary mt-1 m-0 p-0 ">${result[i].price} บาท/ชิ้น </h5>
+                                <small class="text-muted text-right m-0 p-0">ในคลัง ${result[i].total} ชิ้น</small>
+                                </div>
+                                <a class="btn btn-primary p-1 w-100 mt-1" onclick="select_product(${result[i].id},'${name}','${result[i].image}',${result[i].price})">เพิ่มในตะกร้าสินค้า</a>
                             </div>
                         </div>
                     </div>`;
@@ -141,16 +142,16 @@
                     html +=
                         `<tr id="precal${data.id}">
                         <td colspan="4">- ${data.name}</td>
-                        <td>${data.count}</td>
+                        <td class="text-right">${data.count}</td>
                     </tr>`
                     $('#tbody_precal').html(html)
                     $('#precal_sum').html(numberWithCommas((precal_sum).toFixed(2)) + ' บาท')
-                    $('#price').val(numberWithCommas((precal_sum).toFixed(2)))
+                    $('#price').val(precal_sum)
                 }
                 if (data.count <= 0) {
                     $("#precal" + data.id).remove();
                     $('#precal_sum').html(numberWithCommas((precal_sum).toFixed(2)))
-                    $('#price').val(numberWithCommas((precal_sum).toFixed(2)))
+                    $('#price').val(precal_sum)
 
 
                 }
@@ -173,12 +174,10 @@
         function gotoPayment() {
 
             let totalprice = $('#price').val()
-
             $.ajax({
                 type: 'POST',
                 url: '<?php echo $this->Url->build(['controller' => 'cart', 'action' => 'add']); ?>',
                 data: {
-                    user_id: 1,
                     totalprice: totalprice,
                     c_detail: JSON.stringify(cart_list),
                 },
@@ -186,8 +185,8 @@
                     'X-CSRF-token': $('meta[name="csrfToken"]').attr('content')
                 },
                 success: function(res) {
-
                     let resp = JSON.parse(res)
+                    localStorage.setItem("orders_token", resp.orders_token);
                     if (resp.result = 200) {
                         Swal.fire({
                             position: 'center',
@@ -196,7 +195,18 @@
                             showConfirmButton: true,
                             confirmButtonText: 'ไปหน้าชำระเงิน',
                         }).then((result) => {
-                            window.location.href = `<?= $this->Url->build(['action' => 'payment']) ?>/${resp.cart_token}`
+                            window.location.href = `<?= $this->Url->build(['Prefix' => 'customer', 'controller' => 'dashboard', 'action' => 'payment']) ?>/${resp.cart_token}`
+                        })
+                    }
+                    if (resp.result = 304) {
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'success',
+                            title: 'กรุณาเข้าสู่ระบบ',
+                            showConfirmButton: true,
+                            confirmButtonText: 'ไปหน้าเข้าสู่ระบบ',
+                        }).then((result) => {
+                            window.location.href = "<?= $this->Url->build(['controller' => 'users', 'action' => 'login']) ?>"
                         })
                     }
                 }

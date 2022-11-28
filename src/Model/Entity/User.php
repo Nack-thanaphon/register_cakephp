@@ -13,7 +13,8 @@ use Cake\ORM\Entity;
  * @property string $email
  * @property int $user_type_id
  * @property int $user_role_id
- * @property string $image
+ * @property string|null $address
+ * @property string|null $image
  * @property string $password
  * @property string $token
  * @property string $verified
@@ -40,6 +41,7 @@ class User extends Entity
         'email' => true,
         'user_type_id' => true,
         'user_role_id' => true,
+        'address' => true,
         'image' => true,
         'password' => true,
         'token' => true,

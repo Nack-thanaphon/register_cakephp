@@ -30,6 +30,7 @@ class ApiController extends AppController
                 'title' => 'products.p_title',
                 'type' => 'p.pt_name',
                 'price' => 'products.p_price',
+                'total' => 'products.p_total',
                 'status' => 'products.status',
                 'user' => 's.name',
                 'date' => 'products.p_created_at',

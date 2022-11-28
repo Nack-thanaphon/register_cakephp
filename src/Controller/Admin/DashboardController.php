@@ -14,20 +14,23 @@ class DashboardController extends AppController
     {
         $countProduct =  $this->Custom->countProduct();
         $countBranch =  $this->Custom->countBranch();
-
         $orderstable = TableRegistry::getTableLocator()->get('Orders');
 
         $ordersData = [];
         $ordersToday =  $orderstable->find()
-            ->contain([
-                'Users'
+            ->contain(['Users'])
+            ->where([
+                'orders_user_id is NOT' => NULL
             ])
-            ->limit(5)
             ->order([
-                'orders_code' => 'DESC'
-            ]);
+                'Orders.id' => 'DESC'
+            ])
+            ->limit(4);
 
+            
         $this->set(compact('countProduct', 'countBranch', 'ordersToday'));
+
+        // pr($ordersToday);die;
     }
 
 

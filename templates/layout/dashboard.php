@@ -29,6 +29,7 @@ $cakeDescription = 'FarmByMOM | ';
     <script src="https://www.gstatic.com/firebasejs/7.22.1/firebase-firestore.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.ckeditor.com/4.20.0/standard/ckeditor.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet" />
 
 
 
@@ -81,8 +82,11 @@ $cakeDescription = 'FarmByMOM | ';
         <?= $this->Html->script("plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"); ?>
         <?= $this->Html->script("plugins/summernote/summernote-bs4.min.js"); ?>
         <?= $this->Html->script("overlayScrollbars.min.js"); ?>
+
         <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
         <script src="https://cdn.datatables.net/responsive/2.4.0/js/dataTables.responsive.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
+
         <script>
             $.widget.bridge('uibutton', $.ui.button)
         </script>

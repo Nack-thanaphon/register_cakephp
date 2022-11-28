@@ -121,7 +121,7 @@
             cancelButtonText: 'ยกเลิก'
         }).then((result) => {
             if (result.isConfirmed) {
-                window.location.href = '<?= $this->Url->build(['prefix' => 'Admin', 'controller' => 'users', 'action' => 'logout']) ?>'
+                window.location.href = '<?= $this->Url->build(['prefix' => false, 'controller' => 'users', 'action' => 'logout']) ?>'
             }
         })
     }

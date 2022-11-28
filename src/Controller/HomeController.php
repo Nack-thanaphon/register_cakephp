@@ -10,7 +10,7 @@ class HomeController extends AppController
 
     public function index()
     {
-
+       
         $posttable = TableRegistry::getTableLocator()->get('Posts');
         $producttable = TableRegistry::getTableLocator()->get('Products');
 
@@ -49,9 +49,10 @@ class HomeController extends AppController
                 'd.cover =' => 1,
                 'posts.p_status =' => 1
 
-            ])
-            ->group('id,title,image')
-            ->toArray();
+            ])->order([
+                'posts.id' => 'DESC'
+            ])->limit(3)->toArray();
+
 
         $Products = $producttable->find()
             ->select([
@@ -88,10 +89,10 @@ class HomeController extends AppController
                 'products.status' => 1,
                 'd.cover' => 1,
                 'd.status' => 1
-            ])
-            ->group('id,title')
-            ->toArray();
-            
+            ])->order([
+                'products.p_id' => 'DESC'
+            ])->limit(3)->toArray();
+
         $this->set(compact('Products'));
         $this->set('posts', $post);
     }

@@ -51,6 +51,7 @@ class PostsTable extends Table
         $this->belongsTo('Users', [
             'foreignKey' => 'p_user_id',
         ]);
+      
     }
 
     /**

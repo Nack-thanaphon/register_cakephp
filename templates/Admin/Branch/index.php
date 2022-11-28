@@ -1,3 +1,8 @@
+<style>
+    iframe{
+        width: 100%;
+    }
+</style>
 <div class="container-fluid">
     <div class="row my-3">
 
@@ -8,7 +13,7 @@
                     <h4>สาขา <span id="mb_name"></span> </h4>
                     <small>เบอร์โทร <span id="mb_phone"></span></small> <br>
                     <label for="mb_map">ตำแหน่งร้าน </label><br>
-                    <iframe id="mb_map" width="100%" height="450" style="border:0;" allowfullscreen="true" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> <br>
+                    <div class="w-100" id="mb_map"></div>
                     <a href="#" id="mb_link" target="blank">ไปที่ร้านค้า</a>
                 </div>
             </div>
@@ -25,6 +30,11 @@
                     <div class="input-group mb-3">
                         <select class="custom-select" name="b_province" id="province">
                             <option value="เชียงใหม่">เชียงใหม่</option>
+                            <option value="กรุงเทพมหานคร">กรุงเทพมหานคร</option>
+                            <option value="อยุธยา">อยุธยา</option>
+                            <option value="นครปฐม">นครปฐม</option>
+                            <option value="น่าน">น่าน</option>
+                            <option value="ลำปาง">ลำปาง</option>
                         </select>
                     </div>
                     <div class="input-group mb-3">
@@ -63,16 +73,15 @@
     let link = []
     sidebar()
 
-    function filterData(name, map, phone, link) {
-
+    function filterData(name, i, phone, link) {
         $("#mb_name").text(name ? name : "ไมมีข้อมูล")
         $("#mb_phone").text(phone ? phone : "ไมมีข้อมูล")
         // $("#mb_email").text(email ? email : "ไมมีข้อมูล")
         $("#mb_link").attr('href', link)
-        $("#mb_map").attr('src', map)
+        $("#mb_map").html(branchglobal[i].map)
     }
 
-
+    var branchglobal = '';
     function sidebar() {
         $.ajax({
             url: "<?= $this->Url->build(['controller' => 'Branch', 'action' => 'index']) ?>",
@@ -84,6 +93,7 @@
             success: function(resp) {
                 let branchData2 = ''
                 let Branch = resp.Branch1
+                branchglobal = Branch;
                 var j = 0;
                 for (i = 0; i < Branch.length; i++) {
                     // html += `<option value="${Branch[i]['province']}">${Branch[i]['province']}</option>`
@@ -93,7 +103,7 @@
                         #${Branch[i]['name']}
                     </a>
                     <div>
-                        <i id="view${i}" class="far fa-eye" onclick="filterData('${Branch[i]['name']}','${Branch[i]['map']}','${Branch[i]['phone']}','${Branch[i]['link']}')"></i>
+                        <i id="view${i}" class="far fa-eye" onclick="filterData('${Branch[i]['name']}','${i}','${Branch[i]['phone']}','${Branch[i]['link']}')"></i>
                         <i class="far fa-edit" onclick="editbranch(${Branch[i]['id']})"></i>
                     </div>
                 </li>`
@@ -191,7 +201,7 @@
     function deletebranch(id) {
         Swal.fire({
             title: 'คุณแน่ใจใช่ไหม?',
-            text: "คุณต้องการลบข้อมูล "+id+ " ใช่ไหม !",
+            text: "คุณต้องการลบข้อมูล " + id + " ใช่ไหม !",
             icon: 'warning',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',

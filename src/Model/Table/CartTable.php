@@ -1,11 +1,11 @@
 <?php
-
 declare(strict_types=1);
 
 namespace App\Model\Table;
 
+use Cake\ORM\Query;
+use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
-
 use Cake\Validation\Validator;
 
 /**
@@ -43,9 +43,8 @@ class CartTable extends Table
         $this->setDisplayField('c_id');
         $this->setPrimaryKey('c_id');
 
-        $this->belongsTo('Products', [
-            'foreignKey' => 'c_id',
-            'joinType' => 'INNER'
+        $this->hasMany('Cartitem', [
+            'foreignKey' => 'cart_id',
         ]);
     }
 
@@ -59,8 +58,8 @@ class CartTable extends Table
     {
         $validator
             ->scalar('c_detail')
-            ->requirePresence('c_detail')
-            ->allowEmptyString('c_detail');
+            ->requirePresence('c_detail', 'create')
+            ->notEmptyString('c_detail');
 
         $validator
             ->integer('c_user_id')

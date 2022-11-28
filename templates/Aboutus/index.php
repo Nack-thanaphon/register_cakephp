@@ -1,3 +1,6 @@
+<?php $this->assign('title','ธุรกิจของเรา'); ?>
+
+
 <div class="jumbotron jumbotron-fluid bg-success">
     <div class="container ">
         <?= $this->element('/component/breadcrumb') ?>

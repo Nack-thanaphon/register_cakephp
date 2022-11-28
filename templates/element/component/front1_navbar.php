@@ -3,7 +3,8 @@
     <img src="<?= $this->Url->image('logo.png') ?> " width="50" height="50" alt="">
   </a>
   <div class="btn-group d-lg-none" role="group" aria-label="Basic example">
-    <a href="<?= $this->Url->build(['controller' => 'cart', 'action' => 'index']) ?>" type="button" class="btn btn-muted text-white">สั่งซื้อสินค้า</a>
+    <a href="<?= $this->Url->build(['prefix' => false, 'controller' => 'cart', 'action' => 'index']) ?>" type="button" class="btn btn-muted text-white">สั่งซื้อสินค้า</a>
+
     <button type="button" class="btn btn-tranparent" data-toggle="collapse" data-target="#navbarSupportedContent"><i class="fas fa-bars"></i></button>
   </div>
 
@@ -30,14 +31,13 @@
       </li>
 
       <li class="nav-item d-sm-none d-block">
-        <a class="nav-link text-white" href="<?= $this->Url->build(['prefix' => 'Admin', 'controller' => 'users', 'action' => 'login']) ?>" class="m-1 text-muted">เข้าสู่ระบบ</a>
+        <a class="nav-link text-white" href="<?= $this->Url->build(['prefix' => false, 'controller' => 'users', 'action' => 'login']) ?>" class="m-1 text-muted">เข้าสู่ระบบ</a>
       </li>
 
     </ul>
     <div class=" d-none d-lg-flex justify-content-end col-12 col-sm-4 col-md-12 col-lg-4 m-0 p-0 mt-2 mt-sm-0">
       <!-- <div class="my-auto"><i class="fas fa-cart-arrow-down"><span></span></i></div> -->
-      <a href="<?= $this->Url->build(['controller' => 'cart', 'action' => 'index']) ?>" class="btn btn-success  m-1 d-sm-block d-none">สั่งซื้อสินค้า</a>
-      <a class="nav-link   my-auto text-white" data-toggle="dropdown" href="<?= $this->Url->build(['prefix' => false, 'controller' => 'carts', 'action' => 'index']) ?>">
+      <a href="<?= $this->Url->build(['prefix' => false,'controller' => 'cart', 'action' => 'index']) ?>" type="button" class="btn btn-muted text-white">สั่งซื้อสินค้า</a>      <a class="nav-link   my-auto text-white" data-toggle="dropdown" href="<?= $this->Url->build(['prefix' => false, 'controller' => 'carts', 'action' => 'index']) ?>">
         <i class="fas fa-cart-shopping"></i>
         <span class="badge badge-danger navbar-badge" id="cart_total"></span>
       </a>

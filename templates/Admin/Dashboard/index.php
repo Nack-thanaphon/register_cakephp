@@ -1,50 +1,62 @@
+<?php $this->assign('title','หน้าหลัก'); ?>
+
 <div class="row  m-0 py-3 p-0">
     <div class="col-12 col-md-12 col-lg-12 p-3">
         <h3>หน้าหลัก</h3>
     </div>
     <div class="col-12 col-md-12 col-lg-8 ">
         <div class="row m-0 p-0">
+            <div class="col-12 col-lg-4 m-0  ">
+                <div class="mb-2 p-3 m-0 p-0 rounded card ">
+                    <div class="row m-0 p-0 ">
+                        <div class="m-0 p-0 col-3 text-center text-primary m-auto">
+                            <h1 class="fas fa-credit-card m-0 p-0 "></h1>
+                        </div>
+                        <div class=" col-9 my-auto">
+                            <p class="m-0 p-0 text-muted"></i>จำนวนยอดขายทั้งหมด</p>
+                            <h4 class="mt-2"><?= number_format((float)100000) ?>
+                                <span>
+                                    <small>/ บาท</small>
+                                </span>
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="col-12  col-lg-4 m-0">
-                <div class="d-none d-sm-block card p-2 mb-2  m-0 py-2 rounded bg-primary">
-                    <div class="card-header m-0 p-0 text-center">
-                        <p class="mb-2 "><i class="fas fa-credit-card p-1" style="font-size: 1.5rem ;"></i>จำนวนยอดขายทั้งหมด</p>
+                <div class="mb-2 p-3 m-0 p-0 rounded card ">
+                    <div class="row m-0 p-0 ">
+                        <div class="m-0 p-0 col-3 text-center text-primary m-auto">
+                            <h1 class="fas fa-user-friends m-0 p-0"></h1>
+                        </div>
+                        <div class=" col-9 my-auto">
+                            <p class="m-0 p-0 text-muted">จำนวนสินค้าทั้งหมด</p>
+                            <h4 class="mt-2"><?= $countProduct ?>
+                                <span>
+                                    <small>/ รายการ</small>
+                                </span>
+                            </h4>
+                        </div>
                     </div>
-                    <h5 class="  pt-2 text-center text-sm-right">
-                        <?= number_format((float)100000) ?> <span><small>/ บาท</small></span>
-                        <!-- <?= number_format((float)$this->Custom->countBalance()) ?> <span><small>/ บาท</small></span> -->
-                    </h5>
-                </div>
-                <!-- mobile -->
-                <div class="d-sm-none d-block card p-2 mb-2  m-0 py-2 rounded bg-primary">
-                    <div class="card-header m-0 p-0 text-start p-1">
-                        <h5 class="mb-2 "><i class="fas fa-credit-card p-1" style="font-size: 1.5rem ;"></i> จำนวนยอดขายทั้งหมด</h5>
-                    </div>
-                    <h1 class="-sm  pt-2 text-start p-1">
-                        <?= number_format((float)100000) ?> <span><small>/ บาท</small></span>
-                        <!-- <?= number_format((float)$this->Custom->countBalance()) ?> <span><small>/ บาท</small></span> -->
-                    </h1>
                 </div>
             </div>
-            <div class="col-6  col-lg-4 m-0">
-                <div class="card p-2 mb-2  m-0 py-2 rounded ">
-                    <div class="card-header m-0 p-0 text-center">
+            <div class="col-12  col-lg-4 m-0">
+                <div class="mb-2 p-3 m-0 p-0 rounded card ">
+                    <div class="row m-0 p-0 ">
+                        <div class="m-0 p-0 col-3 text-center text-primary m-auto">
+                            <h1 class="fas fa-store m-0 p-0"></h1>
+                        </div>
+                        <div class=" col-9 my-auto">
+                            <p class="m-0 p-0 text-muted">จำนวนสาขาทั้งหมด</p>
+                            <h4 class="mt-2"><?= $countBranch ?>
+                                <span>
+                                    <small>/ สาขา</small>
+                                </span>
+                            </h4>
+                        </div>
+                    </div>
+                </div>
 
-                        <p class="mb-2 text-primary"> <i class="fas fa-user-friends p-1" style="font-size: 1.5rem ;"></i>จำนวนเมนูทั้งหมด</p>
-                    </div>
-                    <h5 class="pt-2 text-right">
-                        <?= $countProduct ?> <span><small>/ เมนู</small></span>
-                    </h5>
-                </div>
-            </div>
-            <div class="col-6  col-lg-4 m-0">
-                <div class="card p-2 mb-2  m-0 py-2 rounded ">
-                    <div class="card-header m-0 p-0 text-center">
-                        <p class="mb-2 text-primary"> <i class="fas fa-store p-1" style="font-size: 1.5rem ;"></i>จำนวนสาขาทั้งหมด</p>
-                    </div>
-                    <h5 class="pt-2 text-right">
-                        <?= $countBranch  ?> <span><small>/ สาขา</small></span>
-                    </h5>
-                </div>
             </div>
             <div class="col-12 ">
                 <div class="card card-primary h-100">
@@ -58,10 +70,10 @@
                                     <div class=""></div>
                                 </div>
                             </div>
-                            <div id="chart" class="h-100">
-                                <p class="text-primary">ยอดขายแบบรายปี</p>
-                            </div>
+                            <p class="text-primary">ยอดขายแบบรายปี 2565</p>
 
+                            <div id="chart" class="h-100">
+                            </div>
                         </div>
                     </div>
 
@@ -78,8 +90,7 @@
                 <table>
                     <tbody>
                         <?php
-                        // $order = $this->Custom->();
-                        if ($ordersToday) {
+                        if (!empty($ordersToday)) {
                             foreach ($ordersToday as $key => $value) : ?>
                                 <tr>
                                     <td colspan="2" class="pb-3">
@@ -88,7 +99,7 @@
 
                                     </td>
                                     <td colspan="1" class="text-right pb-3">
-                                        <p class="text-muted m-0 p-0"><?= $value->user['name'] ?></p>
+                                        <p class="text-muted m-0 p-0"><?= (!empty(($value->user['name']))) ? $value->user['name'] : "รอข้อมูลผู้ใช้งาน" ?></p>
                                         <?php
                                         $orderStatus = $value->status;
                                         if ($orderStatus == 0) {
@@ -106,7 +117,6 @@
                                         if ($orderStatus == 4) {
                                             echo '<div class="badge badge-success">จัดส่งแล้ว</div>';
                                         }
-
                                         ?>
                                     </td>
                                 </tr>
@@ -137,9 +147,9 @@
                             foreach ($posts as $key => $value) : ?>
                                 <tr>
                                     <td colspan="2" class="pb-2 ">
-                                        <small class="text-muted">ข่าวทั่วไป |<?= date('d-m-y') ?></small>
-                                        <p class="m-0 p-0"><?= $value->p_title ?></p>
-                                        <small class="text-muted">Nack | ผู้เขียน</small>
+                                        <small class="text-muted"><?= $value->posttype ?>|<?= $value->date ?></small>
+                                        <p class="m-0 p-0"><?= $value->title ?></p>
+                                        <small class="text-muted"><span class="text-dark"><?= $value->user ?></span>|<?= $value->userrole ?></small>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
@@ -170,10 +180,23 @@
             },
             series: [{
                 name: 'sales',
-                data: [30, 40, 45, 50, 49, 60, 70, 91, 125]
+                data: [30, 40, 45, 50, 49, 60, 450, 91, 125]
             }],
             xaxis: {
-                categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999]
+                categories: [
+                    "มกราคม",
+                    "กุมภาพันธ์",
+                    "มีนาคม",
+                    "เมษายน",
+                    "พฤษภาคม",
+                    "มิถุนายน",
+                    "กรกฎาคม",
+                    "สิงหาคม",
+                    "กันยายน",
+                    "ตุลาคม",
+                    "พฤศจิกายน",
+                    "ธันวาคม",
+                ]
             }
         }
 

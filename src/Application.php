@@ -1,18 +1,5 @@
 <?php
 
-/**
- * CakePHP(tm) : Rapid Development Framework (https://cakephp.org)
- * Copyright (c) Cake Software Foundation, Inc. (https://cakefoundation.org)
- *
- * Licensed under The MIT License
- * For full copyright and license information, please see the LICENSE.txt
- * Redistributions of files must retain the above copyright notice.
- *
- * @copyright Copyright (c) Cake Software Foundation, Inc. (https://cakefoundation.org)
- * @link      https://cakephp.org CakePHP(tm) Project
- * @since     3.3.0
- * @license   https://opensource.org/licenses/mit-license.php MIT License
- */
 
 namespace App;
 
@@ -102,10 +89,10 @@ implements AuthenticationServiceProviderInterface
             ]))
             ->add(new \ADmad\I18n\Middleware\I18nMiddleware([
                 'detectLanguage' => true,
-                'defaultLanguage' => 'th',
+                'defaultLanguage' => 'en',
                 'languages' => [
-                    'en' => ['locale' => 'en_US'],
-                    'th' => ['locale' => 'th_TH']
+                    'en' => ['locale' => 'en'],
+                    'th' => ['locale' => 'th']
                 ],
             ]));
 
@@ -143,36 +130,27 @@ implements AuthenticationServiceProviderInterface
     public function getAuthenticationService(ServerRequestInterface $request): AuthenticationServiceInterface
     {
         $authenticationService = new AuthenticationService([
-            'unauthenticatedRedirect' =>
-            [
-                "prefix" => "Admin",
-                "controller" => "Users",
-                "Action" => "login",
-            ],
+            'unauthenticatedRedirect' => Router::url('/login'),
             'queryParam' => 'redirect',
         ]);
 
         // Load identifiers, ensure we check email and password fields
         $authenticationService->loadIdentifier('Authentication.Password', [
-            'fields' => ['username' => 'email', 'password' => 'password'],
-            'scope' => ['verified' => '1'],
-            'userModel' => 'Users'
+            'fields' => [
+                'username' => 'email',
+                'password' => 'password',
+            ],
         ]);
 
         // Load the authenticators, you want session first
         $authenticationService->loadAuthenticator('Authentication.Session');
         // Configure form data check to pick email and password
         $authenticationService->loadAuthenticator('Authentication.Form', [
-            'fields' => ['username' => 'email', 'password' => 'password'],
-            'scope' => ['verified' => '1'],
-            'userModel' => 'Users',
-            'loginUrl' =>  Router::url(
-                [
-                    "prefix" => "Admin",
-                    "controller" => "Users",
-                    "Action" => "login",
-                ]
-            )
+            'fields' => [
+                'username' => 'email',
+                'password' => 'password',
+            ],
+            'loginUrl' => Router::url('/login'),
         ]);
 
         return $authenticationService;

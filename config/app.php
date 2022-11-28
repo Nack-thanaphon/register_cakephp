@@ -50,7 +50,7 @@ return [
     'App' => [
         'namespace' => 'App',
         'encoding' => env('APP_ENCODING', 'UTF-8'),
-        'defaultLocale' => env('APP_DEFAULT_LOCALE', 'en_US'),
+        'defaultLocale' => env('APP_DEFAULT_LOCALE', 'th'),
         'defaultTimezone' => env('APP_DEFAULT_TIMEZONE', 'UTC'),
         'base' => false,
         'dir' => 'src',
@@ -299,6 +299,7 @@ return [
             'driver' => Mysql::class,
             'persistent' => false,
             'timezone' => 'UTC',
+            'encoding' => 'utf8mb4', 
 
             /*
                 * For MariaDB/MySQL the internal default changed from utf8 to utf8mb4, aka full utf-8 support, in CakePHP 3.6
@@ -410,5 +411,13 @@ return [
      */
     'Session' => [
         'defaults' => 'php',
+        'ini' => array(
+            'session.cookie_secure' => false,
+            // 'session.cookie_domain' => '.local'
+        ),
+        'cookie' => 'session',
+        'timeout' => 31536000, // auto logout after 480 minutes or 8 hourse
+        'cookieTimeout' => 31536000, // session cookie 24 hours
+        //'autoRegenerate' => true// regenerate session
     ],
 ];

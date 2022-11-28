@@ -1,11 +1,14 @@
 <nav class="main-header navbar navbar-expand navbar-white navbar-light">
   <!-- Left navbar links -->
+  <a class="nav-link" href="<?= $this->Url->build(['prefix' => false, 'controller' => 'Home', 'action' => 'index']) ?>" target="blank" >
+    กลับไปหน้าหลัก
+  </a>
 
 
   <!-- Right navbar links -->
   <ul class="navbar-nav ml-auto">
     <!-- Navbar Search -->
-    <li class="nav-item">
+    <!-- <li class="nav-item">
       <a class="nav-link" data-widget="navbar-search" href="#" role="button">
         <i class="fas fa-search"></i>
       </a>
@@ -24,15 +27,9 @@
           </div>
         </form>
       </div>
-    </li>
+    </li> -->
 
-    <!-- Messages Dropdown Menu -->
-    <li class="nav-item dropdown">
 
-      <a class="nav-link" href="<?= $this->Url->build(['prefix' => false, 'controller' => 'Home', 'action' => 'index']) ?>" target="blank">
-        <i class="fas fa-home"></i>
-      </a>
-    </li>
     <!-- Notifications Dropdown Menu -->
     <li class="nav-item dropdown">
       <a class="nav-link" data-toggle="dropdown" href="#">

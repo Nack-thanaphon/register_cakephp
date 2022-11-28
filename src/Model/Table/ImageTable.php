@@ -50,6 +50,9 @@ class ImageTable extends Table
         $this->belongsTo('Products', [
             'foreignKey' => 'product_id',
         ]);
+        $this->belongsTo('Orders', [
+            'foreignKey' => 'order_id',
+        ]);
     }
 
     /**
@@ -61,10 +64,16 @@ class ImageTable extends Table
     public function validationDefault(Validator $validator): Validator
     {
         $validator
+            ->integer('post_id')
             ->allowEmptyString('post_id');
 
         $validator
+            ->integer('product_id')
             ->allowEmptyString('product_id');
+
+        $validator
+            ->integer('order_id')
+            ->allowEmptyString('order_id');
 
         $validator
             ->scalar('name')
@@ -72,15 +81,20 @@ class ImageTable extends Table
             ->notEmptyString('name');
 
         $validator
-            ->boolean('status')
-            ->allowEmptyString('status');
+            ->requirePresence('status', 'create')
+            ->notEmptyString('status');
 
         $validator
-            ->allowEmptyString('cover');
+            ->requirePresence('cover', 'create')
+            ->notEmptyString('cover');
 
         $validator
             ->dateTime('created_at')
             ->notEmptyDateTime('created_at');
+
+        $validator
+            ->dateTime('updated_at')
+            ->allowEmptyDateTime('updated_at');
 
         return $validator;
     }
@@ -96,6 +110,7 @@ class ImageTable extends Table
     {
         $rules->add($rules->existsIn('post_id', 'Posts'), ['errorField' => 'post_id']);
         $rules->add($rules->existsIn('product_id', 'Products'), ['errorField' => 'product_id']);
+        $rules->add($rules->existsIn('order_id', 'Orders'), ['errorField' => 'order_id']);
 
         return $rules;
     }

@@ -11,10 +11,12 @@ use Cake\ORM\Entity;
  * @property int $id
  * @property int|null $post_id
  * @property int|null $product_id
+ * @property int|null $order_id
  * @property string $name
- * @property bool|null $status
- * @property int|null $cover
+ * @property int $status
+ * @property int $cover
  * @property \Cake\I18n\FrozenTime $created_at
+ * @property \Cake\I18n\FrozenTime|null $updated_at
  *
  * @property \App\Model\Entity\Post $post
  * @property \App\Model\Entity\Product $product
@@ -33,10 +35,12 @@ class Image extends Entity
     protected $_accessible = [
         'post_id' => true,
         'product_id' => true,
+        'order_id' => true,
         'name' => true,
         'status' => true,
         'cover' => true,
         'created_at' => true,
+        'updated_at' => true,
         'post' => true,
         'product' => true,
     ];

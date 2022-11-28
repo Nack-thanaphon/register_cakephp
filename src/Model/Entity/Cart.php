@@ -15,6 +15,7 @@ use Cake\ORM\Entity;
  * @property \Cake\I18n\FrozenTime $c_created_at
  * @property \Cake\I18n\FrozenTime $c_updated_at
  *
+ * @property \App\Model\Entity\Product $product
  * @property \App\Model\Entity\Cartitem[] $cartitem
  */
 class Cart extends Entity
@@ -34,6 +35,7 @@ class Cart extends Entity
         'c_status' => true,
         'c_created_at' => true,
         'c_updated_at' => true,
+        'product' => true,
         'cartitem' => true,
     ];
 }

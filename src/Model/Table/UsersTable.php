@@ -40,7 +40,6 @@ class UsersTable extends Table
         $this->setTable('users');
         $this->setDisplayField('name');
         $this->setPrimaryKey('id');
-        
         $this->belongsTo('UsersRole', [
             'foreignKey' => 'user_role_id',
             'joinType' => 'INNER'
@@ -81,9 +80,12 @@ class UsersTable extends Table
             ->notEmptyString('user_role_id');
 
         $validator
+            ->scalar('address')
+            ->allowEmptyString('address');
+
+        $validator
             ->scalar('image')
-            ->requirePresence('image', 'create')
-            ->notEmptyFile('image');
+            ->allowEmptyFile('image');
 
         $validator
             ->scalar('password')

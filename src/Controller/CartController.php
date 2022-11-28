@@ -9,6 +9,7 @@ use Cake\ORM\TableRegistry;
 use Cake\Mailer\TransportFactory;
 use Cake\ORM\Locator\TableLocator;
 
+
 /**
  * Cart Controller
  *
@@ -68,29 +69,48 @@ class CartController extends AppController
             // get values here 
             $cdetail = $this->request->getData('c_detail');
             $totalprice = $this->request->getData('totalprice');
+            $uniqueId = time();
             $cart->c_detail = $cdetail;
             $carttable->save($cart);
-
-
-            $uniqueId = time();
+            $UserData = $this->GetUserDataSesion();
             $mytoken = Security::hash(Security::randomBytes(32));
-            $orders = $ordertable->patchEntity($orders, array(
-                "orders_code" => $uniqueId,
-                "orders_token" => $mytoken,
-                "orders_user_id" => 1,
-                "orders_admin_id" => 1,
-                "orders_detail" => $cdetail,
-                "total_price" => $totalprice,
-                "status" => 1,
 
-            ));
-            $ordertable->save($orders);
+            if (!empty($UserData)) {
+                $orders = $ordertable->patchEntity($orders, array(
+                    "orders_code" => $uniqueId,
+                    "orders_token" => $mytoken,
+                    "orders_user_id" => $UserData['id'],
+                    "orders_detail" => $cdetail,
+                    "total_price" => $totalprice,
+                    "status" => 1,
+                ));
+                $ordertable->save($orders);
+                $this->sendLineNotify();
+                echo json_encode(array(
+                    'orders_token' => $mytoken,
+                    'status' => 'goto_payment',
+                    'result' => 200
+                ));
+                die;
+            } else {
+                $orders = $ordertable->patchEntity($orders, array(
+                    "orders_code" => $uniqueId,
+                    "orders_token" => $mytoken,
+                    "orders_user_id" => NULL,
+                    "orders_detail" => $cdetail,
+                    "total_price" => $totalprice,
+                    "status" => 1,
+                ));
 
-            echo json_encode(array(
-                'cart_token' => $mytoken,
-                'result' => 200
-            ));
-            die;
+                $ordertable->save($orders);
+                $this->sendLineNotify();
+                echo json_encode(array(
+                    'orders_token' => $mytoken,
+                    'status' => 'need_login',
+                    'result' => 304
+                ));
+                die;
+            }
         }
     }
 
@@ -112,13 +132,6 @@ class CartController extends AppController
         $this->set(compact('cart'));
     }
 
-    /**
-     * Delete method
-     *
-     * @param string|null $id Cart id.
-     * @return \Cake\Http\Response|null|void Redirects to index.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
     public function delete($id = null)
     {
         $this->request->allowMethod(['post', 'delete']);

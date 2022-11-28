@@ -1,3 +1,6 @@
+<?php $this->assign('title','สินค้า'); ?>
+
+
 <style>
     .product_card1:hover {
         border: 1px solid #ee4d2d;

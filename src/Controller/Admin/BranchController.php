@@ -80,7 +80,13 @@ class BranchController extends AppController
             $BranchData =  $BranchTable->patchEntity($BranchData, $this->request->getData());
 
             if ($BranchTable->save($BranchData)) {
-               
+                $responseData = ['success' => true];
+                $this->set('responseData', $responseData);
+                $this->set('_serialize', ['responseData']);
+            } else {
+                $responseData = ['success' => false];
+                $this->set('responseData', $responseData);
+                $this->set('_serialize', ['responseData']);
             }
         }
     }

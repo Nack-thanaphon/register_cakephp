@@ -35,18 +35,54 @@ class CustomComponent extends Component
         }
     }
 
+    public function getOrderStatus($orderId)
+    {
+
+        $Orderstable = TableRegistry::getTableLocator()->get('Orders');
+        $OdersData = $Orderstable->find()
+            ->where([
+                'id' => $orderId
+            ])->first();
+
+        $status = '';
+
+        if ($OdersData->status == 0) {
+            $status = 'ยกเลิก';
+        }
+        if ($OdersData->status == 1) {
+            $status = 'รอการชำระเงิน';
+        }
+        if ($OdersData->status == 2) {
+            echo 'ชำระเงินแล้ว';
+        }
+        if ($OdersData->status == 3) {
+            echo 'กำลังดำเนินการ';
+        }
+        if ($OdersData->status == 4) {
+            $status = 'จัดส่งแล้ว';
+        }
+
+        return $status;
+    }
 
     public function getPromotion()
     {
-        $table = TableRegistry::getTableLocator()->get('promotions');
+        $table = TableRegistry::getTableLocator()->get('Promotions');
         $promotion = $table->find('all');
         return $promotion;
     }
     public function getProductType()
     {
-        $table = TableRegistry::getTableLocator()->get('Productstype');
+        $table = TableRegistry::getTableLocator()->get('ProductsType');
         $Productstype = $table->find('all');
         return $Productstype;
+    }
+
+    public function getPostsType()
+    {
+        $table = TableRegistry::getTableLocator()->get('PostsType');
+        $getPostsType = $table->find('all');
+        return $getPostsType;
     }
     public function countProduct()
     {
@@ -67,6 +103,4 @@ class CustomComponent extends Component
         $countBranch = $table->find()->count();
         return $countBranch;
     }
-
-
 }

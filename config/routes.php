@@ -49,40 +49,59 @@ return static function (RouteBuilder $routes) {
 
     $routes->setRouteClass(DashedRoute::class);
 
+    $routes->connect('/', ['controller' => 'home', 'action' => 'index']);
     $routes->connect('/', ['controller' => 'home', 'action' => 'index'], ['routeClass' => 'ADmad/I18n.I18nRoute']);
-    $routes->connect('blogs', ['controller' => 'posts', 'action' => 'index'], ['routeClass' => 'ADmad/I18n.I18nRoute']);
-    $routes->connect('products', ['controller' => 'products', 'action' => 'index'], ['routeClass' => 'ADmad/I18n.I18nRoute']);
-    $routes->connect('ourBusiness', ['controller' => 'Aboutus', 'action' => 'index'], ['routeClass' => 'ADmad/I18n.I18nRoute']);
-    $routes->connect('ourCustomer', ['controller' => 'Aboutus', 'action' => 'ourcustomer'], ['routeClass' => 'ADmad/I18n.I18nRoute']);
-    $routes->connect('ourBranch', ['controller' => 'Aboutus', 'action' => 'ourbranch'], ['routeClass' => 'ADmad/I18n.I18nRoute']);
-    $routes->connect('AboutUs',  ['controller' => 'Aboutus', 'action' => 'aboutus'], ['routeClass' => 'ADmad/I18n.I18nRoute']);
-    $routes->connect('carts', ['controller' => 'cart', 'action' => 'index'], ['routeClass' => 'ADmad/I18n.I18nRoute']);
+    $routes->connect('/blogs', ['controller' => 'posts', 'action' => 'index'], ['routeClass' => 'ADmad/I18n.I18nRoute']);
+    $routes->connect('/products', ['controller' => 'products', 'action' => 'index'], ['routeClass' => 'ADmad/I18n.I18nRoute']);
+    $routes->connect('/business', ['controller' => 'aboutus', 'action' => 'index'], ['routeClass' => 'ADmad/I18n.I18nRoute']);
+    $routes->connect('/branch', ['controller' => 'aboutus', 'action' => 'ourbranch'], ['routeClass' => 'ADmad/I18n.I18nRoute']);
+    $routes->connect('/aboutUs',  ['controller' => 'aboutus', 'action' => 'aboutus'], ['routeClass' => 'ADmad/I18n.I18nRoute']);
+    $routes->connect('/cart', ['controller' => 'cart', 'action' => 'index'], ['routeClass' => 'ADmad/I18n.I18nRoute']);
+    $routes->connect('/customer', ['controller' => 'aboutus', 'action' => 'ourcustomer'], ['routeClass' => 'ADmad/I18n.I18nRoute']);
+    $routes->connect('/login', ['controller' => 'users', 'action' => 'login']);
+    $routes->connect('/logout', ['controller' => 'users', 'action' => 'logout']);
+    $routes->connect('/register', ['controller' => 'users', 'action' => 'register'], ['routeClass' => 'ADmad/I18n.I18nRoute']);
+    $routes->connect('/verification', ['controller' => 'Users', 'action' => 'verification'], ['routeClass' => 'ADmad/I18n.I18nRoute']);
+    $routes->connect('/resetpassword', ['controller' => 'users', 'action' => 'resetpassword'], ['routeClass' => 'ADmad/I18n.I18nRoute']);
+    $routes->connect('/forgetpassword', ['controller' => 'users', 'action' => 'forgetpassword'], ['routeClass' => 'ADmad/I18n.I18nRoute']);
     $routes->connect('api/product', ['controller' => 'api', 'action' => 'product']);
 
 
-    $routes->scope('/', function (RouteBuilder $builder) {
-        $builder->setextensions(['json']);
-        $builder->connect('/pages/*', 'Pages::display');
-        $builder->connect(
+
+
+
+    $routes->scope('/', function ($routes) {
+        $routes->setextensions(['json']);
+        $routes->connect(
             '/{controller}',
             ['action' => 'index'],
             ['routeClass' => 'ADmad/I18n.I18nRoute']
         );
-        $builder->connect(
+        $routes->connect(
             '/{controller}/{action}/*',
             [],
             ['routeClass' => 'ADmad/I18n.I18nRoute']
         );
-        $builder->fallbacks();
+
+        $routes->fallbacks();
     });
 
-    $routes->prefix('admin', function (RouteBuilder $routes) {
+    $routes->prefix('Customer', function (RouteBuilder $routes) {
+
+        $routes->connect('/', ['controller' => 'dashboard', 'action' => 'index']);
+        $routes->connect(
+            '/payment/{token}',
+            array('controller' => 'dashboard', 'action' => 'payment'),
+            array(
+                'pass' => array('token')
+            )
+        );
+        $routes->fallbacks(DashedRoute::class);
+    });
+    $routes->prefix('Admin', function (RouteBuilder $routes) {
+
         $routes->connect('/', ['controller' => 'dashboard', 'action' => 'index']);
         $routes->connect('/users', ['controller' => 'users', 'action' => 'index']);
-        $routes->connect('/users/register', ['controller' => 'users', 'action' => 'register']);
-        $routes->connect('/users/verification', ['controller' => 'Users', 'action' => 'verification']);
-        $routes->connect('/users/resetpassword', ['controller' => 'users', 'action' => 'resetpassword']);
-        $routes->connect('/users/forgetpassword', ['controller' => 'users', 'action' => 'forgetpassword']);
         $routes->connect('/posts', ['controller' => 'posts', 'action' => 'index']);
         $routes->connect('/postcover', ['controller' => 'posts', 'action' => 'postcover']);
         $routes->connect('/dashboard', ['controller' => 'dashboard', 'action' => 'index']);

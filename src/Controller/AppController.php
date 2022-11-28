@@ -4,15 +4,10 @@ namespace App\Controller;
 
 use Cake\Controller\Controller;
 use Cake\Event\EventInterface;
+use Cake\Http\Cookie\CookieCollection;
+use Cake\Http\Cookie\Cookie;
+use DateTime;
 
-/**
- * Application Controller
- *
- * Add your application-wide methods in the class below, your controllers
- * will inherit them.
- *
- * @link https://book.cakephp.org/4/en/controllers.html#the-app-controller
- */
 class AppController extends Controller
 {
 
@@ -20,14 +15,68 @@ class AppController extends Controller
     {
         parent::initialize();
         $this->loadComponent('RequestHandler');
-        $email = null;
-        $this->set('email', $email);
+        $this->loadComponent('Custom');
+        $this->loadComponent('Flash');
+        $this->loadComponent('Cookies');
+        $this->loadComponent('Authentication.Authentication');
+    }
+    // in src/Controller/AppController.php
+    public function beforeFilter(\Cake\Event\EventInterface $event)
+    {
+        parent::beforeFilter($event);
+        $this->Authentication->addUnauthenticatedActions([
+            'index',
+            'add',
+            'view',
+            'register',
+            'resetpassword',
+            'forgetpassword',
+            'product',
+            'ourcustomer',
+            'ourbranch',
+            'aboutus'
+        ]);
+        $result = $this->Authentication->getResult()->getData();
+        if (!empty($result)) {
+            $uid = $result['id'];
+            $userData =  $this->Custom->GetUserData($uid);
+            $this->set('userData', $userData);
+        }
     }
 
-    public function beforeFilter(EventInterface $event)
+
+    // public function CartNeedLogin($cart_Id = null,)
+    // {
+
+    //     if (!empty($cartId)) {
+    //         $cookies = (new Cookie('remember_me'))
+    //             ->withValue([
+    //                 'cart_id' => $cart_Id,
+    //                 'Date' => new DateTime('+1 year'),
+    //             ])
+    //             ->withExpiry(new DateTime('+1 year'))
+    //             ->withPath('/')
+    //             ->withDomain('example.com')
+    //             ->withSecure(false)
+    //             ->withHttpOnly(true);
+    //         $cookie = new CookieCollection([$cookies]);
+    //         $this->response->withCookieCollection($cookie);
+
+    //         $cookie->has('remember_me');
+    //         // Get the number of cookies in the collection
+
+    //         // Get a cookie instance
+    //         return  count($cookie['']);;
+    //     }
+    // }
+
+    public function GetUserDataSesion()
     {
-        $this->viewBuilder()->setLayout('default');
+        $session = $this->request->getSession();
+        $Userdata =  $session->read('userlogin');
+        return $Userdata;
     }
+
     public function sendLineNotify($message = "แจ้งเตือนรายการสั่งซื้อ")
     {
         $token = "7wJZPRrVxxw5bv0pw0EJspO8wQ6TYpF5Lhflftfsd7S"; // ใส่ Token ที่สร้างไว้

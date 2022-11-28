@@ -11,6 +11,8 @@ use Cake\Validation\Validator;
 /**
  * Orders Model
  *
+ * @property \App\Model\Table\ImageTable&\Cake\ORM\Association\HasMany $Image
+ *
  * @method \App\Model\Entity\Order newEmptyEntity()
  * @method \App\Model\Entity\Order newEntity(array $data, array $options = [])
  * @method \App\Model\Entity\Order[] newEntities(array $data, array $options = [])
@@ -40,6 +42,10 @@ class OrdersTable extends Table
         $this->setTable('orders');
         $this->setDisplayField('id');
         $this->setPrimaryKey('id');
+
+        $this->hasMany('Image', [
+            'foreignKey' => 'order_id',
+        ]);
         $this->belongsTo('Users', [
             'foreignKey' => 'orders_user_id',
         ]);
@@ -74,6 +80,14 @@ class OrdersTable extends Table
         $validator
             ->scalar('orders_detail')
             ->allowEmptyString('orders_detail');
+
+        $validator
+            ->scalar('delivery_service')
+            ->allowEmptyString('delivery_service');
+
+        $validator
+            ->scalar('delivery_code')
+            ->allowEmptyString('delivery_code');
 
         $validator
             ->decimal('total_price')

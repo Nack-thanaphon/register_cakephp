@@ -13,17 +13,27 @@ class OrdersController extends AppController
 
     public function index()
     {
-        $this->paginate = [
-            'contain' => [
-                'Users',
-            ],
-        ];
-        $orders = $this->paginate($this->Orders);
+        $ordersData = [];
+        $ordersToday =  $this->Orders->find()
+            ->contain(['Users'])
+            ->where([
+                'orders_user_id is NOT' => NULL
+            ])
+            ->order([
+                'Orders.id' => 'DESC'
+            ])
+            ->limit(5);
 
-        $time = strtotime('today');
+        $ordersAll =  $this->Orders->find()
+            ->contain(['Users'])
+            ->where([
+                'orders_user_id is NOT' => NULL
+            ])
+            ->order([
+                'Orders.id' => 'DESC'
+            ]);
 
-
-        $this->set(compact('orders'));
+        $this->set(compact('ordersToday', 'ordersAll'));
     }
 
     public function view($id = null)
@@ -123,7 +133,7 @@ class OrdersController extends AppController
                 'cover' => 1,
                 'status' => 1
             ])->order([
-                'product_id'=> 'ASC'
+                'product_id' => 'ASC'
             ])
             ->toArray();
 
@@ -131,20 +141,25 @@ class OrdersController extends AppController
         foreach ($ProductsData as $key => $rowData) {
 
             $OrdersData[] = ([
-                'id' => $order['orders_code'],
+                'id' => $order['id'],
+                'orders_code' => $order['orders_code'],
+                'orders_token' => $order['orders_token'],
                 'title' => $rowData['p_title'],
+                'delivery_service' => $order['delivery_service'],
+                'delivery_code' => $order['delivery_code'],
                 'p_id' => $rowData['p_id'],
                 'product_id' => $imageData[$key]['product_id'],
                 'date' => $order['updated_at'],
+                'status' => $order['status'],
                 'image' => $imageData[$key]['name'],
                 'price' => $itemPrice[$key],
                 'Total_price' => array_sum($itemPrice),
-                'status' => $itemPrice[$key],
                 'total' => $itemCount[$key]
             ]);
         }
 
 
+        // pr($OrdersData);die;
         if ($this->request->is(['patch', 'post', 'put'])) {
             $order = $this->Orders->patchEntity($order, $this->request->getData());
             if ($this->Orders->save($order)) {
@@ -158,13 +173,34 @@ class OrdersController extends AppController
         $this->set(compact('order', 'users', 'OrdersData'));
     }
 
-    /**
-     * Delete method
-     *
-     * @param string|null $id Order id.
-     * @return \Cake\Http\Response|null|void Redirects to index.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
+    public function updateStatus()
+    {
+        if ($this->request->is('post')) {
+            $orders_id = $this->request->getData('orders_id');
+            $orders_token = $this->request->getData('orders_token');
+            $status = $this->request->getData('status');
+            $delivery_service = $this->request->getData('delivery_service');
+            $delivery_code = $this->request->getData('delivery_code');
+
+            if (!empty($orders_id)) {
+                $OrdeStatusUpdate = $this->Orders->newEmptyEntity();
+                $OrdeStatusUpdate->id = $orders_id;
+                $OrdeStatusUpdate = $this->Orders->patchEntity($OrdeStatusUpdate, array(
+                    'status' => $status,
+                    'orders_token' => $orders_token,
+                    'delivery_service' => $delivery_service,
+                    'delivery_code' => $delivery_code
+                ));
+
+                // pr($OrdeStatusUpdate);die;
+                $this->Orders->save($OrdeStatusUpdate);
+                
+                $responseData = ['success' => true];
+                $this->set('responseData', $responseData);
+                $this->set('_serialize', ['responseData']);die;
+            }
+        }
+    }
     public function delete($id = null)
     {
         $this->request->allowMethod(['post', 'delete']);

@@ -1,3 +1,5 @@
+<?php $this->assign('title','บทความ'); ?>
+
 <div class="jumbotron jumbotron-fluid bg-success">
   <div class="container ">
     <?= $this->element('/component/breadcrumb') ?>

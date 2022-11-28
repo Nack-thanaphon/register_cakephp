@@ -11,6 +11,8 @@ use Cake\Validation\Validator;
 /**
  * Products Model
  *
+ * @property \App\Model\Table\ImageTable&\Cake\ORM\Association\HasMany $Image
+ *
  * @method \App\Model\Entity\Product newEmptyEntity()
  * @method \App\Model\Entity\Product newEntity(array $data, array $options = [])
  * @method \App\Model\Entity\Product[] newEntities(array $data, array $options = [])
@@ -40,13 +42,12 @@ class ProductsTable extends Table
         $this->setTable('products');
         $this->setDisplayField('p_id');
         $this->setPrimaryKey('p_id');
-        
+        $this->hasMany('Image', [
+            'foreignKey' => 'product_id',
+        ]);
         $this->belongsTo('ProductsType', [
             'foreignKey' => 'p_type_id',
             'joinType' => 'INNER'
-        ]);
-        $this->hasMany('Image', [
-            'foreignKey' => 'product_id',
         ]);
     }
 
@@ -65,6 +66,7 @@ class ProductsTable extends Table
 
         $validator
             ->scalar('p_title')
+            ->maxLength('p_title', 255)
             ->requirePresence('p_title', 'create')
             ->notEmptyString('p_title');
 
@@ -84,17 +86,16 @@ class ProductsTable extends Table
             ->notEmptyString('p_price');
 
         $validator
+            ->requirePresence('p_total', 'create')
+            ->notEmptyString('p_total');
+
+        $validator
             ->integer('p_promotion')
             ->allowEmptyString('p_promotion');
 
         $validator
             ->requirePresence('status', 'create')
             ->notEmptyString('status');
-
-        $validator
-            ->scalar('p_image_id')
-            ->requirePresence('p_image_id', 'create')
-            ->notEmptyFile('p_image_id');
 
         $validator
             ->dateTime('p_created_at')
