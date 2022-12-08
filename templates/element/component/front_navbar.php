@@ -10,8 +10,8 @@
 
   <?php if (!empty($userData)) { ?>
     <?php foreach ($userData as $row) : ?>
-      <div class=" m-0 ">
-        <small class="text-dark m-0 p-0"> <?= $row->name ?></small> <br>
+      <div class=" m-0 p-0">
+        <p class="text-dark m-0 p-0"> <?= $row->name ?></p>
         <a href="<?= $this->Url->build(['prefix' => false, 'controller' => 'users', 'action' => 'login']) ?>">
           <small class="text-end m-0 p-0"> <?= __("ไปหน้าจัดการ") ?></small>
         </a>
@@ -28,7 +28,7 @@
 </div>
 <nav class="navbar navbar-expand-lg navbar-white navbar-light  my-success">
   <a class="navbar-brand" href="<?= $this->Url->build(['prefix' => false, 'controller' => 'Home', 'action' => 'index']) ?>">
-    <img src="<?= $this->Url->image('logo.png') ?> " width="50" height="50" alt="">
+    <img src="<?= $this->Url->image('logo.png') ?> " width="70" height="70" alt="">
   </a>
 
   <div class="btn-group d-lg-none" role="group" aria-label="Basic example">
@@ -43,40 +43,58 @@
     <ul class="navbar-nav mr-auto p-2">
       <li class="nav-item active">
         <a class="nav-link text-white" href="<?= $this->Url->build(['prefix' => false, 'controller' => 'Aboutus', 'action' => 'index']) ?> ">
-          <?= __("ธุรกิจของเรา") ?> <span class="sr-only">(current)</span></a>
+          <!-- <i class="fas fa-chevron-down"> -->
+
+          </i></i> <?= __("ธุรกิจ") ?> <span class="sr-only">(current)</span>
+        </a>
       </li>
       <li class="nav-item">
         <a class="nav-link text-white" href="<?= $this->Url->build(['prefix' => false, 'controller' => 'Products', 'action' => 'index']) ?> ">
-          <?= __("สินค้าของเรา") ?></a>
+          <!-- <i class="fas fa-chevron-down"> -->
+
+          </i></i> <?= __("สินค้า") ?>
+        </a>
       </li>
       <li class="nav-item">
         <a class="nav-link text-white" href="<?= $this->Url->build(['prefix' => false, 'controller' => 'posts', 'action' => 'index']) ?> ">
-          <?= __("บทความ") ?></a>
+          <!-- <i class="fas fa-chevron-down"> -->
+
+          </i></i> <?= __("บทความ") ?>
+        </a>
       </li>
-      <li class="nav-item">
+      <!-- <li class="nav-item">
         <a class="nav-link text-white" href="<?= $this->Url->build(['controller' => 'aboutus', 'action' => 'ourcustomer']) ?>">
-          <?= __("ลูกค้าของเรา") ?></a>
-      </li>
+      <i class="fas fa-chevron-down"> -->
+      <!-- </i></i> <?= __("กิจกรรม") ?></a>
+      </li>  -->
       <li class="nav-item">
         <a class="nav-link text-white" href="<?= $this->Url->build(['controller' => 'aboutus', 'action' => 'ourbranch']) ?>">
-          <?= __("สาขาของเรา") ?></a>
+          <!-- <i class="fas fa-chevron-down"> -->
+
+          </i></i> <?= __("สาขา") ?>
+        </a>
       </li>
 
       <li class="nav-item">
         <a class="nav-link text-white" href="<?= $this->Url->build(['controller' => 'aboutus', 'action' => 'aboutus']) ?>">
-          <?= __("เกี่ยวกับเรา") ?></a>
+          <!-- <i class="fas fa-chevron-down"> -->
+
+          </i></i> <?= __("เกี่ยวกับเรา") ?>
+        </a>
       </li>
-      <li class="nav-item d-sm-none d-block">
+      <!-- <li class="nav-item d-sm-none d-block">
         <a class="nav-link text-white" href="<?= $this->Url->build(['prefix' => false, 'controller' => 'users', 'action' => 'login']) ?>" class="m-1 text-muted">
           <?= __("เข้าสู่ระบบ") ?></a>
-      </li>
+      </li> -->
     </ul>
     <div class=" d-none d-lg-flex justify-content-end col-12 col-sm-4 col-md-12 col-lg-4 m-0 p-0 mt-2 mt-sm-0">
       <!-- <div class="my-auto"><i class="fas fa-cart-arrow-down"><span></span></i></div> -->
       <a href="<?= $this->Url->build(['prefix' => false, 'controller' => 'cart', 'action' => 'index']) ?>" type="button" class="btn btn-muted text-white">
         <?= __("สั่งซื้อสินค้า") ?></a> <a class="nav-link   my-auto text-white" data-toggle="dropdown" href="<?= $this->Url->build(['controller' => 'carts', 'action' => 'index']) ?>">
         <i class="fas fa-cart-shopping"></i>
-        <span class="badge badge-danger navbar-badge" onclick="getlang()" id="cart_total"></span>
+        <a href="<?= $this->Url->build(['prefix' => false, 'controller' => 'cart', 'action' => 'index']) ?>">
+          <span class="badge badge-danger navbar-badge" id="cart_total"></span>
+        </a>
       </a>
     </div>
   </div>

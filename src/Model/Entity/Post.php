@@ -13,7 +13,7 @@ use Cake\ORM\Entity;
  * @property int $p_type_id
  * @property int|null $p_user_id
  * @property string $p_detail
- * @property \Cake\I18n\FrozenDate|null $p_date
+ * @property string|null $p_date
  * @property bool|null $p_status
  * @property int|null $p_views
  * @property \Cake\I18n\FrozenTime $p_created_at

@@ -20,16 +20,12 @@
                 <h3 class="font-weight-bold"><?= __('เพิ่มบทความข่าวสาร') ?></h3>
                 <div class="form-floating mb-1">
                     <label>วันเดือนปี</label>
-                    <?= $this->Form->input(
-                        'p_date',
-                        [
-                            'type' => 'date',
-                            'class'=> 'form-control ',
-                            'id' => 'datetimepicker',
-                            'default' => date('Y-m-d H:i') #Set time for today
-                        ]
-                    );
-                    ?>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1"><i class="fas fa-calendar"></i></span>
+                        </div>
+                        <input type="text" name="p_date" class="form-control" id="addnew" value="<?= $Posts->p_date ?>">
+                    </div>
 
                 </div>
                 <div class="form-floating mb-1">
@@ -74,7 +70,7 @@
         </div>
     </div>
     <div class="col-12 col-md-12 col-lg-4">
-        <div class="card m-2 p-2">
+        <div class="card  p-2">
             <div class="d-flex justify-content-between my-auto m-1">
                 <p class="my-2 p-0">รูปภาพปก <br>
                     <span>
@@ -91,7 +87,7 @@
                 </div>
             </div>
         </div>
-        <div class="card m-2 p-2">
+        <div class="card  p-2">
             <div class="d-flex justify-content-between my-auto m-1">
                 <p class="my-2 p-0">รูปภาพประกอบ
                     <br>
@@ -125,5 +121,13 @@
             multiimagesPreview(this, 'div.multiimages');
             $('.img-warning').hide()
         });
+    });
+    $(function() {
+        $("#addnew").datepicker({
+            todayHighlight: true, // to highlight the today's date
+            format: 'dd-MM-yyyy',
+            autoclose: true,
+            todayHighlight: true
+        }).datepicker('update', new Date(<?= $Posts->p_date ?>));
     });
 </script>

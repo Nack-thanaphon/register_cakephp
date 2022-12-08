@@ -19,6 +19,15 @@ class AppController extends Controller
         $this->loadComponent('Flash');
         $this->loadComponent('Cookies');
         $this->loadComponent('Authentication.Authentication');
+
+        $result = $this->Authentication->getResult()->getData() ?? "";
+        if (!empty($result)) {
+            $token = $result['token'] ?? "";
+            $userData =  $this->Custom->GetUserData($token);
+            $this->set('userData', $userData);
+        }
+        $contactData = $this->Custom->GetContactData();
+        $this->set(compact('contactData'));
     }
     // in src/Controller/AppController.php
     public function beforeFilter(\Cake\Event\EventInterface $event)
@@ -30,18 +39,15 @@ class AppController extends Controller
             'view',
             'register',
             'resetpassword',
+            'verification',
             'forgetpassword',
             'product',
+            'branch',
+            'posts',
             'ourcustomer',
             'ourbranch',
             'aboutus'
         ]);
-        $result = $this->Authentication->getResult()->getData();
-        if (!empty($result)) {
-            $uid = $result['id'];
-            $userData =  $this->Custom->GetUserData($uid);
-            $this->set('userData', $userData);
-        }
     }
 
 
@@ -79,7 +85,7 @@ class AppController extends Controller
 
     public function sendLineNotify($message = "แจ้งเตือนรายการสั่งซื้อ")
     {
-        $token = "7wJZPRrVxxw5bv0pw0EJspO8wQ6TYpF5Lhflftfsd7S"; // ใส่ Token ที่สร้างไว้
+        $token =  $this->Custom->GetContactData()->linetoken;  // ใส่ Token ที่สร้างไว้
 
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, "https://notify-api.line.me/api/notify");

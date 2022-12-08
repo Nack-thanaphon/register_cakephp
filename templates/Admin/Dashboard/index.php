@@ -1,4 +1,4 @@
-<?php $this->assign('title','หน้าหลัก'); ?>
+<?php $this->assign('title', 'หน้าหลัก'); ?>
 
 <div class="row  m-0 py-3 p-0">
     <div class="col-12 col-md-12 col-lg-12 p-3">
@@ -27,7 +27,7 @@
                 <div class="mb-2 p-3 m-0 p-0 rounded card ">
                     <div class="row m-0 p-0 ">
                         <div class="m-0 p-0 col-3 text-center text-primary m-auto">
-                            <h1 class="fas fa-user-friends m-0 p-0"></h1>
+                            <h1 class="fas fa-utensils m-0 p-0"></h1>
                         </div>
                         <div class=" col-9 my-auto">
                             <p class="m-0 p-0 text-muted">จำนวนสินค้าทั้งหมด</p>
@@ -59,9 +59,12 @@
 
             </div>
             <div class="col-12 ">
-                <div class="card card-primary h-100">
-                    <div class="card-body">
-                        <div class="chart">
+                <div class="card ">
+                    <div class=" m-0 p-2">
+                        <p class="text-primary m-0 p-0">ยอดขายแบบรายปี <?= $thaiyear ?></p>
+                    </div>
+                    <div class="card-body m-0 p-0">
+                        <div class="chart ">
                             <div class="chartjs-size-monitor">
                                 <div class="chartjs-size-monitor-expand">
                                     <div class=""></div>
@@ -70,9 +73,8 @@
                                     <div class=""></div>
                                 </div>
                             </div>
-                            <p class="text-primary">ยอดขายแบบรายปี 2565</p>
 
-                            <div id="chart" class="h-100">
+                            <div id="chart" class=" m-0 p-0">
                             </div>
                         </div>
                     </div>
@@ -99,22 +101,25 @@
 
                                     </td>
                                     <td colspan="1" class="text-right pb-3">
-                                        <p class="text-muted m-0 p-0"><?= (!empty(($value->user['name']))) ? $value->user['name'] : "รอข้อมูลผู้ใช้งาน" ?></p>
+                                        <small class="text-muted m-0 p-0"><?= (!empty(($value->user['name']))) ? $value->user['name'] : "รอข้อมูลผู้ใช้งาน" ?></small> <br>
                                         <?php
                                         $orderStatus = $value->status;
                                         if ($orderStatus == 0) {
                                             echo '<div class="badge badge-danger">ยกเลิก</div>';
                                         }
                                         if ($orderStatus == 1) {
-                                            echo '<div class="badge badge-primary">ชำระเงินแล้ว</div>';
+                                            echo '<div class="badge badge-primary">รอการชำระเงิน</div>';
                                         }
                                         if ($orderStatus == 2) {
-                                            echo '<div class="badge badge-warning">รอการชำระเงิน</div>';
+                                            echo '<div class="badge badge-warning">รอการตรวจสอบ</div>';
                                         }
                                         if ($orderStatus == 3) {
-                                            echo '<div class="badge badge text-primary">กำลังดำเนินการ</div>';
+                                            echo '<div class="badge badge-primary">ชำระเงินแล้ว</div>';
                                         }
                                         if ($orderStatus == 4) {
+                                            echo '<div class="badge badge text-primary">กำลังดำเนินการ</div>';
+                                        }
+                                        if ($orderStatus == 5) {
                                             echo '<div class="badge badge-success">จัดส่งแล้ว</div>';
                                         }
                                         ?>
@@ -173,31 +178,58 @@
 
 <script>
     $(function() {
+        let year = <?= $thaiyear ?>;
         var options = {
             chart: {
+                width: "100%",
                 type: 'bar',
-                height: 'auto'
+                height: 'auto',
+                toolbar: {
+                    export: {
+                        csv: {
+                            filename: 'ยอดขายแม่ปลูกลูกขายประจำปี ' + year + '',
+                            columnDelimiter: ',',
+                            headerCategory: 'ประจำเดือน',
+                            headerValue: 'value',
+                            headerValue: year,
+                            dateFormatter(timestamp) {
+                                return new Date(timestamp).toDateString()
+                            }
+                        },
+                    },
+                },
+
             },
+
             series: [{
-                name: 'sales',
-                data: [30, 40, 45, 50, 49, 60, 450, 91, 125]
+                name: 'ยอดขาย',
+                data: <?= $amount ?>
+
             }],
             xaxis: {
-                categories: [
-                    "มกราคม",
-                    "กุมภาพันธ์",
-                    "มีนาคม",
-                    "เมษายน",
-                    "พฤษภาคม",
-                    "มิถุนายน",
-                    "กรกฎาคม",
-                    "สิงหาคม",
-                    "กันยายน",
-                    "ตุลาคม",
-                    "พฤศจิกายน",
-                    "ธันวาคม",
-                ]
-            }
+                categories: <?= $month ?>
+            },
+            legend: {
+                position: "right",
+                verticalAlign: "top",
+                containerMargin: {
+                    left: 35,
+                    right: 60
+                }
+            },
+            responsive: [{
+                breakpoint: 1000,
+                options: {
+                    plotOptions: {
+                        bar: {
+                            horizontal: false
+                        }
+                    },
+                    legend: {
+                        position: "bottom"
+                    }
+                }
+            }],
         }
 
         var chart = new ApexCharts(document.querySelector("#chart"), options);

@@ -1,8 +1,8 @@
 <?php foreach ($posts as $data) : ?>
-
     <?php $this->assign('title', $data->title); ?>
-    <title><?php echo $this->fetch('title'); ?></title>
-    <?= $this->Html->meta('icon', $this->Url->build($data->img)) ?>
+    <?php $this->assign('image', $this->Url->build($data->image)); ?>
+    <title><?= $this->fetch('title'); ?></title>
+    <?= $this->Html->meta(array('name' => 'og:image', 'content' => $this->fetch('image')), NULL, array('inline' => false)); ?>
     <style>
         .news_detail>img {
             width: 100%;
@@ -20,7 +20,7 @@
                 </div>
 
                 <img class="d-block w-100" src="<?= $this->Url->build($data->image); ?>" alt="<?= $data->title ?>">
-                <div class="text-secondary pt-4"><?= $data->detail ?></div>
+                <h5 class=" pt-4"><?= $data->detail ?></h5>
             </div>
         </div>
         <!-- phone -->

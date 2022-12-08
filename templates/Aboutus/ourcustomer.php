@@ -1,10 +1,67 @@
-<?php $this->assign('title','ลูกค้าของเรา'); ?>
+<?php $this->assign('title', 'ลูกค้าของเรา'); ?>
 
-<div class="jumbotron jumbotron-fluid bg-success">
-    <div class="container ">
-        <?= $this->element('/component/breadcrumb') ?>
-        <h1 class="text-uppercase">customers</h1>
-        <h6>ลูกค้าของเรา</h6>
+<style>
+    /* .product_card1:hover {
+        box-shadow: 1px 1px 1px 1px #888888;
+
+    } */
+
+    .postsImg {
+        position: relative;
+        width: 100%;
+        height: 150px;
+        overflow: hidden;
+    }
+
+    .posts_type {
+        position: absolute;
+        top: 10px;
+        left: 6px;
+    }
+
+    @media screen and (max-width: 650px) {
+        .postsImg {
+            position: relative;
+            width: 100%;
+            height: 100px;
+            overflow: hidden;
+        }
+
+    }
+
+
+    .header-cover {
+        height: 150px;
+        overflow: hidden;
+        position: relative;
+        text-align: center;
+    }
+
+    .header-img {
+        height: auto;
+        object-fit: contain;
+    }
+
+    .centered {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 100%;
+        transform: translate(-50%, -50%);
+    }
+
+    .centered h1 {
+        color: #4E7A61;
+        font-size: 4rem;
+    }
+</style>
+
+
+<div class="header-cover">
+    <img class="header-img" src="https://img.freepik.com/premium-photo/ripe-fresh-avocado-green-background-top-view_185193-10955.jpg?w=2000" alt="">
+    <div class="centered">
+        <h1 class="m-0 p-0">กิจกรรม</h1>
+        <small>รีวิว กิจกรรมภายใน พาเที่ยว</small>
     </div>
 </div>
 <div class="container">

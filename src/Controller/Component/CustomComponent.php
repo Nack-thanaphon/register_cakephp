@@ -2,20 +2,42 @@
 
 namespace App\Controller\Component;
 
+use Cake\Controller\Controller;
 use Cake\Controller\Component;
 use Cake\ORM\TableRegistry;
 use PhpParser\Node\Expr\Empty_;
 
 class CustomComponent extends Component
 {
-    public function GetUserData($id = null)
+
+    public function GetUsertoken($result = null)
+    {
+        if (!empty($result)) {
+            $Usertoken = '';
+            if (!empty($result['token'])) {
+                $Usertoken = $result['token'];
+            }
+            return $Usertoken;
+        }
+    }
+    public function getProductsType()
+    {
+        $ProductsType = TableRegistry::getTableLocator()->get('ProductsType');
+        $getProductsType = $ProductsType->find('all')->toArray();
+        return $getProductsType;
+    }
+    
+    public function GetUserDataById($id)
     {
         if (!empty($id)) {
             $usertable = TableRegistry::getTableLocator()->get('Users');
             $user = $usertable->find()
                 ->select([
                     'id' => 'users.id',
+                    'token' => 'users.token',
                     'email' => 'users.email',
+                    'address' => 'users.address',
+                    'phone' => 'users.phone',
                     'name' => 'users.name',
                     'role' => 'ur.ur_name'
                 ])
@@ -23,12 +45,41 @@ class CustomComponent extends Component
                     'ur' => ([
                         'table' => 'users_role',
                         'type' => 'INNER',
-                        'conditions' => 'ur.id = users.user_type_id'
+                        'conditions' => 'ur.id = users.user_role_id'
                     ])
                 ])
                 ->from('users')
                 ->where([
-                    'users.id =' => $id
+                    'users.id' => $id
+                ])
+                ->toArray();
+            return $user;
+        }
+    }
+    public function GetUserData($token)
+    {
+        if (!empty($token)) {
+            $usertable = TableRegistry::getTableLocator()->get('Users');
+            $user = $usertable->find()
+                ->select([
+                    'id' => 'users.id',
+                    'token' => 'users.token',
+                    'email' => 'users.email',
+                    'address' => 'users.address',
+                    'phone' => 'users.phone',
+                    'name' => 'users.name',
+                    'role' => 'ur.ur_name'
+                ])
+                ->join([
+                    'ur' => ([
+                        'table' => 'users_role',
+                        'type' => 'INNER',
+                        'conditions' => 'ur.id = users.user_role_id'
+                    ])
+                ])
+                ->from('users')
+                ->where([
+                    'users.token' => $token
                 ])
                 ->toArray();
             return $user;
@@ -47,22 +98,26 @@ class CustomComponent extends Component
         $status = '';
 
         if ($OdersData->status == 0) {
-            $status = 'ยกเลิก';
+            $status = '<span class="text-danger">ยกเลิก</span>';
         }
         if ($OdersData->status == 1) {
-            $status = 'รอการชำระเงิน';
+            $status = '<span class="text-muted">รอการชำระเงิน</span>';
         }
         if ($OdersData->status == 2) {
-            echo 'ชำระเงินแล้ว';
+            $status = '<span class="text-primary">รอการตรวจสอบ</span>';
         }
         if ($OdersData->status == 3) {
-            echo 'กำลังดำเนินการ';
+            $status = '<span class="text-primary">ชำระเงินแล้ว</span>';
         }
         if ($OdersData->status == 4) {
-            $status = 'จัดส่งแล้ว';
+            $status = '<span class="text-muted">กำลังดำเนินการ</span>';
+        }
+        if ($OdersData->status == 5) {
+            $status = '<span class="text-success">จัดส่งแล้ว</span>';
         }
 
-        return $status;
+
+        echo $status;
     }
 
     public function getPromotion()
@@ -103,4 +158,11 @@ class CustomComponent extends Component
         $countBranch = $table->find()->count();
         return $countBranch;
     }
+    public function GetContactData()
+    {
+        $table = TableRegistry::getTableLocator()->get('Contact');
+        $GetContactData = $table->find('all')->first();
+        return $GetContactData;
+    }
+    
 }

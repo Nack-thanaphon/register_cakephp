@@ -1,252 +1,320 @@
+<style>
+    .mySwiper3 {
+        width: 100%;
+        overflow: hidden;
+        height: 650px;
+    }
+
+    .swiper-slide>img {
+        width: 100%;
+        object-fit: contain;
+    }
+
+    .postsImg {
+        position: relative;
+        width: 100%;
+        height: 180px;
+        overflow: hidden;
+    }
+
+    .posts_type {
+        position: absolute;
+        top: 10px;
+        left: 6px;
+    }
+
+    .map {
+        width: 100%;
+        height: 170px;
+        overflow: hidden;
+    }
+
+    iframe {
+        width: 100% !important;
+        object-fit: contain;
+    }
+
+    @media screen and (max-width: 750px) {
+        .mySwiper3 {
+            width: 100%;
+            overflow: hidden;
+            height: 170px;
+        }
+
+        .postsImg {
+            position: relative;
+            width: 100%;
+            height: 190px;
+            overflow: hidden;
+        }
+
+
+    }
+
+    @media screen and (max-width: 900px - 1024px) {
+        .mySwiper3 {
+            width: 100%;
+            overflow: hidden;
+            height: 400px;
+        }
+
+        .postsImg {
+            position: relative;
+            width: 100%;
+            height: 180px;
+            overflow: hidden;
+        }
+
+
+    }
+</style>
+
 <?php $this->assign('title', 'หน้าหลัก'); ?>
-<div class="row m-sm-5 m-0 p-0 p-sm-5 mb-4">
-    <div class="carousel slide my-3" data-ride="carousel">
-        <div class="carousel-inner " id="main_slider">
-            <div class="carousel-item active">
-                <img class="d-block w-100" src="<?= $this->Url->image("mainbanner.png") ?>">
+<div class="container">
+    <div class="row  m-0 p-0 mb-4">
+        <div class="swiper mySwiper3 px-sm-2 ">
+            <div class="swiper-wrapper rounded">
+                <div class="swiper-slide ">
+                    <img class="" src="<?= $this->Url->image("mainbanner.png") ?>">
+                </div>
+                <div class="swiper-slide ">
+                    <img class="" src="<?= $this->Url->image("91689392_2966188953437431_3585391548549824512_n.jpg") ?>">
+                </div>
+                <div class="swiper-slide ">
+                    <img class="" src="<?= $this->Url->image("174070815_4020892831300366_8612633571049325923_n.jpg") ?>">
+                </div>
             </div>
         </div>
-        <a class="carousel-control-prev" href="#banner" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-        </a>
-        <a class="carousel-control-next" href="#banner" role="button" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-        </a>
+        <div class="swiper-pagination"></div>
+
     </div>
-</div>
 
 
-<div class="row m-sm-5 m-0 p-0 p-sm-5 d-sm-flex justify-content-between d-none ">
-    <!-- bg-desktop -->
-    <div class="col-12 col-sm-6  m-0">
-        <a href="<?= $this->Url->build(['prefix' => false, 'controller' => 'aboutus', 'action' => 'ourbranch']) ?>" class="row m-0 d-flex justify-content-between  bg-success p-4 rounded mb-2 border shadow-sm">
-            <div class=" col-4 mx-auto w-100">
-                <i class="fas fa-store" style="font-size:7rem ;"></i>
-            </div>
-            <div class="col-7 my-auto">
-                <h4>สาขาทั้งหมด</h4>
-                <h1 style="font-size:4rem ;">20 สาขา </h1>
-            </div>
-        </a>
-    </div>
-    <div class="col-12 col-sm-6  m-0">
-        <a href="<?= $this->Url->build(['prefix' => false, 'controller' => 'products', 'action' => 'index']) ?>" class="row m-0 d-flex justify-content-between  bg-white p-4 rounded mb-2 border  shadow-sm">
-            <div class=" col-4 mx-auto w-100">
-                <i class="fas fa-utensils" style="font-size:7rem ;"></i>
-            </div>
-            <div class="col-7 my-auto">
-                <h4>เมนูทั้งหมด</h4>
-                <h1 class="text-success" style="font-size:4rem ;">10 เมนู </h1>
-            </div>
-        </a>
-    </div>
-</div>
-
-
-<!-- bg-mobile -->
-
-<div class="row  my-4 p-0 m-0 p-sm-5  d-flex d-sm-none">
-    <div class="col-6 col-sm-6  m-0">
-        <a href="<?= $this->Url->build(['prefix' => false, 'controller' => 'aboutus', 'action' => 'ourbranch']) ?>" class="row m-0 d-flex justify-content-between  bg-success p-2 rounded mb-2 border shadow-sm">
-            <div class="col-12 my-auto p-0 m-0">
-                <h6>สาขาทั้งหมด</h6>
-                <h1 class=" m-0 p-0" style="font-size:2rem ;">20 สาขา </h1>
-            </div>
-        </a>
-    </div>
-    <div class="col-6 col-sm-6  m-0">
-        <a href="<?= $this->Url->build(['prefix' => false, 'controller' => 'products', 'action' => 'index']) ?>" class="row m-0 d-flex justify-content-between  bg-white p-2 rounded mb-2 border  shadow-sm">
-            <div class="col-12 my-auto p-0 m-0">
-                <h6>เมนูทั้งหมด</h6>
-                <h1 class="text-success m-0 p-0" style="font-size:2rem ;">10 เมนู </h1>
-            </div>
-        </a>
-    </div>
-</div>
-<div class="row  m-0 p-0 p-sm-5 d-flex justify-content-between">
-
-    <div class="col-12  py-3 p-2 h-100 text-sm-center text-start  mb-2">
-        <h1 class="text-success">
-            สาขา
-        </h1>
-        <a href="<?= $this->Url->build(['prefix' => false, 'controller' => 'about', 'action' => 'ourBranch']) ?>">อ่านทั้งหมด</a>
-    </div>
-    <div class="col-12  m-0">
-        <div class="row m-0 p-0 mb-3">
-            <?php foreach ($posts as $key => $post) : ?>
-                <div class="col-sm-4 col-4 m-0 p-0">
-                    <div class="card m-1 p-2">
-                        <img class="d-block w-100" src="<?= $this->Url->build($post->image); ?>" alt="<?= $post->p_title ?>">
-                        <div class="my-2">
-                            <small class="text-muted"><?= $post->type ?></small>
-                            <h6 class="my-1"><?= $post->title ?></h6>
-                        </div>
-                        <p class="m-0 mt-3"><?= $post->user ?></p>
-                        <small class="text-muted"><i class="fas fa-clock"></i> <?= $post->date ?></small> <br>
-                        <?= $this->Html->link('อ่านต่อ..', ['controller' => 'posts', 'action' => 'view', $post->id]) ?>
-                    </div>
+    <div class="row m-0 p-0 d-sm-flex justify-content-between d-none ">
+        <!-- bg-desktop -->
+        <div class="col-12 col-sm-6  m-0">
+            <a href="<?= $this->Url->build(['prefix' => false, 'controller' => 'aboutus', 'action' => 'ourbranch']) ?>" class="row m-0 d-flex justify-content-between  bg-success p-4 rounded mb-2 border shadow-sm">
+                <div class="m-0 p-0 col-7 my-auto">
+                    <h4>สาขาทั้งหมด</h4>
+                    <h1 style="font-size:4rem ;">20 สาขา </h1>
                 </div>
-            <?php endforeach; ?>
-        </div>
-    </div>
-    <!-- 
-    <div class="col-12 col-sm-6 m-0 p-0 mb-3">
-        <div id="OurBranch" class="carousel slide m-0 p-2" data-ride="carousel">
-            <div class="carousel-inner">
-                <div class="carousel-item active border-sm">
-                    <div class="branch-title">
-                        <div class="btn btn-success rounded-full">เชียงใหม่</div>
-                    </div>
-                    <img class="d-block w-100" src="https://resource.nationtv.tv/uploads/images/md/2021/10/RFYjf49ZwTS0tXu2x0zZ.jpg" alt="First slide">
-                </div>
-                <div class="carousel-item">
-                    <div class="branch-title border-sm">
-                        <div class="btn btn-success rounded-full">กรุงเทพ</div>
-                    </div>
-                    <img class="d-block w-100" src="https://thailandproperty.knightfrank.co.th/news/wp-content/uploads/2018/10/3252164.png" alt="Second slide">
-                </div>
-                <div class="carousel-item">
-                    <div class="branch-title">
-                        <div class="btn btn-success rounded-full">อยุธยา</div>
-                    </div>
-                    <img class="d-block w-100" src="https://travel.mthai.com/app/uploads/2018/01/ayudta.jpg" alt="Third slide">
-                </div>
-            </div>
-            <a class="carousel-control-prev" href="#OurBranch" role="button" data-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-            </a>
-            <a class="carousel-control-next" href="#OurBranch" role="button" data-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
             </a>
         </div>
-
-    </div> -->
-</div>
-
-<div class="row m-sm-5 m-0 p-0 py-sm-5">
-    <div class="col-12  py-3 p-2 h-100 text-sm-center text-start  mb-2">
-        <h1 class="text-success">สินค้า</h1>
-        <a href="/Products">อ่านทั้งหมด</a>
+        <div class="col-12 col-sm-6  m-0">
+            <a href="<?= $this->Url->build(['prefix' => false, 'controller' => 'products', 'action' => 'index']) ?>" class="row m-0 d-flex justify-content-between  bg-white p-4 rounded mb-2 border  shadow-sm">
+                <div class="col-7 my-auto">
+                    <h4>เมนูทั้งหมด</h4>
+                    <h1 class="text-success" style="font-size:4rem ;">10 เมนู </h1>
+                </div>
+            </a>
+        </div>
     </div>
-    <div class="col-12  m-0">
-        <div class="row m-0 p-0 mb-3">
-            <?php foreach ($Products as $key => $value) : ?>
-                <div class="col-sm-4 col-4 m-0 p-0">
-                    <div class="card m-1 p-2">
-                        <img class="d-block w-100" src="<?= $this->Url->build($value->image); ?>" alt="<?= $post->p_title ?>">
-                        <div class="my-2">
-                            <small class="text-muted"><?= $post->type ?></small>
-                            <h6 class="my-1"><?= $post->title ?></h6>
+
+
+    <!-- bg-mobile -->
+
+    <div class="row  my-4 p-0 m-0   d-flex d-sm-none d-md-none d-lg-none">
+        <div class="col-6 col-sm-6  m-0">
+            <a href="<?= $this->Url->build(['prefix' => false, 'controller' => 'aboutus', 'action' => 'ourbranch']) ?>" class="row m-0 d-flex justify-content-between  bg-success p-2 rounded mb-2 border shadow-sm">
+                <div class="col-12 my-auto p-0 m-0">
+                    <h6>สาขาทั้งหมด</h6>
+                    <h1 class=" m-0 p-0" style="font-size:2rem ;">20 สาขา </h1>
+                </div>
+            </a>
+        </div>
+        <div class="col-6 col-sm-6  m-0">
+            <a href="<?= $this->Url->build(['prefix' => false, 'controller' => 'products', 'action' => 'index']) ?>" class="row m-0 d-flex justify-content-between  bg-white p-2 rounded mb-2 border  shadow-sm">
+                <div class="col-12 my-auto p-0 m-0">
+                    <h6>เมนูทั้งหมด</h6>
+                    <h1 class="text-success m-0 p-0" style="font-size:2rem ;">10 เมนู </h1>
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="row my-4  m-0 p-0 d-flex justify-content-between">
+
+        <div class="col-12  py-3 p-2 h-100  text-start  mb-2">
+            <h1 class="text-success m-0 p-0" style="font-size:3rem ;">สาขา</h1>
+        </div>
+        <div class="col-12  m-0">
+            <div class="swiper mySwiper">
+                <div class="swiper-wrapper">
+                    <?php foreach ($Branch as $key => $value) : ?>
+                        <div class="card m-1 p-2 col-12 col-sm-4   swiper-slide ">
+
+                            <!-- Desktop -->
+                            <div class="card-body p-1 d-sm-block d-none ">
+                                <h5 class="m-0 p-0 text-left col-12 text-truncate"><?= $value->b_name ?></h5>
+                                <div class="text-left m-0 p-0">
+                                    <p class="text-muted mt-1 m-0 ">จังหวัด : <span class="text-success"><?= $value->b_province ?></span></p>
+                                    <p class="text-muted  m-0 p-0">เบอร์โทร : <?= $value->b_phone ?></p>
+                                    <a href="<?= $value->b_link ?>" id="mb_link" target="blank">
+                                        <small class="m-0 p-0 text-muted"><i class="fas fa-map-pin text-danger"></i> ไปที่ร้านค้า</small>
+                                    </a>
+                                    <div class="map "><?= $value->b_map ?></div>
+                                </div>
+                            </div>
+                            <!-- Mobile -->
+                            <div class="card-body p-1 d-sm-none d-block ">
+                                <p class="m-0 p-0 text-left col-12 text-truncate"><?= $value->b_name ?></p>
+                                <div class="text-left m-0 p-0">
+                                    <h6 class="text-muted mt-1 m-0 col-12">จังหวัด : <span class="text-success"><?= $value->b_province ?></span></h6>
+                                    <p class="text-muted  m-0 p-0">เบอร์โทร : <?= $value->b_phone ?></p>
+                                    <a href="<?= $value->b_link ?>" id="mb_link" target="blank">
+                                        <small class="m-0 p-0 text-muted"><i class="fas fa-map-pin text-danger"></i> ไปที่ร้านค้า</small>
+                                    </a>
+                                    <div class="map "><?= $value->b_map ?></div>
+                                </div>
+                            </div>
                         </div>
-                        <p class="m-0 mt-3"><?= $post->user ?></p>
-                        <small class="text-muted"><i class="fas fa-clock"></i> <?= $post->date ?></small> <br>
-                        <?= $this->Html->link('อ่านต่อ..', ['controller' => 'posts', 'action' => 'view', $post->id]) ?>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+
+            <div class="text-right my-2 ">
+                <a class="text-muted" href="<?= $this->Url->build(['prefix' => false, 'controller' => 'aboutus', 'action' => 'branch']) ?>">อ่านทั้งหมด</a>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row my-4  m-0 p-0 py-sm-5">
+        <div class="col-12  py-3 p-2 h-100  text-start  mb-2">
+            <h1 class="text-success m-0 p-0" style="font-size:3rem ;">สินค้า</h1>
+        </div>
+        <div class="col-12  m-0">
+            <div class="swiper mySwiper">
+                <div class="swiper-wrapper">
+                    <?php foreach ($data as $key => $value) : ?>
+                        <div class="card m-1 p-2 col-12 col-sm-4   swiper-slide ">
+                            <div class="postsImg">
+                                <small class="text-muted posts_type badge badge-pill badge-success text-white m-0 "><?= $value->type ?></small>
+                                <img class=" w-100 " src="<?= $this->Url->build($value->image); ?>" alt="<?= $value->title ?>">
+                            </div>
+                            <div class="card-body m-0 p-2">
+                                <h5 class="col-12 text-truncate my-1 m-0 p-0"><?= $value->title ?></h5>
+                                <div class="text-right m-0 ">
+                                    <h5 class="text-success mt-1 m-0 p-0 "><?= $value->price ?> บาท/ชิ้น </h5>
+                                    <small class="text-muted text-right m-0 p-0">ในคลัง <?= $value->total ?> ชิ้น</small>
+                                    <div class="row mt-3 m-0 p-0 d-flex justify-content-between">
+                                        <div class="col-2 m-0 p-0">
+                                            <a href="https://line.me/R/oaMessage/<?= $contactData->lineofcial; ?>?สอบถามสินค้า<?= $value->title ?>" target="blank" class="btn btn m-0 p-0 w-100 ">
+                                                <h5 class="fab fa-line text-success m-0 p-0"></h5>
+                                            </a>
+                                        </div>
+                                        <div class="col-9 m-0 p-0 my-auto">
+                                            <a class="btn btn-white m-0 p-0  w-100 " href="
+                                                <?= $this->Url->build([
+                                                    'controller' => 'products',
+                                                    'action' => 'view',
+                                                    $value->id,
+                                                    'slug' => $value->title
+                                                ]) ?>">
+                                                <small class="m-0 p-0"><i class="fas fa-link"></i> รายละเอียดสินค้า</small>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+                <!-- <div class="swiper-pagination"></div> -->
+            </div>
+            <div class="text-right my-2 ">
+                <a class="text-muted" href="<?= $this->Url->build(['prefix' => false, 'controller' => 'products', 'action' => 'index']) ?>">อ่านทั้งหมด</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="row my-4  m-0 p-0 py-sm-5">
+        <div class="col-12  py-3 p-2 h-100 text-sm-center text-start  mb-2">
+            <h1 class="text-success m-0 p-0" style="font-size:3rem ;">บทความ</h1>
+        </div>
+        <div class="col-12  m-0">
+            <div class="row m-0 p-0 mb-3">
+                <div class="swiper mySwiper2">
+                    <div class="swiper-wrapper">
+                        <?php foreach ($posts as $key => $post) : ?>
+                            <div class="col-12 col-sm-4 py-2 swiper-slide h-100">
+                                <div class="card ">
+                                    <div class="postsImg ">
+                                        <small class="text-muted posts_type badge badge-pill badge-success text-white m-0 "><?= $post->type ?></small>
+                                        <img class="d-block w-100 " src="<?= $this->Url->build($post->image); ?>" alt="<?= $post->p_title ?>">
+                                    </div>
+                                    <div class="my-2 p-3">
+                                        <h5 class="col-12 text-truncate my-1 m-0 p-0"><?= $post->title ?></h5>
+                                        <p class="m-0 mt-3"><?= $post->user ?></p>
+                                        <small class="text-muted"><i class="fas fa-clock"></i> <?= $post->date ?></small> <br>
+                                        <?php
+                                        echo $this->Html->link('อ่านต่อ..', [
+                                            'controller' => 'posts',
+                                            'action' => 'view',
+                                            $post->id,
+                                            'slug' => $post->title
+                                        ]);
+                                        ?>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
                     </div>
                 </div>
-            <?php endforeach; ?>
+            </div>
+            <div class="text-right my-2 ">
+                <a class="text-muted" href="<?= $this->Url->build(['prefix' => false, 'controller' => 'posts', 'action' => 'index']) ?>">อ่านทั้งหมด</a>
+            </div>
         </div>
     </div>
 </div>
+<script>
+    var swiper = new Swiper(".mySwiper", {
+        slidesPerView: 1,
+        lazy: true,
+        spaceBetween: 30,
+        freeMode: true,
+        autoplay: {
+            delay: 5000,
+        },
 
-<!-- <div class="row m-sm-5 m-0 p-0 p-sm-5 d-flex justify-content-between ">
-    <div class="col-12 col-sm-4 py-3 p-2 h-100 text-start text-sm-start mb-2">
-        <h1 class="text-success">รีวิวจากลูกค้า</h1>
-        <a href="/about/ourCustomer">อ่านทั้งหมด</a>
+        breakpoints: {
+            640: {
+                slidesPerView: 1,
+                spaceBetween: 20,
+            },
+            768: {
+                slidesPerView: 4,
+                spaceBetween: 40,
+            },
+            1024: {
+                slidesPerView: 3,
+                spaceBetween: 50,
+            },
+        },
+    });
+    var swiper = new Swiper(".mySwiper2", {
+        effect: "coverflow",
+        lazy: true,
+        grabCursor: true,
+        centeredSlides: true,
+        autoplay: {
+            delay: 7000,
+        },
+        slidesPerView: "auto",
+        coverflowEffect: {
+            rotate: 50,
+            stretch: 0,
+            depth: 100,
+            modifier: 1,
+            slideShadows: true,
+        },
+    });
+    var swiper = new Swiper(".mySwiper3", {
+        spaceBetween: 30,
+        lazy: true,
+        autoplay: {
+            delay: 7000,
+        },
 
-    </div>
-    <div class="col-12 col-sm-8 py-3 p-2 m-0 p-0 mb-3">
-        <div class="carousel slide" data-ride="carousel">
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <div class="row m-0 p-0">
-                        <div class="col-4 col-sm-2 m-0 p-2  ">
-                            <img class="d-block w-75 justify-item-center " src="https://scontent.fbkk12-5.fna.fbcdn.net/v/t39.30808-1/305087796_642308717321314_5834137490196069048_n.jpg?stp=dst-jpg_p160x160&_nc_cat=105&ccb=1-7&_nc_sid=7206a8&_nc_eui2=AeG0tNF2bBRZd6Nl1J5qy8IjX6twctv04Utfq3By2_ThS4HzslP5OZOG9DSQgVO-h4zyskMcxsfm_Eiv-cbXztEM&_nc_ohc=uXTgw446BYcAX-_TNO6&_nc_ht=scontent.fbkk12-5.fna&oh=00_AfAzKhDAeshKxe156x9yZFO3BprWTcRNAQSCyjyblhfAsg&oe=635F5F1E" class="rounded-full" alt="Third slide">
-                        </div>
-                        <div class="col-8 col-sm-10 m-0 p-2">
-                            <h4 class="m-0 p-0 mb-1"><q>ชอบการบริการครับ ประทับใจ</q></h4>
-                            <p class="m-0 p-0">Nack Thanaphon</p>
-                            <small class="m-0">11 พฤศจิกายน 2565</small>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </div>
-</div> -->
-<!-- <div class="row m-sm-5 m-0 p-0 py-sm-5">
-    <div class="col-12  py-3 p-2 h-100 text-sm-center text-start mb-2">
-        <h1 class="text-success ">
-            ธุรกิจของเรา
-        </h1>
-        <a href="/about/ourBusiness">อ่านทั้งหมด</a>
-
-    </div>
-    <div class="col-12 col-sm-4  mb-2">
-        <div class="alert alert-success m-0 p-2 p-sm-3 d-flex justify-content-between rounded text-white">
-            <div class="my-auto p-0">
-                <h2 class="m-0 p-0">ธุรกิจส่งออก</h2>
-                <small class="mb-3">เครื่องใช้ และ ผลไม้ต่างๆ</small> <br>
-                <a href="http://">
-                    <small>อ่านเพิ่มเติม..</small>
-                </a>
-            </div>
-            <i class="fas fa-plane my-auto" style="font-size: 4.4rem;"></i>
-        </div>
-    </div>
-    <div class="col-12 col-sm-4  mb-2">
-        <div class="alert alert-success  m-0 p-2 p-sm-3 d-flex justify-content-between rounded text-white">
-            <div class=" my-auto p-0">
-                <h2 class="m-0 p-0">ธุรกิจแฟรนไชส์</h2>
-                <small class="mb-3">น้ำปั่นสมูทตี้ แม่ปลูกลูกขาย </small> <br>
-                <a href="http://">
-                    <small>อ่านเพิ่มเติม..</small>
-                </a>
-            </div>
-            <i class="fas fa-people-arrows my-auto" style="font-size: 4.4rem;"></i>
-        </div>
-    </div>
-    <div class="col-12 col-sm-4  mb-2">
-        <div class="alert alert-success m-0 p-2 p-sm-3 d-flex justify-content-between rounded text-white">
-            <div class="my-auto p-0">
-                <h2 class="m-0 p-0">ธุรกิจการผลิต</h2>
-                <small class="mb-3">ผลไม้และอาหารแปรรูป</small> <br>
-                <a href="http://">
-                    <small>อ่านเพิ่มเติม..</small>
-                </a>
-            </div>
-            <i class="fas fa-seedling my-auto" style="font-size: 4.4rem;"></i>
-        </div>
-    </div>
-</div> -->
-
-<div class="row m-sm-5 m-0 p-0 py-sm-5">
-    <div class="col-12  py-3 p-2 h-100 text-sm-center text-start  mb-2">
-        <h1 class="text-success">
-            บทความ
-        </h1>
-        <a href="<?= $this->Url->build(['prefix' => false, 'controller' => 'posts', 'action' => 'index']) ?>">อ่านทั้งหมด</a>
-    </div>
-    <div class="col-12  m-0">
-        <div class="row m-0 p-0 mb-3">
-            <?php foreach ($posts as $key => $post) : ?>
-                <div class="col-sm-4 col-12 m-0 p-0">
-                    <div class="card m-1 p-2">
-                        <img class="d-block w-100" src="<?= $this->Url->build($post->image); ?>" alt="<?= $post->p_title ?>">
-                        <div class="my-2">
-                            <small class="text-muted"><?= $post->type ?></small>
-                            <h6 class="my-1"><?= $post->title ?></h6>
-                        </div>
-                        <p class="m-0 mt-3"><?= $post->user ?></p>
-                        <small class="text-muted"><i class="fas fa-clock"></i> <?= $post->date ?></small> <br>
-                        <?= $this->Html->link('อ่านต่อ..', ['controller' => 'posts', 'action' => 'view', $post->id]) ?>
-                    </div>
-                </div>
-            <?php endforeach; ?>
-        </div>
-    </div>
-</div>
+    });
+</script>

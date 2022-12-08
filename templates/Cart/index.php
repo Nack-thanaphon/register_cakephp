@@ -36,7 +36,7 @@
                     <h4 class="mb-3" id="precal_sum"></h4>
                     <input type="hidden" id="price" value="">
                 </div>
-                <a class="btn btn-primary" onclick="gotoPayment()">ชำระเงิน</a>
+                <button class="btn btn-primary" id="gotopayment" onclick="gotoPayment()" disabled>ชำระเงิน</button>
                 <!-- <a class="btn btn-primary" href="<?= $this->Url->Build(['controller' => 'cart', 'action' => 'payment']) ?>" onclick="gotoPayment()">ชำระเงิน</a> -->
             </div>
         </div>
@@ -44,7 +44,7 @@
     <script>
         var productData = "";
         $(document).ready(function() {
-            cart();
+          
             $.ajax({
                 url: "<?php echo $this->Url->build('/api/product', ['fullBase' => true]); ?>",
                 type: "GET",
@@ -60,7 +60,7 @@
                         <div class="card ">
                             <img class="border-full" src="<?php echo $this->Url->build('${result[i].image}', ['fullBase' => true]); ?>">
                             <div class="card-body p-1">
-                                <small>${result[i].title}</small>
+                                <h5 class="col-12 text-truncate  my-2 m-0 p-0 text-right">${result[i].title}</h5>
                                 <div class="text-right m-0 p-0">
                                 <h5 class="text-primary mt-1 m-0 p-0 ">${result[i].price} บาท/ชิ้น </h5>
                                 <small class="text-muted text-right m-0 p-0">ในคลัง ${result[i].total} ชิ้น</small>
@@ -74,106 +74,15 @@
                 },
             });
         });
-        var cart_list = []
-        var count = 0;
 
-        function select_product(id, name, image, price) {
-            count++;
-            let pass = true
-            for (i = 0; i < cart_list.length; i++) {
-                if (cart_list[i].id == id) {
-                    cart_list[i].count++;
-                    pass = false;
-                }
-            }
-            if (pass) {
-                cart_list.push({
-                    id: id,
-                    img: image,
-                    name: name,
-                    price: price,
-                    count: 1
-                })
-            }
-            cart();
-            precal()
-        }
         //ตะกร้าสินค้า
-        function cart() {
-            var productCart_list = ''
-            if (cart_list.length > 0) {
-                for (i = 0; i < cart_list.length; i++) {
-                    if (cart_list[i].count > 0) {
-                        productCart_list +=
-                            `<div class="d-flex justify-content-between mb-1 py-1 " id="productItem${cart_list[i].id}">
-                            <div>
-                                <h6 class="text-success">${cart_list[i].name}</h6>
-                                <small id="countitems${i}">จำนวน : ${cart_list[i].count} ชิ้น</small>
-                            </div>
-                            <div>
-                                <i class="fas fa-trash-alt" onclick="delete_product(${i},${cart_list[i].id})"></i>
-                            </div>
-                        </div>
-                    </div> `
-                    }
-                    $("#product_cart").html(productCart_list)
-                    $("#cart_total").html(cart_list.length)
-                }
-            }
-            if (cart_list.length <= 0) {
-                $("#product_cart").html('ไม่มีสินค้า')
-            }
-        }
-
-        function numberWithCommas(x) {
-            x = x.toString();
-            var pattern = /(-?\d+)(\d{3})/;
-            while (pattern.test(x))
-                x = x.replace(pattern, "$1,$2");
-            return x;
-        }
-
-        function precal() {
-            var precal_sum = 0
-            var html = '';
-            cart_list.forEach((data) => {
-                if (data.count > 0) {
-                    precal_sum += data.price * data.count
-                    html +=
-                        `<tr id="precal${data.id}">
-                        <td colspan="4">- ${data.name}</td>
-                        <td class="text-right">${data.count}</td>
-                    </tr>`
-                    $('#tbody_precal').html(html)
-                    $('#precal_sum').html(numberWithCommas((precal_sum).toFixed(2)) + ' บาท')
-                    $('#price').val(precal_sum)
-                }
-                if (data.count <= 0) {
-                    $("#precal" + data.id).remove();
-                    $('#precal_sum').html(numberWithCommas((precal_sum).toFixed(2)))
-                    $('#price').val(precal_sum)
 
 
-                }
-            })
-        }
-        //ลบสินค้า
-        function delete_product(i, id) {
-            count--;
-            if (cart_list[i].count > 0) {
-                cart_list[i].count--;
-                $("#countitems" + i).text(`จำนวน : ${cart_list[i].count} ชิ้น`)
-            }
-            if (cart_list[i].count <= 0) {
-                $("#productItem" + id).remove();
-
-            }
-            precal()
-        }
         // ไปหน้าจ่ายเงิน
         function gotoPayment() {
 
             let totalprice = $('#price').val()
+
             $.ajax({
                 type: 'POST',
                 url: '<?php echo $this->Url->build(['controller' => 'cart', 'action' => 'add']); ?>',
@@ -187,7 +96,7 @@
                 success: function(res) {
                     let resp = JSON.parse(res)
                     localStorage.setItem("orders_token", resp.orders_token);
-                    if (resp.result = 200) {
+                    if (resp.result == 200) {
                         Swal.fire({
                             position: 'center',
                             icon: 'success',
@@ -195,10 +104,10 @@
                             showConfirmButton: true,
                             confirmButtonText: 'ไปหน้าชำระเงิน',
                         }).then((result) => {
-                            window.location.href = `<?= $this->Url->build(['Prefix' => 'customer', 'controller' => 'dashboard', 'action' => 'payment']) ?>/${resp.cart_token}`
+                            window.location.href = "<?= $this->Url->build(['controller' => 'users', 'action' => 'login']) ?>"
                         })
                     }
-                    if (resp.result = 304) {
+                    if (resp.result == 304) {
                         Swal.fire({
                             position: 'center',
                             icon: 'success',

@@ -6,6 +6,7 @@ use Cake\Database\Driver\Mysql;
 use Cake\Database\Driver\Postgres;
 use Cake\Log\Engine\FileLog;
 use Cake\Mailer\Transport\MailTransport;
+use Cake\Datasource\ConnectionManager;
 
 return [
     /*
@@ -17,7 +18,7 @@ return [
      * Development Mode:
      * true: Errors and warnings shown.
      */
-    'debug' => filter_var(env('DEBUG', true), FILTER_VALIDATE_BOOLEAN),
+    'debug' => filter_var(env('DEBUG', false), FILTER_VALIDATE_BOOLEAN),
 
     /*
      * Configure basic information about the application.
@@ -190,7 +191,7 @@ return [
         'skipLog' => [],
         'log' => true,
         'trace' => true,
-        'ignoredDeprecationPaths' => [],
+        'ignoredDeprecationPaths' => ['vendor/cakephp/cakephp/src/View/SerializedView.php'],
     ],
 
     /*
@@ -283,6 +284,8 @@ return [
      *   E.g set it to 'utf8mb4' in MariaDB and MySQL and 'utf8' for any
      *   other RDBMS.
      */
+   
+
     'Datasources' => [
         /*
          * These configurations should contain permanent settings used
@@ -420,4 +423,6 @@ return [
         'cookieTimeout' => 31536000, // session cookie 24 hours
         //'autoRegenerate' => true// regenerate session
     ],
+   
 ];
+

@@ -52,37 +52,31 @@ class BranchTable extends Table
     {
         $validator
             ->scalar('b_name')
-            ->requirePresence('b_name', 'create')
-            ->notEmptyString('b_name');
+            ->allowEmptyString('b_name');
 
         $validator
             ->scalar('b_province')
-            ->requirePresence('b_province', 'create')
-            ->notEmptyString('b_province');
+            ->allowEmptyString('b_province');
 
         $validator
             ->scalar('b_map')
-            ->requirePresence('b_map', 'create')
-            ->notEmptyString('b_map');
+            ->allowEmptyString('b_map');
 
         $validator
             ->integer('b_status')
-            ->requirePresence('b_status', 'create')
-            ->notEmptyString('b_status');
+            ->allowEmptyString('b_status');
 
         $validator
             ->scalar('b_phone')
-            ->requirePresence('b_phone', 'create')
-            ->notEmptyString('b_phone');
+            ->allowEmptyString('b_phone');
 
         $validator
             ->scalar('b_link')
-            ->requirePresence('b_link', 'create')
-            ->notEmptyString('b_link');
+            ->allowEmptyString('b_link');
 
         $validator
             ->dateTime('b_created_at')
-            ->notEmptyDateTime('b_created_at');
+            ->allowEmptyDateTime('b_created_at');
 
         return $validator;
     }

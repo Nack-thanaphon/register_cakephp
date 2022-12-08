@@ -99,12 +99,12 @@
                     // html += `<option value="${Branch[i]['province']}">${Branch[i]['province']}</option>`
                     branchData2 +=
                         `<li class="list-group-item d-flex justify-content-between">
-                    <a href="${Branch[i]['link']}">
+                    <a href="${Branch[i]['link']}" target="blank">
                         #${Branch[i]['name']}
                     </a>
                     <div>
-                        <i id="view${i}" class="far fa-eye" onclick="filterData('${Branch[i]['name']}','${i}','${Branch[i]['phone']}','${Branch[i]['link']}')"></i>
-                        <i class="far fa-edit" onclick="editbranch(${Branch[i]['id']})"></i>
+                        <i id="view${i}" class="far fa-eye" type="button" onclick="filterData('${Branch[i]['name']}','${i}','${Branch[i]['phone']}','${Branch[i]['link']}')"></i>
+                        <i class="far fa-edit" type="button" onclick="editbranch(${Branch[i]['id']})"></i>
                     </div>
                 </li>`
                     branchData.push(Branch[i])
@@ -194,6 +194,7 @@
                 $('#phone').val('')
                 $('#map').val('')
                 sidebar()
+                toastr.success('อัพเดตเรียบร้อย')
             }
         })
     }

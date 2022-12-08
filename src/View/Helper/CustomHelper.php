@@ -17,28 +17,31 @@ class customHelper extends Helper
         $Orderstable = TableRegistry::getTableLocator()->get('Orders');
         $OdersData = $Orderstable->find()
             ->where([
-                'Orders.id IN' => $orderId
+                'id' => $orderId
             ])->first();
 
         $status = '';
 
         if ($OdersData->status == 0) {
-            $status = 'ยกเลิก';
+            $status = '<span class="text-danger">ยกเลิก</span>';
         }
         if ($OdersData->status == 1) {
-            $status = 'รอการชำระเงิน';
+            $status = '<span class="text-muted">รอการชำระเงิน</span>';
         }
         if ($OdersData->status == 2) {
-            echo 'ชำระเงินแล้ว';
+            $status = '<span class="text-primary">รอการตรวจสอบ</span>';
         }
         if ($OdersData->status == 3) {
-            echo 'กำลังดำเนินการ';
+            $status = '<span class="text-primary">ชำระเงินแล้ว</span>';
         }
         if ($OdersData->status == 4) {
-            $status = 'จัดส่งแล้ว';
+            $status = '<span class="text-muted">กำลังดำเนินการ</span>';
+        }
+        if ($OdersData->status == 5) {
+            $status = '<span class="text-success">จัดส่งแล้ว</span>';
         }
 
-        return $status;
+        echo $status;
     }
     public function countBalance()
     {
@@ -47,6 +50,54 @@ class customHelper extends Helper
             "contain" => ['Users']
         ])->toArray();
         return $countBalance;
+    }
+
+    public function countSuccessOrder()
+    {
+        $table = TableRegistry::getTableLocator()->get('Orders');
+        $countBalance = $table->find()
+            ->where([
+                'status' => 5
+            ])
+            ->count();
+        return $countBalance;
+    }
+
+    public function GetContactData()
+    {
+        $table = TableRegistry::getTableLocator()->get('Contact');
+        $GetContactData = $table->find()->all();
+        return $GetContactData;
+    }
+    
+    public function countInCart()
+    {
+        $table = TableRegistry::getTableLocator()->get('Orders');
+        $countBalance = $table->find()
+            ->where([
+                'status' => 1
+            ])
+            ->count();
+        return $countBalance;
+    }
+    public function countOrderCancle()
+    {
+        $table = TableRegistry::getTableLocator()->get('Orders');
+        $countBalance = $table->find()
+            ->where([
+                'status' => 0
+            ])
+            ->count();
+        return $countBalance;
+    }
+
+
+
+    public function getProductsType()
+    {
+        $ProductsType = TableRegistry::getTableLocator()->get('ProductsType');
+        $getProductsType = $ProductsType->find('all')->toArray();
+        return $getProductsType;
     }
     public function countOrders()
     {

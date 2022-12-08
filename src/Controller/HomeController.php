@@ -10,7 +10,7 @@ class HomeController extends AppController
 
     public function index()
     {
-       
+
         $posttable = TableRegistry::getTableLocator()->get('Posts');
         $producttable = TableRegistry::getTableLocator()->get('Products');
 
@@ -22,7 +22,7 @@ class HomeController extends AppController
                 'detail' => 'posts.p_detail',
                 'status' => 'posts.p_status',
                 'user' => 's.name',
-                'date' => 'posts.p_created_at',
+                'date' => 'posts.p_date',
                 'image' => 'd.name'
             ])
             ->from([
@@ -51,15 +51,21 @@ class HomeController extends AppController
 
             ])->order([
                 'posts.id' => 'DESC'
-            ])->limit(3)->toArray();
+            ])->toArray();
 
+        $BranchTable = TableRegistry::getTableLocator()->get('Branch');
+        $Branch = $BranchTable->find()
+        ->order(['id' => 'DESC'])
+        ->toArray();
 
-        $Products = $producttable->find()
+        $productTable = TableRegistry::getTableLocator()->get('Products');
+        $Products = $productTable->find()
             ->select([
                 'id' => 'products.p_id',
                 'title' => 'products.p_title',
                 'type' => 'p.pt_name',
                 'price' => 'products.p_price',
+                'total' => 'products.p_total',
                 'status' => 'products.status',
                 'user' => 's.name',
                 'date' => 'products.p_created_at',
@@ -89,11 +95,17 @@ class HomeController extends AppController
                 'products.status' => 1,
                 'd.cover' => 1,
                 'd.status' => 1
-            ])->order([
-                'products.p_id' => 'DESC'
-            ])->limit(3)->toArray();
+            ])
+            ->order(['products.p_id' => 'DESC'])
+            ->group('id,title')
+            ->toArray();
 
-        $this->set(compact('Products'));
+        $data = [];
+        foreach ($Products as $products1) {
+            array_push($data, $products1);
+        }
+
+        $this->set(compact('data', 'Branch'));
         $this->set('posts', $post);
     }
 }

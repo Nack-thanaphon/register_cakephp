@@ -38,7 +38,7 @@
             </div>
         </div>
         <div class="col-sm-12  col-12 ">
-            <div class="card  p-2">
+            <div class="card  p-2 table-responsive-lg">
                 <div class="col-12  d-sm-flex justify-content-end mb-2 m-0 p-0">
                     <div class="">
                         <a href="<?= $this->Url->build(['controller' => 'Posts', 'action' => 'add']) ?>" class="btn btn-primary m-1">เพิ่มข่าวสาร</a>
@@ -58,14 +58,14 @@
                         <?php foreach ($post as $key => $posts) : ?>
 
                             <tr class="shadow-sm">
-                                <td class="w-40" style="width: 150px; overflow: hidden;height:150px ;">
+                                <td class="w-60" style="width: 250px; overflow: hidden;height:150px ;">
 
                                     <a data-fslightbox href="<?php echo $this->Url->build($posts->image, ['fullBase' => true]); ?>">
                                         <img class="w-100" style="object-fit:contain;" src="<?php echo $this->Url->build($posts->image, ['fullBase' => true]); ?>">
                                     </a>
 
                                 </td>
-                                <td class="w-50">
+                                <td class="w-30">
                                     <h5 class="m-0 p-0 "><?= $posts->title ?></a></p>
                                         <small class="m-0 p-0 text-muted"><?= $posts->date ?></small><br>
                                         <small class="m-0 p-0 text-muted"> <?= $posts->user ?></small>

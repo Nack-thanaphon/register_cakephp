@@ -9,13 +9,13 @@ use Cake\ORM\Entity;
  * Branch Entity
  *
  * @property int $id
- * @property string $b_name
- * @property string $b_province
- * @property string $b_map
- * @property int $b_status
- * @property string $b_phone
- * @property string $b_link
- * @property \Cake\I18n\FrozenTime $b_created_at
+ * @property string|null $b_name
+ * @property string|null $b_province
+ * @property string|null $b_map
+ * @property int|null $b_status
+ * @property string|null $b_phone
+ * @property string|null $b_link
+ * @property \Cake\I18n\FrozenTime|null $b_created_at
  */
 class Branch extends Entity
 {

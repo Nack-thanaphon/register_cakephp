@@ -42,6 +42,7 @@ class PostsTable extends Table
         $this->setTable('posts');
         $this->setDisplayField('title');
         $this->setPrimaryKey('id');
+
         $this->hasMany('Image', [
             'foreignKey' => 'post_id',
         ]);
@@ -51,7 +52,6 @@ class PostsTable extends Table
         $this->belongsTo('Users', [
             'foreignKey' => 'p_user_id',
         ]);
-      
     }
 
     /**
@@ -82,8 +82,8 @@ class PostsTable extends Table
             ->notEmptyString('p_detail');
 
         $validator
-            ->date('p_date')
-            ->allowEmptyDate('p_date');
+            ->scalar('p_date')
+            ->allowEmptyString('p_date');
 
         $validator
             ->boolean('p_status')

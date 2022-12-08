@@ -13,16 +13,70 @@ class ProductsController extends AppController
             'contain' => ['ProductsType'],
         ];
         $Products = $this->paginate($this->Products);
-
-        $this->set(compact('Products'));
+        $ProductsType = $this->Custom->getProductsType();
+        $this->set(compact('Products', 'ProductsType'));
     }
 
-    public function view($id = null)
+    public function view($id = null, $slug = null)
     {
-        $product = $this->Products->get($id, [
-            'contain' => ['ProductsType'],
-        ]);
+        // pr($id);die;
+        $product = $this->Products->find()
+            ->contain(['ProductsType'])
+            ->where([
+                'Products.p_id' => $id
+            ])->first();
 
-        $this->set(compact('product'));
+        $productData  = $this->Products->find()
+            ->select([
+                'id' => 'products.p_id',
+                'imgId' => 'd.id',
+                'name' => 'd.name',
+                'cover' => 'd.cover',
+            ])
+            ->from([
+                'products'
+            ])
+            ->join([
+                'd' => [
+                    'table' => 'image',
+                    'type' => 'INNER',
+                    'conditions' => 'd.product_id = products.p_id',
+                ]
+            ])
+            ->where([
+                'd.product_id' => $id
+            ])
+            ->toArray();
+
+        $imgID = [];
+        $img = [];
+        $coverImg = [];
+        $productEdit = [];
+        foreach ($productData as  $data) {
+            $imgID = $data['id'];
+            if ($data['cover'] == 1) {
+                $coverImg[] =  [
+                    'id' => $data['imgId'],
+                    'name' => $data['name']
+                ];
+                $img[] = [
+                    'id' => $data['imgId'],
+                    'name' => $data['name']
+                ];
+            }
+            if ($data['cover'] == 0) {
+                $img[] = [
+                    'id' => $data['imgId'],
+                    'name' => $data['name']
+                ];
+            }
+        }
+        $productEdit[] = [
+            'id' => $imgID,
+            'img' => $img,
+            'cover' =>  $coverImg,
+        ];
+        // echo json_encode($productEdit);
+        $this->set(compact('product', 'productEdit'));
     }
 }

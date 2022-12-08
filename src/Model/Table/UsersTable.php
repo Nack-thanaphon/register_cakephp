@@ -84,6 +84,11 @@ class UsersTable extends Table
             ->allowEmptyString('address');
 
         $validator
+            ->scalar('phone')
+            ->maxLength('phone', 20)
+            ->allowEmptyString('phone');
+
+        $validator
             ->scalar('image')
             ->allowEmptyFile('image');
 

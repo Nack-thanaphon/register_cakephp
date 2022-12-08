@@ -23,11 +23,12 @@ class AppController extends Controller
         $this->Authentication->addUnauthenticatedActions([]);
         $this->viewBuilder()->setLayout('dashboard');
 
+       
         $result = $this->Authentication->getResult()->getData();
         if (!empty($result)) {
             if ($result['user_role_id'] == 1) {
-                $uid = $result['id'];
-                $userData =  $this->Custom->GetUserData($uid);
+                $token = $result['token'];
+                $userData =  $this->Custom->GetUserData($token);
                 $this->set('userData', $userData);
             } else {
                 return $this->redirect([
@@ -40,7 +41,7 @@ class AppController extends Controller
     }
     public function sendLineNotify($message = "แจ้งเตือนรายการสั่งซื้อ")
     {
-        $token = "7wJZPRrVxxw5bv0pw0EJspO8wQ6TYpF5Lhflftfsd7S"; // ใส่ Token ที่สร้างไว้
+        $token =  $this->Custom->GetContactData()->linetoken;  // ใส่ Token ที่สร้างไว้
 
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, "https://notify-api.line.me/api/notify");

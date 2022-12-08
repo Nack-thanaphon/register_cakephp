@@ -18,22 +18,33 @@ class DashboardController  extends AppController
 
     public function index()
     {
+        $OrdersTable = TableRegistry::getTableLocator()->get('Orders');
         $session = $this->request->getSession();
         $cartTokensession =  $session->read('cartToken');
-        if (empty($cartTokensession)) {
-            return $this->redirect([
-                'prefix' => 'Customer',
-                'controller' => 'dashboard',
-                'action' => 'index',
-            ]);
+
+        $result = $this->Authentication->getResult()->getData();
+        $Usertoken =  $this->Custom->GetUsertoken($result);
+        $UserData =  $this->Custom->GetUserData($Usertoken);
+
+        if (!empty($UserData)) {
+            $UserOrders =  $OrdersTable->find()
+                ->contain(['Users'])
+                ->where([
+                    'orders_user_id IN' => $UserData[0]['id']
+                ])
+                ->order([
+                    'Orders.id' => 'DESC'
+                ])
+                ->limit(5);
         } else {
             return $this->redirect([
-                'prefix' => 'Customer',
-                'controller' => 'dashboard',
-                'action' => 'payment',
-                $cartTokensession
+                'prefix' => false,
+                'controller' => 'users',
+                'action' => 'login',
             ]);
         }
+
+        $this->set(compact('UserOrders', 'UserData'));
     }
 
     public function view($token = null)
@@ -51,11 +62,6 @@ class DashboardController  extends AppController
     }
 
 
-    public function add()
-    {
-        $user = $this->Users->newEmptyEntity();
-        $this->set(compact('user'));
-    }
     public function paymentUpload()
     {
         $imageTable = TableRegistry::getTableLocator()->get('Image');
@@ -197,16 +203,225 @@ class DashboardController  extends AppController
                 'paymentimage' => $PaymentDataImageName,
                 'productsimage' => $ProductsDataImage[$key]['name'],
                 'price' => $itemPrice[$key],
-                'Total_price' => array_sum($itemPrice),
-                'status' => $itemPrice[$key],
+                'Total_price' => $order[0]['total_price'],
+                'status' => $order[0]['orders_code'],
                 'total' => $itemCount[$key]
             ]);
         }
+        $userId = $order[0]['orders_user_id'];
+        $UserData =  $this->Custom->GetUserDataById($userId);
+        // pr($UserData);
+        // die;
+        if (!empty($UserData)) {
+            $UserOrders =  $OrdersTable->find()
+                ->contain(['Users'])
+                ->where([
+                    'orders_user_id IN' => $UserData[0]['id']
+                ])
+                ->order([
+                    'Orders.id' => 'DESC'
+                ])
+                ->limit(5);
+        } else {
+            return $this->redirect([
+                'prefix' => false,
+                'controller' => 'users',
+                'action' => 'login',
+            ]);
+        }
+
+        $this->set(compact('UserOrders', 'UserData'));
         // pr($OrdersData);
         // die;
         $this->set(compact('order', 'OrdersData'));
     }
 
+    public function order()
+    {
+
+        $OrdersTable = TableRegistry::getTableLocator()->get('Orders');
+        $result = $this->Authentication->getResult()->getData();
+        $session = $this->request->getSession();
+        $cartTokensession =  $session->read('cartToken');
+        // if (!empty($cartTokensession)) {
+        //     return $this->redirect([
+        //         'prefix' => 'Customer',
+        //         'controller' => 'dashboard',
+        //         'action' => 'payment',
+        //         $cartTokensession
+        //     ]);
+        // } else {
+        //     return $this->redirect([
+        //         'prefix' => 'Customer',
+        //         'controller' => 'dashboard',
+        //         'action' => 'index',
+        //     ]);
+        // }
+        $Usertoken =  $this->Custom->GetUsertoken($result);
+        $UserData =  $this->Custom->GetUserData($Usertoken);
+        // pr($Usertoken);
+        // pr($UserData);
+        // die;
+        $UserOrders =  $OrdersTable->find()
+            ->contain(['Users'])
+            ->where([
+                'orders_user_id IN' => $UserData[0]['id']
+            ])
+            ->order([
+                'Orders.id' => 'DESC'
+            ])
+            ->limit(5);
+
+        $this->set(compact('UserOrders', 'UserData'));
+    }
+    public function tracking()
+    {
+    }
+    public function history()
+    {
+        $OrdersTable = TableRegistry::getTableLocator()->get('Orders');
+        $result = $this->Authentication->getResult()->getData();
+        $session = $this->request->getSession();
+        $cartTokensession =  $session->read('cartToken');
+        // if (!empty($cartTokensession)) {
+        //     return $this->redirect([
+        //         'prefix' => 'Customer',
+        //         'controller' => 'dashboard',
+        //         'action' => 'payment',
+        //         $cartTokensession
+        //     ]);
+        // } else {
+        //     return $this->redirect([
+        //         'prefix' => 'Customer',
+        //         'controller' => 'dashboard',
+        //         'action' => 'index',
+        //     ]);
+        // }
+        $Usertoken =  $this->Custom->GetUsertoken($result);
+        $UserData =  $this->Custom->GetUserData($Usertoken);
+        // pr($Usertoken);
+        // pr($UserData);
+        // die;
+        $UserOrders =  $OrdersTable->find()
+            ->contain(['Users'])
+            ->where([
+                'orders_user_id IN' => $UserData[0]['id']
+            ])
+            ->order([
+                'Orders.id' => 'DESC'
+            ])
+            ->limit(5);
+
+        $this->set(compact('UserOrders', 'UserData'));
+    }
+    public function address($token)
+    {
+        $UsersTable = TableRegistry::getTableLocator()->get('Users');
+        $user =  $UsersTable->find()
+            ->where([
+                'token =' => $token
+            ])
+            ->contain(['UsersType', 'UsersRole'])
+            ->first();
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $user =  $UsersTable->patchEntity($user, $this->request->getData());
+            ///file
+            $userimg = $this->request->getData("userimage");
+            ///filetext
+            $userimgText = $this->request->getData("imgold");
+            //userId
+            $user->id = $this->request->getData('userId');
+            $hasFileError = $userimg->getError();
+
+            if ($hasFileError > 0) {
+                $data["image"] = '';
+                $user->image = $userimgText;
+                $user =  $UsersTable->patchEntity($user, $this->request->getData());
+
+                if ($UsersTable->save($user)) {
+                    $this->Flash->success(__('The user has been saved.'));
+
+                    return $this->redirect(['action' => 'index']);
+                }
+                $this->Flash->error(__('The user could not be saved. Please, try again.'));
+            } else {
+                // file uploaded
+                $fileName = $userimg->getClientFilename();
+                $fileType = $userimg->getClientMediaType();
+
+                if ($fileType == "image/png" || $fileType == "image/jpeg" || $fileType == "image/jpg") {
+                    $imagePath = WWW_ROOT . "img/user/" . DS . $fileName;
+                    $userimg->moveTo($imagePath);
+                    $data["image"] = "img/user/" . $fileName;
+                }
+            }
+            $user =  $UsersTable->patchEntity($user, $data);
+            if ($UsersTable->save($user)) {
+                $this->Flash->success(__('The user has been saved.'));
+
+                return $this->redirect(['action' => 'index']);
+            }
+            $this->Flash->error(__('The user could not be saved. Please, try again.'));
+        }
+        $this->set(compact('user'));
+    }
+
+    public function forgetpassword()
+    {
+
+        $this->viewBuilder()->setlayout('frontend');
+
+        if ($this->request->is('post')) {
+            $email = $this->request->getData('email');
+            $token = Security::hash(Security::randomBytes(25));
+            $usertable = TableRegistry::getTableLocator()->get('Users');
+            $user = $usertable->find('all')->where(['email' => $email])->first();
+            if ($user != null) {
+                $user->password = '';
+                $user->token = $token;
+                if ($usertable->save($user)) {
+                    $this->Flash->set('กรุณาเช็คในอีเมลล์ ' . $email . ' เพื่อยืนยันการเปลี่ยนรหัสผ่าน', ['element' => 'success']);
+                    TransportFactory::setConfig('gmail', [
+                        'host' => 'smtp.gmail.com',
+                        'port' => 587,
+                        'username' => 'e21bvz@gmail.com',
+                        'password' => 'jxcsblueiiwjzvxd',
+                        'className' => 'Smtp',
+                        'tls' => true
+                    ]);
+
+                    $mailer = new Mailer('default');
+                    $mailer->setFrom(['e21bvz@gmail.com' => 'แม่ปลูกลูกขาย'])
+                        ->setTo($email)
+                        ->setEmailFormat('html')
+                        ->setSubject('เปลี่ยนรหัสผ่านการเข้าใช้งาน แม่ปลูกลูกขาย')
+                        ->setTransport('gmail')
+                        ->setViewVars([
+                            'name' => $user->name,
+                            'verify' => $token
+                        ])
+                        ->viewBuilder()
+                        ->setTemplate('resetpassword');
+
+                    $mailer->deliver();
+                    $htmlStatusCode = 200;
+                    $response = [
+                        'status' => $htmlStatusCode,
+                        'message' => 'OK',
+                    ];
+                    $this->set(compact('response'));
+                    $this->viewBuilder()->setOption('serialize', ['response']);
+                    $this->setResponse($this->response->withStatus($htmlStatusCode));
+                } else {
+                    $this->Flash->set('เปลี่ยนรหัสผ่านไม่สำเร็จ หรือข้อมูลไม่ถูกต้อง', ['element' => 'error']);
+                }
+            } else {
+                $this->Flash->set('ไม่มีข้อมูลในระบบ', ['element' => 'error']);
+            }
+        } else {
+            $this->Flash->set('กรุณากรอกข้อมูลให้ถูกต้อง', ['element' => 'error']);
+        }
+    }
 
     public function edit($token = null)
     {

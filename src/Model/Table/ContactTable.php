@@ -51,68 +51,48 @@ class ContactTable extends Table
     public function validationDefault(Validator $validator): Validator
     {
         $validator
-            ->scalar('b_name')
-            ->allowEmptyString('b_name');
+            ->scalar('name')
+            ->allowEmptyString('name');
 
         $validator
-            ->scalar('b_adress')
-            ->allowEmptyString('b_adress');
+            ->scalar('about')
+            ->allowEmptyString('about');
 
         $validator
-            ->scalar('b_phone')
-            ->allowEmptyString('b_phone');
+            ->scalar('adress')
+            ->allowEmptyString('adress');
 
         $validator
-            ->scalar('b_phone1')
-            ->allowEmptyString('b_phone1');
+            ->scalar('phone')
+            ->allowEmptyString('phone');
 
         $validator
-            ->scalar('b_phone2')
-            ->allowEmptyString('b_phone2');
+            ->scalar('facebook')
+            ->allowEmptyString('facebook');
 
         $validator
-            ->scalar('b_phone3')
-            ->allowEmptyString('b_phone3');
+            ->scalar('line')
+            ->allowEmptyString('line');
 
         $validator
-            ->scalar('b_social')
-            ->allowEmptyString('b_social');
+            ->scalar('instagram')
+            ->allowEmptyString('instagram');
 
         $validator
-            ->scalar('b_social1')
-            ->allowEmptyString('b_social1');
+            ->scalar('tiktok')
+            ->allowEmptyString('tiktok');
 
         $validator
-            ->scalar('b_social2')
-            ->allowEmptyString('b_social2');
+            ->scalar('linetoken')
+            ->allowEmptyString('linetoken');
 
         $validator
-            ->scalar('b_payment1')
-            ->allowEmptyString('b_payment1');
+            ->scalar('lineoficial')
+            ->allowEmptyString('lineoficial');
 
         $validator
-            ->scalar('b_payment2')
-            ->allowEmptyString('b_payment2');
-
-        $validator
-            ->scalar('b_payment3')
-            ->allowEmptyString('b_payment3');
-
-        $validator
-            ->scalar('b_img')
-            ->allowEmptyString('b_img');
-
-        $validator
-            ->scalar('b_img1')
-            ->allowEmptyString('b_img1');
-
-        $validator
-            ->scalar('b_img2')
-            ->allowEmptyString('b_img2');
-
-        $validator
-            ->scalar('b_img3')
-            ->allowEmptyString('b_img3');
+            ->scalar('paymentimg')
+            ->allowEmptyString('paymentimg');
 
         $validator
             ->dateTime('updated_at')

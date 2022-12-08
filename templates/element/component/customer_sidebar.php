@@ -27,7 +27,7 @@
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <li class="nav-header text-secondary text-uppercase"><small>Management space</small></li>
                 <li class="nav-item">
-                    <a href="<?= $this->Url->build(['prefix' => 'Admin', 'controller' => 'dashboard', 'action' => 'index']) ?>" class="nav-link">
+                    <a href="<?= $this->Url->build(['controller' => 'dashboard', 'action' => 'index']) ?>" class="nav-link">
                         <i class="fas fa-database"></i>
                         <p class="text-bold text-uppercase">
                             หน้าหลัก
@@ -35,40 +35,40 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= $this->Url->build(['prefix' => 'Admin', 'controller' => 'orders', 'action' => 'index']) ?>" class="nav-link">
+                    <a href="<?= $this->Url->build(['controller' => 'dashboard', 'action' => 'order']) ?>" class="nav-link">
                         <i class="fas fa-bars"></i>
                         <p class="text-bold text-uppercase">
                             รายการคำสั่งซื้อ
                         </p>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="<?= $this->Url->build(['prefix' => 'Admin', 'controller' => 'orders', 'action' => 'index']) ?>" class="nav-link">
+                <!-- <li class="nav-item">
+                    <a href="<?= $this->Url->build(['controller' => 'dashboard', 'action' => 'tracking']) ?>" class="nav-link">
                         <i class="fas fa-shopping-cart"></i>
                         <p class="text-bold text-uppercase">
                             ติดตามออเดอร์
                         </p>
                     </a>
-                </li>
+                </li> -->
                 <li class="nav-header text-secondary text-uppercase"><small>System Area</small></li>
                 <li class="nav-item">
-                    <a href="<?= $this->Url->build(['prefix' => 'Admin', 'controller' => 'Users', 'action' => 'index']) ?>" class="nav-link">
-                        <i class="fas fa-users-cog"></i>
-                        <p class="text-bold text-uppercase">
-                            ประวัติการสั่งซื้อ
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="<?= $this->Url->build(['prefix' => 'Admin', 'controller' => 'contact', 'action' => 'index']) ?>" class="nav-link">
+                    <a href="/customer/address/<?= $userData[0]['token']  ?>" class="nav-link">
                         <i class="fas fa-address-card"></i>
                         <p class="text-bold text-uppercase">
                             ที่อยู่จัดส่ง
                         </p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="<?= $this->Url->build(['controller' => 'dashboard', 'action' => 'history']) ?>" class="nav-link">
+                        <i class="fas fa-users-cog"></i>
+                        <p class="text-bold text-uppercase">
+                            ประวัติการสั่งซื้อ
+                        </p>
+                    </a>
+                </li>
                 <!-- <li class="nav-item">
-                    <a href="<?= $this->Url->build(['prefix' => 'Admin', 'controller' => 'chats', 'action' => 'index']) ?>" class="nav-link">
+                    <a href="<?= $this->Url->build(['controller' => 'chats', 'action' => 'index']) ?>" class="nav-link">
                         <i class="fas fa-info-circle"></i>
                         <p class="text-bold text-uppercase">
                             รายงาน

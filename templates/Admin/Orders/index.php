@@ -1,10 +1,14 @@
 <?php $this->assign('title', 'ออเดอร์'); ?>
 
-
 <div class="container-fluid">
-    <div class="row my-5 h-100 ">
+    <div class="row m-2 my-2 h-100 ">
+        <div class="col-sm-12  col-12">
+            <div class="py-2">
+                <small class="text-muted">Orders Management Systems </small>
+                <h3 class="m-0 p-0">ระบบจัดการออเดอร์</h3>
+            </div>
+        </div>
         <div class="col-sm-4  col-12 news_orders">
-
             <?php if (!empty($ordersToday)) {
                 foreach ($ordersToday as $key => $value) : ?>
                     <div class="card  p-3 mb-2 m-1">
@@ -18,26 +22,29 @@
                             <hr>
                             <div class="col-sm-12 col-12 p-0">
                                 <p class="m-0 p-0">ลูกค้า : <?= (!empty(($value->user['name']))) ? $value->user['name'] : "รอข้อมูลผู้ใช้งาน" ?> </p>
-                                <small class="text-muted ">สถานะ :
+                                <p class="text-muted m-0 mt-1 p-0">สถานะ :
                                     <?php
                                     $orderStatus = $value->status;
                                     if ($orderStatus == 0) {
-                                        echo '<div class="badge badge-danger">ยกเลิก</div>';
+                                        echo '<span class="text-danger">ยกเลิก</span>';
                                     }
                                     if ($orderStatus == 1) {
-                                        echo '<div class="badge badge-warning">รอการชำระเงิน</div>';
+                                        echo '<span class="text-muted">รอการชำระเงิน</span>';
                                     }
                                     if ($orderStatus == 2) {
-                                        echo '<div class="badge badge-primary">ชำระเงินแล้ว</div>';
+                                        echo '<span class="text-primary">รอการตรวจสอบ</span>';
                                     }
                                     if ($orderStatus == 3) {
-                                        echo '<div class="badge badge text-primary">กำลังดำเนินการ</div>';
+                                        echo '<span class="text-primary">ชำระเงินแล้ว</span>';
                                     }
                                     if ($orderStatus == 4) {
-                                        echo '<div class="badge badge-success">จัดส่งแล้ว</div>';
+                                        echo '<span class="text-muted">กำลังดำเนินการ</span>';
+                                    }
+                                    if ($orderStatus == 5) {
+                                        echo '<span class="text-success">จัดส่งแล้ว</span>';
                                     }
                                     ?>
-                                </small>
+                                </p>
                             </div>
                             <!-- <div class="col-12">
                                 <section class="text-muted mt-1">
@@ -62,27 +69,27 @@
                     <div class="m-1 p-2 card bg-success">
                         <p class="m-0 p-0 ">ชำระแล้ว</h4>
 
-                        <h5 class="text-right m-0 p-0 font-weight-bold">100
-                            <span><small>/ ครัั้ง</small></span></h3>
+                        <h5 class="text-right m-0 p-0 font-weight-bold">
+                            <?= $this->Custom->countSuccessOrder() ?><span><small>/ ครัั้ง</small></span></h3>
                     </div>
                 </div>
                 <div class="col-6 col-sm-4 m-0 p-0">
                     <div class="m-1 p-2 card bg-primary">
                         <p class="m-0 p-0 ">ในตะกร้า</h4>
-                        <h5 class="text-right m-0 p-0 font-weight-bold">2
-                            <span><small>/ ครัั้ง</small></span></h3>
+                        <h5 class="text-right m-0 p-0 font-weight-bold">
+                            <?= $this->Custom->countInCart() ?><span><small>/ ครัั้ง</small></span></h3>
                     </div>
                 </div>
                 <div class="col-6 col-sm-4 m-0 p-0">
                     <div class="m-1 p-2 card bg-danger ">
                         <p class="m-0 p-0 ">ยกเลิก</h4>
 
-                        <h5 class="text-right m-0 p-0 font-weight-bold">0
-                            <span><small>/ ครัั้ง</small></span></h3>
+                        <h5 class="text-right m-0 p-0 font-weight-bold">
+                            <?= $this->Custom->countOrderCancle() ?><span><small>/ ครัั้ง</small></span></h3>
                     </div>
                 </div>
             </div>
-            <div class="card  p-2 m-1">
+            <div class="card  p-2 m-1 table-responsive-lg">
                 <table id="ordersTable" class="display responsive nowrap" style="width:100%">
                     <thead>
                         <tr>
@@ -92,29 +99,32 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php foreach ($ordersAll as $order) : ?>
+                        <?php foreach ($ordersAll as $key => $order) : ?>
                             <tr class="shadow-sm">
                                 <td class="w-50 p-3">
                                     <h5 class="font-weight-bold">หมายเลข : <?= $order->orders_code ?></h5>
-                                    <p class="m-0 p-0 text-muted">ชื่อลูกค้า: <a href="http://">ธนพล กัลปพฤกษ์</a></p>
+                                    <p class="m-0 p-0 text-muted">ชื่อลูกค้า: <a href=""><?= (!empty(($order->user['name']))) ? $order->user['name'] : "รอข้อมูลผู้ใช้งาน" ?></a></p>
                                     <p class="m-0 p-0 text-muted"> วันที่สั่งซื้อ :<?= $order->created_at ?></p>
                                 </td>
                                 <td class="w-10 p-3">
                                     <?php
                                     if ($order->status == 0) {
-                                        echo '<div class="text-danger">ยกเลิก</div>';
+                                        echo '<span class="text-danger">ยกเลิก</span>';
                                     }
                                     if ($order->status == 1) {
-                                        echo '<div class="text-warning">รอการชำระเงิน</div>';
+                                        echo '<span class="text-muted">รอการชำระเงิน</span>';
                                     }
                                     if ($order->status == 2) {
-                                        echo '<div class="text-primary">ชำระเงินแล้ว</div>';
+                                        echo '<span class="text-primary">รอการตรวจสอบ</span>';
                                     }
                                     if ($order->status == 3) {
-                                        echo '<div class="text-muted">กำลังดำเนินการ</div>';
+                                        echo '<span class="text-primary">ชำระเงินแล้ว</span>';
                                     }
                                     if ($order->status == 4) {
-                                        echo '<div class="text-success">จัดส่งแล้ว</div>';
+                                        echo '<span class="text-muted">กำลังดำเนินการ</span>';
+                                    }
+                                    if ($order->status == 5) {
+                                        echo '<span class="text-success">จัดส่งแล้ว</span>';
                                     }
                                     ?>
                                 </td>

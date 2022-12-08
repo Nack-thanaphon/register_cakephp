@@ -27,6 +27,7 @@ class ImageTableTest extends TestCase
         'app.Image',
         'app.Posts',
         'app.Products',
+        'app.Orders',
     ];
 
     /**

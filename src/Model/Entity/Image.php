@@ -20,6 +20,7 @@ use Cake\ORM\Entity;
  *
  * @property \App\Model\Entity\Post $post
  * @property \App\Model\Entity\Product $product
+ * @property \App\Model\Entity\Order $order
  */
 class Image extends Entity
 {
@@ -43,5 +44,6 @@ class Image extends Entity
         'updated_at' => true,
         'post' => true,
         'product' => true,
+        'order' => true,
     ];
 }

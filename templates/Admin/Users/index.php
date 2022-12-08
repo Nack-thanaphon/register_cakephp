@@ -142,6 +142,6 @@
             "order": [[ 0, 'desc' ], [ 1, 'desc' ]]
         });
 
-        toastr.info('Are you the 6 fingered man?')
+     
     });
 </script>

@@ -31,19 +31,22 @@ class OrdersController extends AppController
             ])
             ->order([
                 'Orders.id' => 'DESC'
-            ]);
-
+            ])->toArray();
         $this->set(compact('ordersToday', 'ordersAll'));
     }
 
     public function view($id = null)
     {
         $ProductsTable = TableRegistry::getTableLocator()->get('Products');
-        $order = $this->Orders->get($id, [
-            'contain' => ['Users'],
-        ]);
+        $OrdersTable = TableRegistry::getTableLocator()->get('Orders');
+        $ImageTable = TableRegistry::getTableLocator()->get('Image');
 
-        $itemDetail = json_decode($order['orders_detail'], true);
+        $order = $OrdersTable->find()
+            ->where([
+                "Orders.id =" => $id
+            ])->toArray();
+
+        $itemDetail = json_decode($order[0]['orders_detail'], true);
         $itemId = [];
         $itemPrice = [];
         $itemCount = [];
@@ -59,22 +62,71 @@ class OrdersController extends AppController
                 'Products.p_id IN' => $itemId
             ]);
 
+        $ProductsDataImage = $ImageTable->find()
+            ->where([
+                'product_id IN' => $itemId,
+                'cover' => 1,
+                'status' => 1
+            ])->order([
+                'product_id' => 'ASC'
+            ])
+            ->toArray();
+
+        $PaymentDataImage = $ImageTable->find()
+            ->where([
+                'order_id' => $order[0]['id'],
+                'status' => 1
+            ])->first();
+
+        $PaymentDataImageId = 0;
+        $PaymentDataImageName = '';
+
+        if (!empty($PaymentDataImage['id'])) {
+            $PaymentDataImageId = $PaymentDataImage['id'];
+            $PaymentDataImageName = $PaymentDataImage['name'];
+        }
 
         $OrdersData = [];
-
         foreach ($ProductsData as $key => $rowData) {
             $OrdersData[] = ([
-                'id' => $order['orders_code'],
+                'id' => $order[0]['id'],
+                'orders_id' => $order[0]['orders_code'],
+                'orders_token' => $order[0]['orders_token'],
                 'title' => $rowData['p_title'],
-                'date' => $order['updated_at'],
-                'image' => $rowData['p_image_id'],
+                'date' => $order[0]['updated_at'],
+                'paymentimage' => $PaymentDataImageName,
+                'productsimage' => $ProductsDataImage[$key]['name'],
                 'price' => $itemPrice[$key],
-                'Total_price' => array_sum($itemPrice),
-                'status' => $itemPrice[$key],
+                'Total_price' => $order[0]['total_price'],
+                'status' => $order[0]['orders_code'],
                 'total' => $itemCount[$key]
             ]);
         }
+        // pr($OrdersData);
+        // die;
+        $userId = $order[0]['orders_user_id'];
+        $UserData =  $this->Custom->GetUserDataById($userId);
+        // pr($UserData);
+        // die;
+        if (!empty($UserData)) {
+            $UserOrders =  $OrdersTable->find()
+                ->contain(['Users'])
+                ->where([
+                    'orders_user_id IN' => $UserData[0]['id']
+                ])
+                ->order([
+                    'Orders.id' => 'DESC'
+                ])
+                ->limit(5);
+        } else {
+            return $this->redirect([
+                'prefix' => false,
+                'controller' => 'users',
+                'action' => 'login',
+            ]);
+        }
 
+        $this->set(compact('UserOrders', 'UserData'));
         $this->set(compact('order', 'OrdersData'));
     }
 
@@ -103,6 +155,7 @@ class OrdersController extends AppController
     public function edit($id = null)
     {
         $ProductsTable = TableRegistry::getTableLocator()->get('Products');
+        $OrdersTable = TableRegistry::getTableLocator()->get('Orders');
         $imageTable = TableRegistry::getTableLocator()->get('Image');
 
         $order = $this->Orders->get($id, [
@@ -137,6 +190,19 @@ class OrdersController extends AppController
             ])
             ->toArray();
 
+        $PaymentDataImage = $imageTable->find()
+            ->where([
+                'order_id' => $order['id'],
+                'status' => 1
+            ])->first();
+
+        $PaymentDataImageId = 0;
+        $PaymentDataImageName = '';
+
+        if (!empty($PaymentDataImage['id'])) {
+            $PaymentDataImageId = $PaymentDataImage['id'];
+            $PaymentDataImageName = $PaymentDataImage['name'];
+        }
         $OrdersData = [];
         foreach ($ProductsData as $key => $rowData) {
 
@@ -151,13 +217,35 @@ class OrdersController extends AppController
                 'product_id' => $imageData[$key]['product_id'],
                 'date' => $order['updated_at'],
                 'status' => $order['status'],
+                'paymentimage' => $PaymentDataImageName,
                 'image' => $imageData[$key]['name'],
                 'price' => $itemPrice[$key],
-                'Total_price' => array_sum($itemPrice),
+                'Total_price' => $order['total_price'],
                 'total' => $itemCount[$key]
             ]);
         }
+        $userId = $order['orders_user_id'];
+        $UserData =  $this->Custom->GetUserDataById($userId);
 
+        if (!empty($UserData)) {
+            $UserOrders =  $OrdersTable->find()
+                ->contain(['Users'])
+                ->where([
+                    'orders_user_id ' => $UserData[0]['id']
+                ])
+                ->order([
+                    'Orders.id' => 'DESC'
+                ])
+                ->limit(5);
+        } else {
+            return $this->redirect([
+                'prefix' => false,
+                'controller' => 'users',
+                'action' => 'login',
+            ]);
+        }
+
+        $this->set(compact('UserOrders', 'UserData'));
 
         // pr($OrdersData);die;
         if ($this->request->is(['patch', 'post', 'put'])) {
@@ -194,10 +282,11 @@ class OrdersController extends AppController
 
                 // pr($OrdeStatusUpdate);die;
                 $this->Orders->save($OrdeStatusUpdate);
-                
+
                 $responseData = ['success' => true];
                 $this->set('responseData', $responseData);
-                $this->set('_serialize', ['responseData']);die;
+                $this->set('_serialize', ['responseData']);
+                die;
             }
         }
     }

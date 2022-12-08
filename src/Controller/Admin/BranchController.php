@@ -27,9 +27,9 @@ class BranchController extends AppController
                 "province" => $data->b_province,
             );
         }
+        $this->set(compact('Branch1'));
         $this->viewBuilder()->setOption('serialize', true);
 
-        $this->set(compact('Branch1'));
     }
 
     public function view($id = null)
@@ -56,7 +56,7 @@ class BranchController extends AppController
             if ($BranchTable->save($BranchData)) {
                 $responseData = ['success' => true];
                 $this->set('responseData', $responseData);
-                $this->set('_serialize', ['responseData']);
+                $this->set('_serialize', ['responseData']);die;
             }
         }
     }
@@ -78,15 +78,15 @@ class BranchController extends AppController
 
         if ($this->request->is('post')) {
             $BranchData =  $BranchTable->patchEntity($BranchData, $this->request->getData());
-
+            $BranchData->id=$this->request->getData('id');
             if ($BranchTable->save($BranchData)) {
                 $responseData = ['success' => true];
                 $this->set('responseData', $responseData);
-                $this->set('_serialize', ['responseData']);
+                $this->set('_serialize', ['responseData']);die;
             } else {
                 $responseData = ['success' => false];
                 $this->set('responseData', $responseData);
-                $this->set('_serialize', ['responseData']);
+                $this->set('_serialize', ['responseData']);die;
             }
         }
     }
@@ -99,11 +99,11 @@ class BranchController extends AppController
         if ($this->Branch->delete($Branch)) {
             $responseData = ['success' => true];
             $this->set('responseData', $responseData);
-            $this->set('_serialize', ['responseData']);
+            $this->set('_serialize', ['responseData']);die;
         } else {
             $responseData = ['success' => false];
             $this->set('responseData', $responseData);
-            $this->set('_serialize', ['responseData']);
+            $this->set('_serialize', ['responseData']);die;
         }
 
         return $this->redirect(['action' => 'index']);

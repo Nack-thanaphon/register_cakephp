@@ -1,3 +1,5 @@
+<?php $this->assign('title', 'แก้ไข'); ?>
+
 <style>
     label#largeFile:after {
         position: absolute;
@@ -41,7 +43,7 @@
     <div class="col-12 col-md-12 col-lg-8">
         <div class="card p-3">
             <div class="d-flex justify-content-between py-2 my-auto">
-                <h3 class="font-weight-bold"><?= __('อัพเดตสินค้า') ?></h3>
+                <h3 class="font-weight-bold"><?= __('อัพเดตข่าวสาร') ?></h3>
                 <h6 class="fas fa-trash-alt my-auto" type="button" onclick="deletePosts(<?= $Posts->id ?>)"></h6>
             </div>
             <?= $this->Form->create($Posts, ["enctype" => "multipart/form-data"]) ?>
@@ -51,16 +53,12 @@
 
                 <div class="form-floating mb-1">
                     <label>วันเดือนปี</label>
-                    <?= $this->Form->input(
-                        'p_date',
-                        [
-                            'type' => 'date',
-                            'class' => 'form-control ',
-                            'id' => 'datetimepicker',
-                            'default' => date('Y-m-d H:i') #Set time for today
-                        ]
-                    );
-                    ?>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="basic-addon1"><i class="fas fa-calendar"></i></span>
+                        </div>
+                        <input type="text" name="p_date" class="form-control" id="editnew" value="<?= $Posts->p_date ?>">
+                    </div>
 
                 </div>
                 <div class="form-floating mb-1">
@@ -105,7 +103,7 @@
         </div>
     </div>
     <div class="col-12 col-md-12 col-lg-4 m-0">
-        <div class="card m-2 p-2">
+        <div class="card p-1">
             <div class="d-flex justify-content-between my-auto m-1">
                 <p class="my-2 p-0">รูปภาพปก<br>
                     <span>
@@ -123,7 +121,7 @@
                 </div>
             </div>
         </div>
-        <div class="card m-2 p-2">
+        <div class="card p-1">
             <div class="d-flex justify-content-between my-auto m-1">
                 <p class="my-2 p-0">รูปภาพประกอบ
                     <br>
@@ -315,4 +313,15 @@
             }
         })
     }
+    // var dateString = $.datepicker.formatDate("dd-mm-yy", );
+
+// console.log(dateString)
+    $(function() {
+        $("#editnew").datepicker({
+            todayHighlight: true, // to highlight the today's date
+            format: 'dd-MM-yyyy',
+            autoclose: true,
+            todayHighlight: true
+        }).datepicker('update', new Date(<?= $Posts->p_date ?>));
+    });
 </script>

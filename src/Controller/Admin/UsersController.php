@@ -22,7 +22,8 @@ class UsersController extends AppController
             'contain' => ['UsersType', 'UsersRole'],
         ])->where([
             'verified =' => 0
-        ])->order(['Users.id' => 'DESC'
+        ])->order([
+            'Users.id' => 'DESC'
         ])->limit(5)->toArray();
 
 
@@ -60,13 +61,26 @@ class UsersController extends AppController
             ->contain(['UsersType', 'UsersRole'])
             ->first();
         if ($this->request->is(['patch', 'post', 'put'])) {
-            // pr($this->request->getData());die;
             $user = $this->Users->patchEntity($user, $this->request->getData());
-            $userimg = $this->request->getData("image");
+            ///file
+            $userimg = $this->request->getData("userimage");
+            ///filetext
+            $userimgText = $this->request->getData("imgold");
+            //userId
+            $user->id = $this->request->getData('userId');
             $hasFileError = $userimg->getError();
 
             if ($hasFileError > 0) {
-                $data["image"] = "";
+                $data["image"] = '';
+                $user->image = $userimgText;
+                $user = $this->Users->patchEntity($user, $this->request->getData());
+
+                if ($this->Users->save($user)) {
+                    $this->Flash->success(__('The user has been saved.'));
+
+                    return $this->redirect(['action' => 'index']);
+                }
+                $this->Flash->error(__('The user could not be saved. Please, try again.'));
             } else {
                 // file uploaded
                 $fileName = $userimg->getClientFilename();
@@ -102,7 +116,4 @@ class UsersController extends AppController
 
         return $this->redirect(['action' => 'index']);
     }
-
-
-
 }

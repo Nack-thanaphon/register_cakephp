@@ -24,11 +24,11 @@ class PostsFixture extends TestFixture
                 'p_type_id' => 1,
                 'p_user_id' => 1,
                 'p_detail' => 'Lorem ipsum dolor sit amet, aliquet feugiat. Convallis morbi fringilla gravida, phasellus feugiat dapibus velit nunc, pulvinar eget sollicitudin venenatis cum nullam, vivamus ut a sed, mollitia lectus. Nulla vestibulum massa neque ut et, id hendrerit sit, feugiat in taciti enim proin nibh, tempor dignissim, rhoncus duis vestibulum nunc mattis convallis.',
-                'p_date' => '2022-11-01',
+                'p_date' => 'Lorem ipsum dolor sit amet, aliquet feugiat. Convallis morbi fringilla gravida, phasellus feugiat dapibus velit nunc, pulvinar eget sollicitudin venenatis cum nullam, vivamus ut a sed, mollitia lectus. Nulla vestibulum massa neque ut et, id hendrerit sit, feugiat in taciti enim proin nibh, tempor dignissim, rhoncus duis vestibulum nunc mattis convallis.',
                 'p_status' => 1,
                 'p_views' => 1,
-                'p_created_at' => 1667271574,
-                'p_updated_at' => 1667271574,
+                'p_created_at' => 1670125342,
+                'p_updated_at' => 1670125342,
             ],
         ];
         parent::init();

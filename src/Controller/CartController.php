@@ -64,6 +64,9 @@ class CartController extends AppController
         $ordertable = TableRegistry::getTableLocator()->get('Orders');
         $cart = $carttable->newemptyEntity();
         $orders = $ordertable->newemptyEntity();
+        $session = $this->request->getSession();
+        $cartTokensession =  $session->read('cartToken');
+
 
         if ($this->request->is('post')) {
             // get values here 
@@ -72,19 +75,23 @@ class CartController extends AppController
             $uniqueId = time();
             $cart->c_detail = $cdetail;
             $carttable->save($cart);
-            $UserData = $this->GetUserDataSesion();
+            $result = $this->Authentication->getResult()->getData();
+            $Usertoken =  $this->Custom->GetUsertoken($result);
+            $UserData =  $this->Custom->GetUserData($Usertoken);
             $mytoken = Security::hash(Security::randomBytes(32));
 
+            // pr($UserData);die;
             if (!empty($UserData)) {
                 $orders = $ordertable->patchEntity($orders, array(
                     "orders_code" => $uniqueId,
                     "orders_token" => $mytoken,
-                    "orders_user_id" => $UserData['id'],
+                    "orders_user_id" => $UserData[0]['id'],
                     "orders_detail" => $cdetail,
                     "total_price" => $totalprice,
                     "status" => 1,
                 ));
                 $ordertable->save($orders);
+                $session->write('cartToken',$mytoken);
                 $this->sendLineNotify();
                 echo json_encode(array(
                     'orders_token' => $mytoken,
@@ -101,8 +108,9 @@ class CartController extends AppController
                     "total_price" => $totalprice,
                     "status" => 1,
                 ));
-
+                
                 $ordertable->save($orders);
+                $session->write('cartToken',$mytoken);
                 $this->sendLineNotify();
                 echo json_encode(array(
                     'orders_token' => $mytoken,

@@ -1,116 +1,68 @@
+<?php $this->assign('title', $product->p_title); ?>
+<title><?= $this->fetch('title'); ?></title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css" integrity="sha512-17EgCFERpgZKcm0j0fEq1YCJuyAWdz9KUtv1EjVuaOz8pDnh/0nZxmU6BBXwaaxqoi9PQXnRWqlcDB027hgv9A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.css" integrity="sha512-6lLUdeQ5uheMFbWm3CP271l14RsX1xtx+J5x2yeIDkkiBpeVTNhTqijME7GgRKKi6hCqovwCoBTlRBEC20M8Mg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.css" integrity="sha512-wR4oNhLBHf7smjy0K4oqzdWumd+r5/+6QO/vDda76MW5iug4PT7v86FoEkySIJft3XA0Ae6axhIvHrqwm793Nw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+
 <div class="container">
-    <div class="row m-0 p-0  my-sm-5">
-        <div class="col-12 col-sm-6 mb-3">
-            <div class="col-12">
-                <img src="<?= $this->Url->build($product->p_image_id) ?>" class="product-image" alt="Product Image">
-            </div>
-            <div class="col-12 product-image-thumbs">
-                <div class="product-image-thumb active"><img src="<?= $this->Url->build($product->p_image_id) ?>" alt="Product Image"></div>
-                <div class="product-image-thumb"><img src="<?= $this->Url->build($product->p_image_id) ?>" alt="Product Image"></div>
-                <div class="product-image-thumb"><img src="<?= $this->Url->build($product->p_image_id) ?>" alt="Product Image"></div>
-                <div class="product-image-thumb"><img src="<?= $this->Url->build($product->p_image_id) ?>" alt="Product Image"></div>
-                <div class="product-image-thumb"><img src="<?= $this->Url->build($product->p_image_id) ?>" alt="Product Image"></div>
-            </div>
+    <div class="row m-0 p-sm-0 my-2 p-1 my-sm-5">
+        <div class="col-12 m-0 p-0 my-2">
+            <a href="<?= $this->Url->build(['prefix' => false, 'controller' => 'products', 'action' => 'index']) ?>">
+                <?= __('กลับไป') ?>
+            </a>
         </div>
-        <div class="col-12 col-sm-6">
-            <h3 class="mb-3"><?= $product->p_title ?></h3>
-            <p><?= $product->p_detail ?></p>
-            <hr>
-            <!-- <h4>Available Colors</h4>
-                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                        <label class="btn btn-default text-center active">
-                            <input type="radio" name="color_option" id="color_option_a1" autocomplete="off" checked="">
-                            Green
-                            <br>
-                            <i class="fas fa-circle fa-2x text-green"></i>
-                        </label>
-                        <label class="btn btn-default text-center">
-                            <input type="radio" name="color_option" id="color_option_a2" autocomplete="off">
-                            Blue
-                            <br>
-                            <i class="fas fa-circle fa-2x text-blue"></i>
-                        </label>
-                        <label class="btn btn-default text-center">
-                            <input type="radio" name="color_option" id="color_option_a3" autocomplete="off">
-                            Purple
-                            <br>
-                            <i class="fas fa-circle fa-2x text-purple"></i>
-                        </label>
-                        <label class="btn btn-default text-center">
-                            <input type="radio" name="color_option" id="color_option_a4" autocomplete="off">
-                            Red
-                            <br>
-                            <i class="fas fa-circle fa-2x text-red"></i>
-                        </label>
-                        <label class="btn btn-default text-center">
-                            <input type="radio" name="color_option" id="color_option_a5" autocomplete="off">
-                            Orange
-                            <br>
-                            <i class="fas fa-circle fa-2x text-orange"></i>
-                        </label>
-                    </div> -->
-            <!-- <h4 class="mt-3">Size <small>Please select one</small></h4>
-                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                        <label class="btn btn-default text-center">
-                            <input type="radio" name="color_option" id="color_option_b1" autocomplete="off">
-                            <span class="text-xl">S</span>
-                            <br>
-                            Small
-                        </label>
-                        <label class="btn btn-default text-center">
-                            <input type="radio" name="color_option" id="color_option_b2" autocomplete="off">
-                            <span class="text-xl">M</span>
-                            <br>
-                            Medium
-                        </label>
-                        <label class="btn btn-default text-center">
-                            <input type="radio" name="color_option" id="color_option_b3" autocomplete="off">
-                            <span class="text-xl">L</span>
-                            <br>
-                            Large
-                        </label>
-                        <label class="btn btn-default text-center">
-                            <input type="radio" name="color_option" id="color_option_b4" autocomplete="off">
-                            <span class="text-xl">XL</span>
-                            <br>
-                            Xtra-Large
-                        </label>
-                    </div> -->
-            <div class="bg-gray py-2 px-3 mt-4">
-                <h2 class="mb-0">
-                    $80.00
-                </h2>
-                <h4 class="mt-0">
-                    <small>Ex Tax: $80.00 </small>
-                </h4>
-            </div>
-            <div class="mt-4">
-                <div class="btn btn-primary btn-lg btn-flat">
-                    <i class="fas fa-cart-plus fa-lg mr-2"></i>
-                    เพิ่มในตะกร้า
+        <div class="col-12 col-sm-4 mb-3">
+            <?php foreach ($productEdit as $key => $dataImg) : ?>
+                <?php $this->assign('image', $this->Url->build($dataImg['img'][$key]['name'])); ?>
+                <?= $this->Html->meta(array('name' => 'og:image', 'content' => $this->fetch('image')), NULL, array('inline' => false)); ?>
+
+                <div class="slider slider-for" >
+                    <?php foreach ($dataImg['img'] as $key => $dataImg1) : ?>
+                        <div>
+                            <img src="<?= $this->Url->build($dataImg['img'][$key]['name']) ?>" class="rounded w-100" style="width:100%;height:300px;object-fit:cover ;" >
+                        </div>
+                    <?php endforeach; ?>
                 </div>
-                <!-- <div class="btn btn-default btn-lg btn-flat">
-                            <i class="fas fa-heart fa-lg mr-2"></i>
-                            Add to Wishlist
-                        </div> -->
-            </div>
-            <div class="mt-4 product-share">
-                <a href="#" class="text-gray">
-                    <i class="fab fa-facebook-square fa-2x"></i>
-                </a>
-                <a href="#" class="text-gray">
-                    <i class="fab fa-twitter-square fa-2x"></i>
-                </a>
-                <a href="#" class="text-gray">
-                    <i class="fas fa-envelope-square fa-2x"></i>
-                </a>
-                <a href="#" class="text-gray">
-                    <i class="fas fa-rss-square fa-2x"></i>
-                </a>
+                <div class="slider slider-nav my-2 m-0 w-100">
+                    <?php foreach ($dataImg['img'] as $key => $dataImg1) : ?>
+                        <div class="m-1">
+                            <img src="<?= $this->Url->build($dataImg['img'][$key]['name']) ?>" style="width:100%;height:70px;object-fit:cover ;" alt="Product Image">
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+            <?php endforeach; ?>
+        </div>
+        <div class="col-12 col-sm-8 p-1 pl-sm-3">
+            <div class="row m-0">
+                <div class="col-12 col-sm-12 mb-1">
+                    <small class="text-muted">ชื่อสินค้า</small>
+                    <h3 class="mb-1"><?= $product->p_title ?></h3>
+                    <small class="text-muted">รายละเอียด</small>
+                    <div><?= $product->p_detail ?></div>
+                    <hr>
+
+                    <div class="py-2  mt-4">
+                        <h2 class="mb-0">
+                            ราคา <?= $product->p_price ?> บาท
+                        </h2>
+                    </div>
+                </div>
+                <div class="col-12 col-sm-6 my-2">
+                    <!-- function select_product(id, name, image, image_id, price) -->
+
+                    <a class="btn btn-primary btn-lg btn-flat w-100" onclick="select_product(<?= $product->p_id ?>,'<?= $product->p_title ?>','<?= $product->p_title ?>',<?= $product->p_price ?>)">เพิ่มในตะกร้าสินค้า</a>
+                </div>
+                <div class="col-12 col-sm-6 my-2">
+                    <a href="https://line.me/R/oaMessage/@777gmaui?สอบถามสินค้า <?= $product->p_title ?>" class="btn btn-success btn-lg btn-flat w-100">
+                        <i class="fab fa-line fa-lg mr-2 "></i>สั่งซื้อผ่านไลน์
+                    </a>
+                </div>
             </div>
         </div>
     </div>
-    <div class="row mt-4">
+    <!-- <div class="row mt-4">
         <nav class="w-100">
             <div class="nav nav-tabs" id="product-tab" role="tablist">
                 <a class="nav-item nav-link active" id="product-desc-tab" data-toggle="tab" href="#product-desc" role="tab" aria-controls="product-desc" aria-selected="true">Description</a>
@@ -123,5 +75,36 @@
             <div class="tab-pane fade" id="product-comments" role="tabpanel" aria-labelledby="product-comments-tab"> Vivamus rhoncus nisl sed venenatis luctus. Sed condimentum risus ut tortor feugiat laoreet. Suspendisse potenti. Donec et finibus sem, ut commodo lectus. Cras eget neque dignissim, placerat orci interdum, venenatis odio. Nulla turpis elit, consequat eu eros ac, consectetur fringilla urna. Duis gravida ex pulvinar mauris ornare, eget porttitor enim vulputate. Mauris hendrerit, massa nec aliquam cursus, ex elit euismod lorem, vehicula rhoncus nisl dui sit amet eros. Nulla turpis lorem, dignissim a sapien eget, ultrices venenatis dolor. Curabitur vel turpis at magna elementum hendrerit vel id dui. Curabitur a ex ullamcorper, ornare velit vel, tincidunt ipsum. </div>
             <div class="tab-pane fade" id="product-rating" role="tabpanel" aria-labelledby="product-rating-tab"> Cras ut ipsum ornare, aliquam ipsum non, posuere elit. In hac habitasse platea dictumst. Aenean elementum leo augue, id fermentum risus efficitur vel. Nulla iaculis malesuada scelerisque. Praesent vel ipsum felis. Ut molestie, purus aliquam placerat sollicitudin, mi ligula euismod neque, non bibendum nibh neque et erat. Etiam dignissim aliquam ligula, aliquet feugiat nibh rhoncus ut. Aliquam efficitur lacinia lacinia. Morbi ac molestie lectus, vitae hendrerit nisl. Nullam metus odio, malesuada in vehicula at, consectetur nec justo. Quisque suscipit odio velit, at accumsan urna vestibulum a. Proin dictum, urna ut varius consectetur, sapien justo porta lectus, at mollis nisi orci et nulla. Donec pellentesque tortor vel nisl commodo ullamcorper. Donec varius massa at semper posuere. Integer finibus orci vitae vehicula placerat. </div>
         </div>
-    </div>
+    </div> -->
 </div>
+<script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js" integrity="sha512-XtmMtDEcNz2j7ekrtHvOVR4iwwaD6o/FUJe6+Zq+HgcCsk3kj4uSQQR8weQ2QVj1o0Pk6PwYLohm206ZzNfubg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+    $('.slider-for').slick({
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        arrows: false,
+        fade: true,
+        asNavFor: '.slider-nav'
+    });
+    $('.slider-nav').slick({
+        slidesToShow: 4,
+        slidesToScroll: 1,
+        asNavFor: '.slider-for',
+        dots: false,
+        centerMode: false,
+        focusOnSelect: true,
+        prevArrow: false,
+        nextArrow: false
+    });
+
+    $(document).ready(function() {
+        $('.swiper-slide').on('click', function() {
+            var $image_element = $(this).find('img')
+            $('.product-image').prop('src', $image_element.attr('src'))
+            $('.swiper-slide.active').removeClass('active')
+            $(this).addClass('active')
+        })
+    })
+</script>

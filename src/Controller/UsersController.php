@@ -31,8 +31,12 @@ class UsersController extends AppController
 
         // pr($result);
         // pr($userAuthentication);die;
-        if (!empty($userloginsession && $result->isValid())) {
-            if ($userAuthentication['user_role_id'] == 1) {
+        if (!empty($userloginsession)) {
+            if (
+                $userAuthentication['user_role_id'] == 1
+                || $userAuthentication['user_role_id'] == 3
+                || $userAuthentication['user_role_id'] == 4
+            ) {
                 return $this->redirect([
                     'prefix' => 'Admin',
                     'controller' => 'dashboard',
@@ -40,21 +44,31 @@ class UsersController extends AppController
                 ]);
             }
             if ($userAuthentication['user_role_id'] == 2) {
-                return $this->redirect([
-                    'prefix' => 'Customer',
-                    'controller' => 'dashboard',
-                    'action' => 'index',
-                ]);
+                if (!empty($cartTokensession) && !empty($userAuthentication)) {
+                    return $this->redirect([
+                        'prefix' => 'Customer',
+                        'controller' => 'dashboard',
+                        'action' => 'payment',
+                        $cartTokensession
+                    ]);
+                } else {
+                    return $this->redirect([
+                        'prefix' => 'Customer',
+                        'controller' => 'dashboard',
+                        'action' => 'index',
+                    ]);
+                }
             }
         }
 
         if ($this->request->is('post')) {
+
             $CartStorageToken = $this->request->getData('cart_storage');
             if (!empty($userAuthentication['id'])) {
                 if ($result && $result->isValid()) {
+                    $session->write('userlogin', $userAuthentication);
                     if (($userAuthentication['verified'] == 1)) {
                         if ($userAuthentication['user_role_id'] == 1) {
-                            $session->write('userlogin', $userAuthentication);
                             return $this->redirect([
                                 'prefix' => 'Admin',
                                 'controller' => 'dashboard',
@@ -63,8 +77,6 @@ class UsersController extends AppController
                         }
                         if ($userAuthentication['user_role_id'] == 2) {
                             if (!empty($CartStorageToken)) {
-                                $session->write('userlogin', $userAuthentication);
-                                $session->write('cartToken', $CartStorageToken);
                                 $cartData = $orderTable->newEmptyEntity();
                                 $CartDataByToken = $orderTable->find()
                                     ->where(['orders_token' => $CartStorageToken])
@@ -85,6 +97,7 @@ class UsersController extends AppController
                                     ]);
                                 }
                             }
+
                             return $this->redirect([
                                 'prefix' => 'Customer',
                                 'controller' => 'dashboard',
@@ -92,15 +105,12 @@ class UsersController extends AppController
                             ]);
                         }
                     } else {
-                        $this->Authentication->logout();
                         $this->Flash->error(__('กรุณายืนยันอีเมลล์เพื่อเข้าสู่ระบบ'));
                     }
                 } else {
-                    $this->Authentication->logout();
                     $this->Flash->error(__('Username or password is incorrect'));
                 }
             } else {
-                $this->Authentication->logout();
                 $this->Flash->error(__('กรุณาเข้าสู่ระบบ หรือ สมัครสมาชิก !!'));
             }
         }
@@ -128,8 +138,6 @@ class UsersController extends AppController
             $hasher = new DefaultPasswordHasher();
             $myname = $this->request->getData('name');
             $myemail = $this->request->getData('email');
-            $adminside = $this->request->getData('adminside');
-
 
             $mypass = $this->request->getData('password');
             $mytoken = Security::hash(Security::randomBytes(32));
@@ -144,8 +152,9 @@ class UsersController extends AppController
             $user->created_at = date('Y-m-d H:i:s');
             $user->updated_at = date('Y-m-d H:i:s');
 
+
             if ($usertable->save($user)) {
-                $this->Flash->set('ลงทะเบียนเรียบร้อย', ['element' => 'success']);
+                $this->Flash->set('กรุณาเช็คอีเมลล์เพื่อยืนยัน', ['element' => 'success']);
                 TransportFactory::setConfig('gmail', [
                     'host' => 'smtp.gmail.com',
                     'port' => 587,
@@ -166,18 +175,16 @@ class UsersController extends AppController
                         'verify' => $mytoken
                     ])
                     ->viewBuilder()
-                    ->setTemplate('default');
+                    ->setTemplate('verify');
                 $mailer->deliver();
-                if ($adminside == 'qwewebdbdfgbfgbdfngjndr') {
-                    return $this->redirect(['action' => 'index']);
-                } else {
-                    return $this->redirect(['action' => 'login']);
-                }
+
+                return $this->redirect(['action' => 'login']);
             } else {
                 $this->Flash->set('ลงทะเบียนไม่สำเร็จ', ['element' => 'error']);
             }
         }
     }
+
     public function forgetpassword()
     {
 
@@ -231,30 +238,34 @@ class UsersController extends AppController
             } else {
                 $this->Flash->set('ไม่มีข้อมูลในระบบ', ['element' => 'error']);
             }
-        } else {
-            $this->Flash->set('กรุณากรอกข้อมูลให้ถูกต้อง', ['element' => 'error']);
         }
     }
 
-    public function resetpassword($token)
+    public function resetpassword()
     {
         if ($this->request->is('post')) {
-            $hasher = new DefaultPasswordHasher();
-            $pass = $hasher->hash($this->request->getData('password'));
             $usertable = TableRegistry::getTableLocator()->get('Users');
+            $token = $this->request->getData('token');
+            $password = $this->request->getData('password');
             $user = $usertable->find('all')->where(['token' => $token])->first();
-            $user->password = $pass;
+
+            $hasher = new DefaultPasswordHasher();
+            $user->password = $hasher->hash($password);
             if ($usertable->save($user)) {
-                return $this->redirect(['action' => 'login']);
+                $this->Flash->set('เปลี่ยนรหัสผ่านสำเร็จ', ['element' => 'success']);
+                echo json_encode(200);
+                die;
             }
         }
     }
 
-    public function verification($token)
+    public function verification($token = null)
     {
         $usertable = TableRegistry::getTableLocator()->get('Users');
         $verify = $usertable->find('all')->where(['token' => $token])->first();
         $verify->verified = '1';
         $usertable->save($verify);
+        $this->Flash->set('ลงทะเบียนสำเร็จ', ['element' => 'success']);
+        return $this->redirect(['action' => 'login']);
     }
 }

@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Controller\AppController;
-
+use Symfony\Component\String\Slugger\SluggerInterface;
+use League\Container\Inflector\Inflector;
+use Cake\ORM\TableRegistry;
 class PostsController extends AppController
 {
     /**
@@ -24,7 +26,7 @@ class PostsController extends AppController
                     'detail' => 'posts.p_detail',
                     'status' => 'posts.p_status',
                     'user' => 's.name',
-                    'date' => 'posts.p_created_at',
+                    'date' => 'posts.p_date',
                     'image' => 'd.name'
                 ])
                 ->from([
@@ -53,8 +55,11 @@ class PostsController extends AppController
                 ])
                 ->group('id,title,image')
         );
+        $PostsTypetable = TableRegistry::getTableLocator()->get('PostsType');
 
-        $this->set(compact('posts'));
+        $PostsTypeData = $PostsTypetable->find('all')->toArray();
+
+        $this->set(compact('posts','PostsTypeData'));
     }
 
     /**
@@ -64,8 +69,11 @@ class PostsController extends AppController
      * @return \Cake\Http\Response|null|void Renders view
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
-    public function view($id = null)
+    public function view($id = null, $slug = null)
     {
+
+        // pr($id);die;
+
         $posts = $this->Posts->find()
             ->select([
                 'id' => 'posts.id',
@@ -74,7 +82,7 @@ class PostsController extends AppController
                 'detail' => 'posts.p_detail',
                 'status' => 'posts.p_status',
                 'user' => 's.name',
-                'date' => 'posts.p_created_at',
+                'date' => 'posts.p_date',
                 'image' => 'd.name'
             ])
             ->from([

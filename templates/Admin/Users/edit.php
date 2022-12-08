@@ -10,13 +10,18 @@
                 <h3>รูปภาพประจำตัว</h3>
             </div>
             <div class="col-12 col-sm-6 my-2">
-                <input type="file" name="image" id="user_image" value="<?php echo $this->Url->build($user->image, ['fullBase' => true]); ?>">
-                <div class="row m-0 py-3 my-auto w-100" style="overflow: hidden;">
-                    <a data-fslightbox href="<?php echo $this->Url->build($user->image, ['fullBase' => true]); ?>">
-                        <img id="user_image_file" src="<?php echo $this->Url->build($user->image, ['fullBase' => true]); ?>" class="p-3 w-100">
-                    </a>
-                </div>
-                <!-- <img src="https://www.pngall.com/wp-content/uploads/5/User-Profile-PNG.png" class="w-100 " alt=""> -->
+                <input type="file" name="userimage" id="user_image" value="<?php echo $this->Url->build($user->image, ['fullBase' => true]); ?>">
+                <input type="hidden" name="imgold" id="user_image" value="<?php echo $this->Url->build($user->image, ['fullBase' => true]); ?>">
+                <input type="hidden" name="userId" value="<?= $user->id ?>">
+                <?php if (!empty($user->image)) { ?>
+                    <div class="row m-0 py-3 my-auto w-100" style="overflow: hidden;">
+                        <a data-fslightbox href="<?php echo $this->Url->build($user->image, ['fullBase' => true]); ?>">
+                            <img id="user_image_file" src="<?php echo $this->Url->build($user->image, ['fullBase' => true]); ?>" class="p-3 w-100">
+                        </a>
+                    </div>
+                <?php } else { ?>
+                    <img id="user_image_file" src="https://www.pngall.com/wp-content/uploads/5/User-Profile-PNG.png" class=" m-auto p-3" alt="">
+                <?php } ?>
             </div>
             <div class="form-group col-12 col-sm-6 mt-2">
 
