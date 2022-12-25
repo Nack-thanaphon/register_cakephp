@@ -23,22 +23,22 @@ class customHelper extends Helper
         $status = '';
 
         if ($OdersData->status == 0) {
-            $status = '<span class="text-danger">ยกเลิก</span>';
+            $status = '<span class="text-muted"><i class="fa-solid fa-circle-xmark text-danger"></i> ยกเลิก</span>';
         }
         if ($OdersData->status == 1) {
-            $status = '<span class="text-muted">รอการชำระเงิน</span>';
+            $status = '<span class="text-muted"><i class="fas fa-check-circle"></i> รอการชำระเงิน</span>';
         }
         if ($OdersData->status == 2) {
-            $status = '<span class="text-primary">รอการตรวจสอบ</span>';
+            $status = '<span class="text-muted"><i class="fas fa-check-circle"></i> รอการตรวจสอบ</span>';
         }
         if ($OdersData->status == 3) {
-            $status = '<span class="text-primary">ชำระเงินแล้ว</span>';
+            $status = '<span class="text-muted"><i class="fas fa-check-circle text-success"></i> ชำระเงินแล้ว</span>';
         }
         if ($OdersData->status == 4) {
-            $status = '<span class="text-muted">กำลังดำเนินการ</span>';
+            $status = '<span class="text-muted"> กำลังดำเนินการ</span>';
         }
         if ($OdersData->status == 5) {
-            $status = '<span class="text-success">จัดส่งแล้ว</span>';
+            $status = '<span class="text-success"><i class="fas fa-check-circle"></i> จัดส่งแล้ว</span>';
         }
 
         echo $status;
@@ -57,7 +57,7 @@ class customHelper extends Helper
         $table = TableRegistry::getTableLocator()->get('Orders');
         $countBalance = $table->find()
             ->where([
-                'status' => 5
+                'status IN' => [3,5]
             ])
             ->count();
         return $countBalance;
@@ -66,7 +66,7 @@ class customHelper extends Helper
     public function GetContactData()
     {
         $table = TableRegistry::getTableLocator()->get('Contact');
-        $GetContactData = $table->find()->all();
+        $GetContactData = $table->find('all')->first();
         return $GetContactData;
     }
     

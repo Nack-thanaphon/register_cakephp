@@ -1,3 +1,5 @@
+<?php $this->assign('title', 'สาขา'); ?>
+
 <style>
     iframe{
         width: 100%;

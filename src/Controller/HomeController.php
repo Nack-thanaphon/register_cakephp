@@ -55,14 +55,16 @@ class HomeController extends AppController
 
         $BranchTable = TableRegistry::getTableLocator()->get('Branch');
         $Branch = $BranchTable->find()
-        ->order(['id' => 'DESC'])
-        ->toArray();
+            ->order(['id' => 'DESC'])
+            ->limit(3)
+            ->toArray();
 
         $productTable = TableRegistry::getTableLocator()->get('Products');
         $Products = $productTable->find()
             ->select([
                 'id' => 'products.p_id',
                 'title' => 'products.p_title',
+                'detail' => 'products.p_detail',
                 'type' => 'p.pt_name',
                 'price' => 'products.p_price',
                 'total' => 'products.p_total',
@@ -96,8 +98,10 @@ class HomeController extends AppController
                 'd.cover' => 1,
                 'd.status' => 1
             ])
+
             ->order(['products.p_id' => 'DESC'])
             ->group('id,title')
+            ->limit(3)
             ->toArray();
 
         $data = [];

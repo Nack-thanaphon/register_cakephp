@@ -61,7 +61,8 @@
     <div class="col-12 col-sm-4 ">
         <div class="card p-3 mb-2 m-1 ">
             <label for="" class="text-muted">การชำระเงิน</label>
-            <h3>สถานะ : <span class="text-success"><i class="fas fa-check-circle"></i> ชำระแล้ว</span></h3>
+            <h3>สถานะ : <span class="text-success"><?= $this->Custom->getOrderStatus($OrdersData[0]['id']) ?></h3>
+            <!-- <i class="fas fa-check-circle"></i> ชำระแล้ว</span> -->
             <h6>ช่องทางการชำระ : โอนผ่านธนาคาร</h6>
             <a type="button" class="text-primary" data-toggle="modal" data-target="#exampleModal">
                 ดูสลิปการโอนเงิน

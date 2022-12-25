@@ -52,7 +52,7 @@ class AppController extends Controller
 
     public function sendLineNotify($message = "แจ้งเตือนรายการสั่งซื้อ")
     {
-        $token =  $this->Custom->GetContactData()->linetoken; // ใส่ Token ที่สร้างไว้
+        $token =  $this->Custom->GetContactData()->linetoken;; // ใส่ Token ที่สร้างไว้
 
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, "https://notify-api.line.me/api/notify");

@@ -1,3 +1,6 @@
+<?php $this->assign('title', 'เพิ่มสินค้า'); ?>
+
+
 <style>
     label#largeFile:after {
         position: absolute;

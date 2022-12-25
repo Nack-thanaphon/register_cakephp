@@ -35,18 +35,18 @@ class DashboardController extends AppController
 
         $conn = ConnectionManager::get('default');
         $stmt = $conn->execute(
-            "select 'มกราคม' as month ,sum(total_price) as amount from orders where updated_at like '%" . $year . "-01%' UNION
-            select 'กุมภาพันธ์' as month , sum(total_price) as amount from orders where updated_at like '%" . $year . "-02%' UNION
-            select 'มีนาคม' as month , sum(total_price) as amount from orders where updated_at like '%" . $year . "-03%'UNION
-            select 'เมษายน' as month ,sum(total_price) as amount from orders where updated_at like '%" . $year . "-04%' UNION
-            select 'พฤษภาคม' as month , sum(total_price) as amount from orders where updated_at like '%" . $year . "-05%' UNION
-            select 'มิถุนายน' as month , sum(total_price) as amount from orders where updated_at like '%" . $year . "-06%'UNION
-            select 'กรกฎาคม' as month ,sum(total_price) as amount from orders where updated_at like '%" . $year . "-07%' UNION
-            select 'สิงหาคม' as month , sum(total_price) as amount from orders where updated_at like '%" . $year . "-18%' UNION
-            select 'กันยายน' as month , sum(total_price) as amount from orders where updated_at like '%" . $year . "-09%'UNION
-            select 'ตุลาคม' as month ,sum(total_price) as amount from orders where updated_at like '%" . $year . "-10%' UNION
-            select 'พฤศจิกายน' as month , sum(total_price) as amount from orders where updated_at like '%" . $year . "-11%' UNION
-            select 'ธันวาคม' as month , sum(total_price) as amount from orders where updated_at like '%" . $year . "-12%';"
+            "select 'มกราคม' as month ,sum(total_price) as amount from orders where  status = 3 AND updated_at like '%" . $year . "-01%' UNION
+            select 'กุมภาพันธ์' as month , sum(total_price) as amount from orders where  status = 3 AND updated_at like '%" . $year . "-02%' UNION
+            select 'มีนาคม' as month , sum(total_price) as amount from orders where  status = 3 AND updated_at like '%" . $year . "-03%'UNION
+            select 'เมษายน' as month ,sum(total_price) as amount from orders where  status = 3 AND updated_at like '%" . $year . "-04%' UNION
+            select 'พฤษภาคม' as month , sum(total_price) as amount from orders where  status = 3 AND updated_at like '%" . $year . "-05%' UNION
+            select 'มิถุนายน' as month , sum(total_price) as amount from orders where  status = 3 AND updated_at like '%" . $year . "-06%'UNION
+            select 'กรกฎาคม' as month ,sum(total_price) as amount from orders where  status = 3 AND updated_at like '%" . $year . "-07%' UNION
+            select 'สิงหาคม' as month , sum(total_price) as amount from orders where  status = 3 AND updated_at like '%" . $year . "-18%' UNION
+            select 'กันยายน' as month , sum(total_price) as amount from orders where  status = 3 AND updated_at like '%" . $year . "-09%'UNION
+            select 'ตุลาคม' as month ,sum(total_price) as amount from orders where  status = 3 AND updated_at like '%" . $year . "-10%' UNION
+            select 'พฤศจิกายน' as month , sum(total_price) as amount from orders where  status = 3 AND updated_at like '%" . $year . "-11%' UNION
+            select 'ธันวาคม' as month , sum(total_price) as amount from orders where  status = 3 AND updated_at like '%" . $year . "-12%';"
         );
         $rows = $stmt->fetchAll('assoc');
         $Graphdata = [];

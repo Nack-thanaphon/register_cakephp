@@ -1,32 +1,19 @@
 <style>
-    .mySwiper3 {
+    .p_img {
         width: 100%;
-        overflow: hidden;
-        height: 650px;
+        object-fit: cover;
+        height: 290px;
     }
 
-    .swiper-slide>img {
-        width: 100%;
-        object-fit: contain;
-    }
 
-    .postsImg {
-        position: relative;
-        width: 100%;
-        height: 180px;
-        overflow: hidden;
-    }
-
-    .posts_type {
-        position: absolute;
-        top: 10px;
-        left: 6px;
+    .post_img {
+        object-fit: cover;
+        height: 160px;
     }
 
     .map {
         width: 100%;
         height: 170px;
-        overflow: hidden;
     }
 
     iframe {
@@ -35,34 +22,11 @@
     }
 
     @media screen and (max-width: 750px) {
-        .mySwiper3 {
-            width: 100%;
-            overflow: hidden;
-            height: 170px;
-        }
-
-        .postsImg {
-            position: relative;
-            width: 100%;
-            height: 190px;
-            overflow: hidden;
-        }
 
 
-    }
-
-    @media screen and (max-width: 900px - 1024px) {
-        .mySwiper3 {
-            width: 100%;
-            overflow: hidden;
-            height: 400px;
-        }
-
-        .postsImg {
-            position: relative;
-            width: 100%;
-            height: 180px;
-            overflow: hidden;
+        .post_img {
+            height: 100%;
+            /* overflow: hidden; */
         }
 
 
@@ -71,23 +35,36 @@
 
 <?php $this->assign('title', 'หน้าหลัก'); ?>
 <div class="container">
-    <div class="row  m-0 p-0 mb-4">
+    <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img class="d-block w-100" src="<?= $this->Url->image("mainbanner.png") ?>" alt="First slide">
+            </div>
+            <!-- <div class="carousel-item">
+                <img class="d-block w-100" src="..." alt="Second slide">
+            </div>
+            <div class="carousel-item">
+                <img class="d-block w-100" src="..." alt="Third slide">
+            </div> -->
+        </div>
+    </div>
+    <!-- <div class="row  m-0 p-0 mb-4">
         <div class="swiper mySwiper3 px-sm-2 ">
             <div class="swiper-wrapper rounded">
-                <div class="swiper-slide ">
-                    <img class="" src="<?= $this->Url->image("mainbanner.png") ?>">
+                <div class="cover_img ">
+                    <img class="" src="">
                 </div>
-                <div class="swiper-slide ">
+                <div class="cover_img ">
                     <img class="" src="<?= $this->Url->image("91689392_2966188953437431_3585391548549824512_n.jpg") ?>">
                 </div>
-                <div class="swiper-slide ">
+                <div class="cover_img ">
                     <img class="" src="<?= $this->Url->image("174070815_4020892831300366_8612633571049325923_n.jpg") ?>">
                 </div>
             </div>
         </div>
         <div class="swiper-pagination"></div>
 
-    </div>
+    </div> -->
 
 
     <div class="row m-0 p-0 d-sm-flex justify-content-between d-none ">
@@ -137,40 +114,27 @@
             <h1 class="text-success m-0 p-0" style="font-size:3rem ;">สาขา</h1>
         </div>
         <div class="col-12  m-0">
-            <div class="swiper mySwiper">
-                <div class="swiper-wrapper">
-                    <?php foreach ($Branch as $key => $value) : ?>
-                        <div class="card m-1 p-2 col-12 col-sm-4   swiper-slide ">
-
-                            <!-- Desktop -->
-                            <div class="card-body p-1 d-sm-block d-none ">
+            <div class="row m-0 p-0">
+                <?php foreach ($Branch as $key => $value) : ?>
+                    <div class=" m-0 p-0 col-12 col-sm-4  ">
+                        <!-- Desktop -->
+                        <div class="card p-2 m-1">
+                            <div class="card-body p-1  h-100">
                                 <h5 class="m-0 p-0 text-left col-12 text-truncate"><?= $value->b_name ?></h5>
-                                <div class="text-left m-0 p-0">
-                                    <p class="text-muted mt-1 m-0 ">จังหวัด : <span class="text-success"><?= $value->b_province ?></span></p>
-                                    <p class="text-muted  m-0 p-0">เบอร์โทร : <?= $value->b_phone ?></p>
-                                    <a href="<?= $value->b_link ?>" id="mb_link" target="blank">
-                                        <small class="m-0 p-0 text-muted"><i class="fas fa-map-pin text-danger"></i> ไปที่ร้านค้า</small>
-                                    </a>
-                                    <div class="map "><?= $value->b_map ?></div>
-                                </div>
-                            </div>
-                            <!-- Mobile -->
-                            <div class="card-body p-1 d-sm-none d-block ">
-                                <p class="m-0 p-0 text-left col-12 text-truncate"><?= $value->b_name ?></p>
-                                <div class="text-left m-0 p-0">
-                                    <h6 class="text-muted mt-1 m-0 col-12">จังหวัด : <span class="text-success"><?= $value->b_province ?></span></h6>
-                                    <p class="text-muted  m-0 p-0">เบอร์โทร : <?= $value->b_phone ?></p>
-                                    <a href="<?= $value->b_link ?>" id="mb_link" target="blank">
-                                        <small class="m-0 p-0 text-muted"><i class="fas fa-map-pin text-danger"></i> ไปที่ร้านค้า</small>
-                                    </a>
-                                    <div class="map "><?= $value->b_map ?></div>
-                                </div>
+                                <hr>
+                                <p class="text-muted mt-1 m-0 ">จังหวัด : <span class="text-success"><?= $value->b_province ?></span></p>
+                                <p class="text-muted  m-0 p-0">เบอร์โทร : <?= $value->b_phone ?></p>
+                                <a href="<?= $value->b_link ?>" id="mb_link" target="blank">
+                                    <p class="m-0 p-0 mt-3"> ไปที่ร้านค้า</p>
+                                </a>
+                                <!-- <div class=" w-100 mt-3"><?= $value->b_map ?></div> -->
                             </div>
                         </div>
-                    <?php endforeach; ?>
-                </div>
-            </div>
+                        <!-- Mobile -->
+                    </div>
 
+                <?php endforeach; ?>
+            </div>
             <div class="text-right my-2 ">
                 <a class="text-muted" href="<?= $this->Url->build(['prefix' => false, 'controller' => 'aboutus', 'action' => 'branch']) ?>">อ่านทั้งหมด</a>
             </div>
@@ -182,15 +146,44 @@
         <div class="col-12  py-3 p-2 h-100  text-start  mb-2">
             <h1 class="text-success m-0 p-0" style="font-size:3rem ;">สินค้า</h1>
         </div>
-        <div class="col-12  m-0">
-            <div class="swiper mySwiper">
-                <div class="swiper-wrapper">
-                    <?php foreach ($data as $key => $value) : ?>
-                        <div class="card m-1 p-2 col-12 col-sm-4   swiper-slide ">
-                            <div class="postsImg">
-                                <small class="text-muted posts_type badge badge-pill badge-success text-white m-0 "><?= $value->type ?></small>
-                                <img class=" w-100 " src="<?= $this->Url->build($value->image); ?>" alt="<?= $value->title ?>">
+        <div class="col-12  m-0 p-0 ">
+            <div class="row m-0 p-0">
+                <?php foreach ($data as $key => $value) : ?>
+                    <div class="col-12 col-sm-8 col-md-6 col-lg-4">
+                        <div class="card">
+                            <img class="card-img p_img" src="<?= $this->Url->build($value->image); ?>" alt="<?= $value->title ?>">
+                            <!-- <div class="card-img-overlay d-flex justify-content-end">
+                                <a href="#" class="card-link text-danger like">
+                                    <i class="fas fa-heart"></i>
+                                </a>
+                            </div> -->
+                            <div class="card-body">
+                                <h4 class=""><?= $value->title ?></h4>
+                                <h6 class="card-subtitle mb-2 text-muted">ชนิด : <?= $value->type ?></h6>
+                                <p class="card-text">
+                                    <?= $value->detail ?>
+                                <div class="buy d-flex justify-content-between align-items-center">
+                                    <div class="price text-success">
+                                        <h5 class="mt-4"><i class="fa-solid fa-baht-sign"></i><?= $value->price ?></h5>
+                                    </div>
+                                    <div class="btn-group" role="group" aria-label="Basic example">
+                                        <a href="https://line.me/R/oaMessage/<?= $contactData->lineoficial; ?>?สอบถามสินค้า<?= $value->title ?>" target="blank" type="button" class="btn btn-success  mt-3"> <i class="fab fa-line  text-white"></i></a>
+                                        <a href=" <?= $this->Url->build([
+                                                        'controller' => 'products',
+                                                        'action' => 'view',
+                                                        $value->id,
+                                                        'slug' => $value->title
+                                                    ]) ?>" type="button" class="btn btn-success mt-3">รายละเอียดสินค้า</a>
+                                    </div>
+
+                                </div>
                             </div>
+                        </div>
+                    </div>
+
+                    <!-- <small class="text-muted posts_type badge badge-pill badge-success text-white m-0 "><?= $value->type ?></small>
+                            <img class=" w-100 " src="<?= $this->Url->build($value->image); ?>" alt="<?= $value->title ?>">
+
                             <div class="card-body m-0 p-2">
                                 <h5 class="col-12 text-truncate my-1 m-0 p-0"><?= $value->title ?></h5>
                                 <div class="text-right m-0 ">
@@ -198,7 +191,7 @@
                                     <small class="text-muted text-right m-0 p-0">ในคลัง <?= $value->total ?> ชิ้น</small>
                                     <div class="row mt-3 m-0 p-0 d-flex justify-content-between">
                                         <div class="col-2 m-0 p-0">
-                                            <a href="https://line.me/R/oaMessage/<?= $contactData->lineofcial; ?>?สอบถามสินค้า<?= $value->title ?>" target="blank" class="btn btn m-0 p-0 w-100 ">
+                                            <a href="https://line.me/R/oaMessage/<?= $contactData->lineoficial; ?>?สอบถามสินค้า<?= $value->title ?>" target="blank" class="btn btn m-0 p-0 w-100 ">
                                                 <h5 class="fab fa-line text-success m-0 p-0"></h5>
                                             </a>
                                         </div>
@@ -216,11 +209,11 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    <?php endforeach; ?>
-                </div>
-                <!-- <div class="swiper-pagination"></div> -->
+                        </div> -->
+                <?php endforeach; ?>
             </div>
+            <!-- <div class="swiper-pagination"></div> -->
+
             <div class="text-right my-2 ">
                 <a class="text-muted" href="<?= $this->Url->build(['prefix' => false, 'controller' => 'products', 'action' => 'index']) ?>">อ่านทั้งหมด</a>
             </div>
@@ -228,23 +221,24 @@
     </div>
 
     <div class="row my-4  m-0 p-0 py-sm-5">
-        <div class="col-12  py-3 p-2 h-100 text-sm-center text-start  mb-2">
+        <div class="col-12  py-3 p-2 h-100  text-start  mb-2">
             <h1 class="text-success m-0 p-0" style="font-size:3rem ;">บทความ</h1>
         </div>
-        <div class="col-12  m-0">
+        <div class="col-12  m-0 p-0">
             <div class="row m-0 p-0 mb-3">
-                <div class="swiper mySwiper2">
-                    <div class="swiper-wrapper">
-                        <?php foreach ($posts as $key => $post) : ?>
-                            <div class="col-12 col-sm-4 py-2 swiper-slide h-100">
-                                <div class="card ">
-                                    <div class="postsImg ">
-                                        <small class="text-muted posts_type badge badge-pill badge-success text-white m-0 "><?= $post->type ?></small>
-                                        <img class="d-block w-100 " src="<?= $this->Url->build($post->image); ?>" alt="<?= $post->p_title ?>">
-                                    </div>
-                                    <div class="my-2 p-3">
-                                        <h5 class="col-12 text-truncate my-1 m-0 p-0"><?= $post->title ?></h5>
-                                        <p class="m-0 mt-3"><?= $post->user ?></p>
+                <?php foreach ($posts as $key => $post) : ?>
+                    <div class="col-12 col-sm-6 mb-1  ">
+                        <div class="row  m-0 p-0 card">
+                            <div class="col-sm-6 col-12 my-2 m-sm-0 p-0">
+                                <img class=" post_img w-100 my-auto " src="<?= $this->Url->build($post->image); ?>" alt="<?= $post->p_title ?>">
+                            </div>
+                            <div class="col-sm-6 col-12  m-sm-0">
+                                <div class="my-2">
+                                    <small class="text-muted  badge badge-pill badge-success text-white "><?= $post->type ?></small>
+                                    <h6 class="col-12 text-truncate p-0 my-2"><?= $post->title ?></h6>
+                                    <div class="mt-2">
+                                        <hr class="m-0 p-0">
+                                        <p class="m-0 mt-1 p-0"><?= $post->user ?></p>
                                         <small class="text-muted"><i class="fas fa-clock"></i> <?= $post->date ?></small> <br>
                                         <?php
                                         echo $this->Html->link('อ่านต่อ..', [
@@ -257,9 +251,10 @@
                                     </div>
                                 </div>
                             </div>
-                        <?php endforeach; ?>
+                        </div>
                     </div>
-                </div>
+                <?php endforeach; ?>
+
             </div>
             <div class="text-right my-2 ">
                 <a class="text-muted" href="<?= $this->Url->build(['prefix' => false, 'controller' => 'posts', 'action' => 'index']) ?>">อ่านทั้งหมด</a>
@@ -267,54 +262,3 @@
         </div>
     </div>
 </div>
-<script>
-    var swiper = new Swiper(".mySwiper", {
-        slidesPerView: 1,
-        lazy: true,
-        spaceBetween: 30,
-        freeMode: true,
-        autoplay: {
-            delay: 5000,
-        },
-
-        breakpoints: {
-            640: {
-                slidesPerView: 1,
-                spaceBetween: 20,
-            },
-            768: {
-                slidesPerView: 4,
-                spaceBetween: 40,
-            },
-            1024: {
-                slidesPerView: 3,
-                spaceBetween: 50,
-            },
-        },
-    });
-    var swiper = new Swiper(".mySwiper2", {
-        effect: "coverflow",
-        lazy: true,
-        grabCursor: true,
-        centeredSlides: true,
-        autoplay: {
-            delay: 7000,
-        },
-        slidesPerView: "auto",
-        coverflowEffect: {
-            rotate: 50,
-            stretch: 0,
-            depth: 100,
-            modifier: 1,
-            slideShadows: true,
-        },
-    });
-    var swiper = new Swiper(".mySwiper3", {
-        spaceBetween: 30,
-        lazy: true,
-        autoplay: {
-            delay: 7000,
-        },
-
-    });
-</script>

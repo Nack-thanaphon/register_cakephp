@@ -1,3 +1,6 @@
+<?php $this->assign('title', 'เพิ่มข่าว'); ?>
+
+
 <style>
     label#largeFile:after {
         position: absolute;
@@ -24,7 +27,7 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text" id="basic-addon1"><i class="fas fa-calendar"></i></span>
                         </div>
-                        <input type="text" name="p_date" class="form-control" id="addnew" value="<?= $Posts->p_date ?>">
+                        <input type="text" name="p_date" class="form-control" id="addnew" >
                     </div>
 
                 </div>
@@ -128,6 +131,6 @@
             format: 'dd-MM-yyyy',
             autoclose: true,
             todayHighlight: true
-        }).datepicker('update', new Date(<?= $Posts->p_date ?>));
+        }).datepicker('update', new Date());
     });
 </script>

@@ -1,3 +1,5 @@
+<?php $this->assign('title', 'เพิ่มผู้ใช้งาน'); ?>
+
 <div class="row my-3 m-2">
     <div class="col-12 d-flex justify-content-between">
         <h3 class="font-weight-bold"><?= __('เพิ่มผู้ใช้งาน') ?></h3>

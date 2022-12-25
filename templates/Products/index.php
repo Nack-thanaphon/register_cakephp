@@ -189,7 +189,7 @@
                                         <small class="text-muted text-right m-0 p-0">ในคลัง ${category_items[i]['total']} ชิ้น</small>
                                        <div class="row mt-3 m-0 p-0 d-flex justify-content-between" > 
                                             <div class="col-2 m-0 p-0">
-                                                <a href="https://line.me/R/oaMessage/<?= $contactData->lineofcial; ?>?สอบถามสินค้า${category_items[i]['title']}" target="blank" class="btn btn m-0 p-0 w-100 ">
+                                                <a href="https://line.me/R/oaMessage/<?= $contactData->lineoficial; ?>?สอบถามสินค้า${category_items[i]['title']}" target="blank" class="btn btn m-0 p-0 w-100 ">
                                                     <h5 class="fab fa-line text-success m-0 p-0"></h5>
                                                 </a>
                                             </div>
@@ -232,7 +232,7 @@
                                         <small class="text-muted text-right m-0 p-0">ในคลัง ${category_items[i]['total']} ชิ้น</small>
                                        <div class="row mt-3 m-0 p-0 d-flex justify-content-between" > 
                                             <div class="col-2 m-0 p-0">
-                                                <a href="https://line.me/R/oaMessage/<?= $contactData->lineofcial; ?>?สอบถามสินค้า${category_items[i]['title']}" target="blank" class="btn btn m-0 p-0 w-100 ">
+                                                <a href="https://line.me/R/oaMessage/<?= $contactData->lineoficial; ?>?สอบถามสินค้า${category_items[i]['title']}" target="blank" class="btn btn m-0 p-0 w-100 ">
                                                     <h5 class="fab fa-line text-success m-0 p-0"></h5>
                                                 </a>
                                             </div>

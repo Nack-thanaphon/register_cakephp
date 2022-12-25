@@ -27,7 +27,8 @@ class AppController extends Controller
             $this->set('userData', $userData);
         }
         $contactData = $this->Custom->GetContactData();
-        $this->set(compact('contactData'));
+        
+        $this->set('contactData',$contactData);
     }
     // in src/Controller/AppController.php
     public function beforeFilter(\Cake\Event\EventInterface $event)

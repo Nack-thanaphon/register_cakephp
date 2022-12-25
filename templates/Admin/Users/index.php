@@ -1,5 +1,5 @@
 
-<?php $this->assign('title','สินค้า'); ?>
+<?php $this->assign('title','ผู้ใช้งาน'); ?>
 
 <div class="container-fluid">
     <div class="row my-5 h-100 ">

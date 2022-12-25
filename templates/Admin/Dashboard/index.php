@@ -74,7 +74,7 @@
                                 </div>
                             </div>
 
-                            <div id="chart" class=" m-0 p-0">
+                            <div id="chart" class=" m-0 p-2">
                             </div>
                         </div>
                     </div>

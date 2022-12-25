@@ -32,7 +32,7 @@ $cakeDescription = 'FarmByMOM | ';
 
     <div class="row m-0 p-0">
         <div class="col-12 m-0 p-0 my-auto">
-            <?= $this->element('/component/front1_navbar') ?>
+            <?= $this->element('/component/front_navbar') ?>
         </div>
         <div class="col-12 m-0 p-0">
             <?= $this->fetch('content') ?>

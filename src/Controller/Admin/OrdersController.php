@@ -157,6 +157,15 @@ class OrdersController extends AppController
         $ProductsTable = TableRegistry::getTableLocator()->get('Products');
         $OrdersTable = TableRegistry::getTableLocator()->get('Orders');
         $imageTable = TableRegistry::getTableLocator()->get('Image');
+        $ContactTable = TableRegistry::getTableLocator()->get('Contact');
+
+
+
+
+        $PaymentImg = $ContactTable->find()
+            ->select([
+                'img' => 'Contact.paymentimg'
+            ])->first();
 
         $order = $this->Orders->get($id, [
             'contain' => ['Users'],
@@ -245,7 +254,7 @@ class OrdersController extends AppController
             ]);
         }
 
-        $this->set(compact('UserOrders', 'UserData'));
+        $this->set(compact('UserOrders', 'UserData','PaymentImg'));
 
         // pr($OrdersData);die;
         if ($this->request->is(['patch', 'post', 'put'])) {

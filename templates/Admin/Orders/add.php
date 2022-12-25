@@ -1,3 +1,4 @@
+<?php $this->assign('title', 'เพิ่มออเดอร์'); ?>
 <div class="row my-3">
     <div class="col-12 col-sm-8 ">
         <div class="card p-2 mb-2 m-1">

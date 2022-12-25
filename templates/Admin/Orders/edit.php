@@ -1,4 +1,5 @@
-<!--  -->
+<?php $this->assign('title', 'แก้ไขออเดอร์'); ?>
+
 <?php $this->assign('title', $OrdersData[0]['orders_code']); ?>
 <div class="row my-3">
     <div class="col-12 d-flex justify-content-between my-4 px-3">
@@ -22,7 +23,7 @@
                     <h5>รหัสออเดอร์ : <?= $OrdersData[0]['orders_code'] ?></h5>
                     <input type="hidden" value="<?= $OrdersData[0]['id'] ?>" id="orders_id">
                     <input type="hidden" value="<?= $OrdersData[0]['orders_token'] ?>" id="orders_token">
-                    <h6>สถานะ : <span class="text-success"><i class="fas fa-check-circle"></i> ชำระแล้ว</span></h6>
+                    <h6>สถานะ : <span class="text-success"> <?= $this->Custom->getOrderStatus($OrdersData[0]['id']) ?></h6>
                     <a type="button" class="text-primary" data-toggle="modal" data-target="#payment_status">
                         ดูสลิปการโอนเงิน
                     </a>
@@ -54,7 +55,7 @@
         <div class="card m-1 p-2 m-0 ">
             <div class="col-12 d-flex justify-content-between m-0 p-0 ">
                 <b class="mb-2 text-muted">รายละเอียดออเดอร์</b>
-                <a class="btn btn"><i class="fa-solid fa-print"></i></a>
+                <!-- <a class="btn btn"><i class="fa-solid fa-print"></i></a> -->
             </div>
             <?php foreach ($OrdersData as $rowData) : ?>
                 <div class="row m-0  mb-1 px-2 ">
@@ -83,7 +84,7 @@
             <label for="" class="text-muted">ลูกค้า</label>
             <h3><?= $UserData[0]['name'] ?></h3>
             <h6>เบอร์โทร : <?= ($UserData[0]['phone']) ? $UserData[0]['phone'] : 'ไม่มีข้อมูล' ?></h6>
-            <a href="/customer/orderhistory">ดูประวัติการสั่งซื้อ</a>
+            <!-- <a href="/customer/orderhistory">ดูประวัติการสั่งซื้อ</a> -->
             <br>
             <hr class="m-0">
             <div class="py-2">
@@ -201,15 +202,16 @@
             </div>
             <div class="modal-body">
                 <div class="row m-0 p-0">
-                    <div class="col-6 m-0 p-0">
+                    <div class="col-sm-6 col-12 mb-2 m-0 p-0">
                         <small class="m-0 p-0 ">รหัสสินค้า </small>
                         <h6 class="m-0 p-0"><?= $OrdersData[0]['orders_code'] ?></h6>
                         <small><?= $OrdersData[0]['date'] ?></small>
                         <h5 class="m-0 p-0 text-primary ">ยอดรวมชำระ <?= $OrdersData[0]['Total_price'] ?> บาท</h5>
                     </div>
-                    <div class="col-6  m-0 p-0 m-auto">
-                        <h6 class="m-0 p-0  text-right  text-muted">สถานะสินค้า </h6>
-                        <h3 class="m-0 p-0  text-right "><?= $this->Custom->getOrderStatus($OrdersData[0]['id']) ?></h3>
+                  
+                    <div class="col-sm-6  col-12 mb-2 m-0 p-0 m-auto">
+                        <h6 class="m-0 p-0  text-left text-sm-right ">สถานะสินค้า </h6>
+                        <h4 class="m-0 p-0 my-2 text-left text-sm-right "><?= $this->Custom->getOrderStatus($OrdersData[0]['id']) ?></h4>
                     </div>
                 </div>
                 <!-- <div class="col-12 col-sm-12 m-0 p-0 my-3">
@@ -217,10 +219,9 @@
                 <hr>
                 <div class="col-12 col-sm-12 ">
                     <?php if (!empty($OrdersData[0]['paymentimage'])) { ?>
-
                         <img class="w-100 my-3" src="<?= $this->Url->build($OrdersData[0]['paymentimage']) ?> " alt="">
                     <?php } else { ?>
-                        <img class="w-100 my-3" src="<?= $this->Url->image('1615974410_35508.png') ?> " alt="">
+                        <img class="w-100 my-3" src="<?= $this->Url->build($PaymentImg->img) ?> " alt="">
                     <?php } ?>
                 </div>
             </div>
