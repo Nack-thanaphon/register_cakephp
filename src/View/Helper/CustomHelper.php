@@ -63,6 +63,17 @@ class customHelper extends Helper
         return $countBalance;
     }
 
+    public function countTotal()
+    {
+        $table = TableRegistry::getTableLocator()->get('Orders');
+        $countBalance = $table->find()
+            ->where([
+                'status IN' => [3,5]
+            ])
+            ->first();
+        return $countBalance;
+    }
+
     public function GetContactData()
     {
         $table = TableRegistry::getTableLocator()->get('Contact');
@@ -187,6 +198,7 @@ class customHelper extends Helper
         $countProductType = $table->find()->count();
         return $countProductType;
     }
+
     public function countPromotion()
     {
         $table = TableRegistry::getTableLocator()->get('Promotions');

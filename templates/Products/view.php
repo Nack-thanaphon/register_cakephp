@@ -3,42 +3,53 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css" integrity="sha512-17EgCFERpgZKcm0j0fEq1YCJuyAWdz9KUtv1EjVuaOz8pDnh/0nZxmU6BBXwaaxqoi9PQXnRWqlcDB027hgv9A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.css" integrity="sha512-6lLUdeQ5uheMFbWm3CP271l14RsX1xtx+J5x2yeIDkkiBpeVTNhTqijME7GgRKKi6hCqovwCoBTlRBEC20M8Mg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.css" integrity="sha512-wR4oNhLBHf7smjy0K4oqzdWumd+r5/+6QO/vDda76MW5iug4PT7v86FoEkySIJft3XA0Ae6axhIvHrqwm793Nw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js">
+</link>
 
+<style>
+    .slick-track {
+        margin-left: 0;
+    }
+</style>
 
 
 <div class="container">
     <div class="row m-0 p-sm-0 my-2 p-1 my-sm-5">
-        <div class="col-12 m-0 p-0 my-2">
-            <a href="<?= $this->Url->build(['prefix' => false, 'controller' => 'products', 'action' => 'index']) ?>">
-                <?= __('กลับไป') ?>
-            </a>
+        <div class="col-12  my-2">
+            <nav aria-label="text-end">
+                <ol class="breadcrumb bg-transparent  p-0 m-0">
+                    <li class="breadcrumb-item"><a href="/">หน้าหลัก</a></li>
+                    <li class="breadcrumb-item active"><a href="<?= $this->Url->build(['prefix'=>false,'controller'=>'products','action'=>'index']) ?>">สินค้า</a></li>
+                    <li class="breadcrumb-item active" aria-current="page"><?= $product->p_title ?></li>
+                </ol>
+            </nav>
         </div>
         <div class="col-12 col-sm-4 mb-3">
             <?php foreach ($productEdit as $key => $dataImg) : ?>
                 <?php $this->assign('image', $this->Url->build($dataImg['img'][$key]['name'])); ?>
                 <?= $this->Html->meta(array('name' => 'og:image', 'content' => $this->fetch('image')), NULL, array('inline' => false)); ?>
 
-                <div class="slider slider-for" >
+                <div class="slider slider-for w-100">
                     <?php foreach ($dataImg['img'] as $key => $dataImg1) : ?>
-                        <div>
-                            <img src="<?= $this->Url->build($dataImg['img'][$key]['name']) ?>" class="rounded w-100" style="width:100%;height:300px;object-fit:cover ;" >
-                        </div>
+                        <a data-fslightbox href="<?= $this->Url->build($dataImg['img'][$key]['name']) ?>">
+                            <img src="<?= $this->Url->build($dataImg['img'][$key]['name']) ?>" class="rounded " style="width:100%;height:300px;object-fit:cover ;">
+                        </a>
                     <?php endforeach; ?>
                 </div>
-                <div class="slider slider-nav my-2 m-0 w-100">
+                <div class="slider slider-nav my-2 m-0  w-100">
                     <?php foreach ($dataImg['img'] as $key => $dataImg1) : ?>
                         <div class="m-1">
-                            <img src="<?= $this->Url->build($dataImg['img'][$key]['name']) ?>" style="width:100%;height:70px;object-fit:cover ;" alt="Product Image">
+                            <img src="<?= $this->Url->build($dataImg['img'][$key]['name']) ?>" style="width:50px;height:50px;object-fit:cover ;" alt="Product Image">
                         </div>
                     <?php endforeach; ?>
                 </div>
             <?php endforeach; ?>
         </div>
-        <div class="col-12 col-sm-8 p-1 pl-sm-3">
+        <div class="col-12 col-sm-7 p-1 pl-sm-3">
             <div class="row m-0">
                 <div class="col-12 col-sm-12 mb-1">
                     <small class="text-muted">ชื่อสินค้า</small>
-                    <h3 class="mb-1"><?= $product->p_title ?></h3>
+                    <h3 class="mb-1 text-success"><?= $product->p_title ?></h3>
                     <small class="text-muted">รายละเอียด</small>
                     <div><?= $product->p_detail ?></div>
                     <hr>
@@ -77,8 +88,7 @@
         </div>
     </div> -->
 </div>
-<script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-<script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js" integrity="sha512-XtmMtDEcNz2j7ekrtHvOVR4iwwaD6o/FUJe6+Zq+HgcCsk3kj4uSQQR8weQ2QVj1o0Pk6PwYLohm206ZzNfubg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
     $('.slider-for').slick({
@@ -89,22 +99,8 @@
         asNavFor: '.slider-nav'
     });
     $('.slider-nav').slick({
-        slidesToShow: 4,
+        autoplay: true,
+        slidesToShow: 7,
         slidesToScroll: 1,
-        asNavFor: '.slider-for',
-        dots: false,
-        centerMode: false,
-        focusOnSelect: true,
-        prevArrow: false,
-        nextArrow: false
     });
-
-    $(document).ready(function() {
-        $('.swiper-slide').on('click', function() {
-            var $image_element = $(this).find('img')
-            $('.product-image').prop('src', $image_element.attr('src'))
-            $('.swiper-slide.active').removeClass('active')
-            $(this).addClass('active')
-        })
-    })
 </script>

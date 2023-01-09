@@ -9,7 +9,7 @@
     <div class="col-12 col-md-12 col-lg-12 card">
         <div class="row p-3 ">
             <div class="col-12 col-sm-6 my-2">
-                <?= $this->Flash->render() ?>
+                
                 <h3>รูปภาพประจำตัว</h3>
                 <input type="file" name="" id="">
                 <input type="hidden" name="adminside" value="qwewebdbdfgbfgbdfngjndr">

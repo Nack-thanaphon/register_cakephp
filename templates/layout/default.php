@@ -22,14 +22,15 @@ $cakeDescription = 'แม่ปลูกลูกขาย | ';
     <?= $this->Html->css(['OverlayScrollbars.min.css']) ?>
     <?= $this->Html->css(['summernote-bs4.min.css']) ?>
     <?= $this->Html->script("adminlte.js"); ?>
-
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/swiper@8/swiper-bundle.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <?= $this->element('/utility/toastNotificationBackend'); ?>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet" />
 </head>
 
 <body>
-
+    <?= $this->Flash->render() ?>
     <div class="row m-0 p-0">
         <div class="col-12 m-0 p-0">
             <?= $this->element('/component/front_navbar') ?>
@@ -58,6 +59,7 @@ $cakeDescription = 'แม่ปลูกลูกขาย | ';
     <?= $this->Html->script("plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"); ?>
     <?= $this->Html->script("plugins/summernote/summernote-bs4.min.js"); ?>
     <?= $this->Html->script("overlayScrollbars.min.js"); ?>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/js/toastr.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
     <script>

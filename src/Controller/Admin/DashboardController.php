@@ -16,6 +16,7 @@ class DashboardController extends AppController
 
     public function index()
     {
+        $countTotal =  $this->Custom->countTotal();
         $countProduct =  $this->Custom->countProduct();
         $countBranch =  $this->Custom->countBranch();
         $orderstable = TableRegistry::getTableLocator()->get('Orders');
@@ -70,6 +71,7 @@ class DashboardController extends AppController
         $this->set(compact(
             'countProduct',
             'countBranch',
+            'countTotal',
             'ordersToday',
             'thaiyear',
             'Graphdata',

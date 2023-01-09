@@ -31,7 +31,7 @@ $cakeDescription = 'FarmByMOM | ';
     <script src="https://cdn.ckeditor.com/4.20.0/standard/ckeditor.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.css" rel="stylesheet" type="text/css" />
-
+    <?= $this->element('/utility/toastNotificationBackend'); ?>
 
 
     <!-- <script>
@@ -53,6 +53,7 @@ $cakeDescription = 'FarmByMOM | ';
 
 <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
+        <?= $this->Flash->render() ?>
         <?= $this->element('/component/sidebar') ?>
         <?= $this->element('/component/back_navbar') ?>
         <div class="content-wrapper">
@@ -92,7 +93,6 @@ $cakeDescription = 'FarmByMOM | ';
         <script>
             $.widget.bridge('uibutton', $.ui.button) /
                 console.log(dateString)
-            
         </script>
         <?= $this->Html->script("custom.js"); ?>
         <?= $this->Html->script("fslightbox.js"); ?>

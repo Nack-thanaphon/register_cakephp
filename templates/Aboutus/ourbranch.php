@@ -70,41 +70,28 @@
 </div>
 <div class="container">
     <div class="row my-3 m-0 p-0">
-        <div class="col-12 col-md-12 col-lg-4 mb-2 h-100">
-            <div class="card  shadow-sm border p-2">
-                <form id="BranchAdd">
-                    <div class="modal-header">
-                        <h3 class="modal-title " id="updateTxt">ค้นหาสาขา</h3>
-                        <button type="button" class="close d-none" onclick="cancle()">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="input-group mb-3">
-                        <select class="custom-select" name="b_province" id="province">
-                            <option value="เชียงใหม่">เชียงใหม่</option>
-                            <option value="กรุงเทพมหานคร">กรุงเทพมหานคร</option>
-                            <option value="อยุธยา">อยุธยา</option>
-                            <option value="นครปฐม">นครปฐม</option>
-                            <option value="น่าน">น่าน</option>
-                            <option value="ลำปาง">ลำปาง</option>
-                        </select>
-                    </div>
-
-                </form>
-                <div class="btn-group" role="group" id="add">
-                    <button id="addData" class="btn btn-success w-100 ">ค้นหา</button>
-                </div>
-                <div class="btn-group" role="group" id="update">
-                </div>
-            </div>
-            <ul class="list-group d-sm-block" id="branch_list">
-            </ul>
-            <!-- <div class="list-group-item">ดูข้อมูลทั้งหมด</div> -->
+        <div class="col-sm-3 col-12 mb-2">
+            <h5>ค้นหาสาขา</h5>
         </div>
-        <div class="col-12 col-md-12 col-lg-8 mx-auto  h-100" id="BranchData">
+        <div class="col-9 mb-2">
+            <nav aria-label="text-end">
+                <ol class="breadcrumb bg-transparent  p-0 m-0">
+                    <li class="breadcrumb-item"><a href="/">หน้าหลัก</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">สาขาทั้งหมด</li>
+                    <!-- <li class="breadcrumb-item active" aria-current="page">Data</li> -->
+                </ol>
+            </nav>
+        </div>
+        <div class="col-12 col-md-12 col-lg-3 mb-2 h-100">
+            <select onchange="fillterFunc()" id="filterData" class="form-control">
+
+            </select>
+        </div>
+
+        <div class="col-12 col-md-12 col-lg-9 mx-auto  h-100" id="BranchData">
             <div class="card  shadow-sm border p-3">
                 <div class="mb-2">
-                    <h5>แม่ปลูกลูกขาย: Farm By Mom </h5>
+                    <small class="text-uppercase">แม่ปลูกลูกขาย: Farm By Mom </small>
                     <h4>สาขา <span class="text-success" id="mb_name"></span> </h4>
                     <h6>จังหวัด <span class="text-success" id="mb_province"></span> </h6>
                     <h6>เบอร์โทร <span class="text-success" id="mb_phone"></span></h6>
@@ -131,8 +118,14 @@
         $("#mb_link").attr('href', link)
         $("#mb_map").html(branchglobal[i].map)
     }
-
     var branchglobal = '';
+
+
+    function fillterFunc() {
+        let x = $('#filterData').val();
+        // console.log(branchData[x]['name'],x,branchData[x]['phone'],branchData[x]['link'],branchData[x]['province'])
+        filterData(branchData[x]['name'], x, branchData[x]['phone'], branchData[x]['link'], branchData[x]['province'])
+    }
 
     function sidebar() {
         $.ajax({
@@ -150,17 +143,11 @@
                 for (i = 0; i < Branch.length; i++) {
                     // html += `<option value="${Branch[i]['province']}">${Branch[i]['province']}</option>`
                     branchData2 +=
-                        `<li class="list-group-item d-flex justify-content-between">
-                    <a type="button" class="text-primary" id="view${i}" onclick="filterData('${Branch[i]['name']}','${i}','${Branch[i]['phone']}','${Branch[i]['link']}','${Branch[i]['province']}')" >${Branch[i]['name']}
-                    </a>
-                </li>`
+                        `<option value="${i}">${Branch[i]['name']}</option>`
                     branchData.push(Branch[i])
 
                 }
-                $('#branch_list').html(branchData2).promise().done(() => {
-                    //autoclick id function
-                    $('#view' + j).trigger('click')
-                })
+                $('#filterData').html(branchData2)
             }
         })
     }

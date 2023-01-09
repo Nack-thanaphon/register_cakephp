@@ -1,3 +1,10 @@
+<style>
+  .btn .badge {
+    position: relative;
+    top: -10px !important;
+  }
+</style>
+
 <div class="container">
   <div class="d-flex justify-content-between py-2 p-2  ">
     <div class="p-0 my-auto">
@@ -93,11 +100,11 @@
       <div class=" d-none d-lg-flex justify-content-end col-12 col-sm-4 col-md-12 col-lg-4 m-0 p-0 mt-2 mt-sm-0">
         <!-- <div class="my-auto"><i class="fas fa-cart-arrow-down"><span></span></i></div> -->
         <a href="<?= $this->Url->build(['prefix' => false, 'controller' => 'cart', 'action' => 'index']) ?>" type="button" class="btn btn-muted text-white">
-          <?= __("สั่งซื้อสินค้า") ?></a> <a class="nav-link   my-auto text-white" data-toggle="dropdown" href="<?= $this->Url->build(['controller' => 'carts', 'action' => 'index']) ?>">
+          <?= __("สั่งซื้อสินค้า") ?></a>
+
+        <a href="<?= $this->Url->build(['prefix' => false, 'controller' => 'cart', 'action' => 'index']) ?>" type="button" class="btn btn-muted text-white">
           <i class="fas fa-cart-shopping"></i>
-          <a href="<?= $this->Url->build(['prefix' => false, 'controller' => 'cart', 'action' => 'index']) ?>">
-            <span class="badge badge-danger navbar-badge" id="cart_total"></span>
-          </a>
+          <span class="badge badge-danger navbar-badge" id="cart_total"></span>
         </a>
       </div>
     </div>

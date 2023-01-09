@@ -12,6 +12,15 @@
     <div class="container">
         <!-- desktop -->
         <div class="row m-0 p-sm-5 mb-3 d-none d-sm-block">
+            <div class="col-12  my-2">
+                <nav aria-label="text-end">
+                    <ol class="breadcrumb bg-transparent  p-0 m-0">
+                        <li class="breadcrumb-item"><a href="/">หน้าหลัก</a></li>
+                        <li class="breadcrumb-item active"><a href="<?= $this->Url->build(['prefix' => false, 'controller' => 'posts', 'action' => 'index']) ?>">ข่าวสาร</a></li>
+                        <li class="breadcrumb-item active" aria-current="page"><?= $data->title ?></li>
+                    </ol>
+                </nav>
+            </div>
             <div class="col-12">
                 <div class="pt-2 pb-3">
                     <small class="text-muted"><?= $data->type ?></small>

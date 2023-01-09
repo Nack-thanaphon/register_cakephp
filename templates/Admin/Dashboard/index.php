@@ -14,7 +14,7 @@
                         </div>
                         <div class=" col-9 my-auto">
                             <p class="m-0 p-0 text-muted"></i>จำนวนยอดขายทั้งหมด</p>
-                            <h4 class="mt-2"><?= number_format((float)100000) ?>
+                            <h4 class="mt-2"><?= number_format((float)$countTotal) ?>
                                 <span>
                                     <small>/ บาท</small>
                                 </span>

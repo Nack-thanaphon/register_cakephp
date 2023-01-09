@@ -2,7 +2,7 @@
 <title><?php echo $this->fetch('title'); ?></title>
 
 <div class="login-box my-5 mx-auto">
-    <?= $this->Flash->render() ?>
+    
     <div class="card  my-3 card-outline card-primary">
         <div class="card-header text-start my-2 text-sm-center">
             <h2 class="m-0 p-0">ลืมรหัสผ่าน</h2>

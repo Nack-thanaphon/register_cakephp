@@ -29,7 +29,7 @@ $cakeDescription = 'FarmByMOM | ';
     <script src="https://www.gstatic.com/firebasejs/7.22.1/firebase-firestore.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.ckeditor.com/4.20.0/standard/ckeditor.js"></script>
-
+    <?= $this->element('/utility/toastNotificationBackend'); ?>
 
 
 
@@ -52,6 +52,7 @@ $cakeDescription = 'FarmByMOM | ';
 
 <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
+        <?= $this->Flash->render() ?>
         <?= $this->element('/component/customer_sidebar') ?>
         <?= $this->element('/component/back_navbar1') ?>
         <div class="content-wrapper">

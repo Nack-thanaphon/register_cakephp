@@ -136,7 +136,7 @@
                 <?php endforeach; ?>
             </div>
             <div class="text-right my-2 ">
-                <a class="text-muted" href="<?= $this->Url->build(['prefix' => false, 'controller' => 'aboutus', 'action' => 'branch']) ?>">อ่านทั้งหมด</a>
+                <a class="text-muted" href="<?= $this->Url->build(['prefix' => false, 'controller' => 'aboutus', 'action' => 'ourbranch']) ?>">อ่านทั้งหมด</a>
             </div>
         </div>
 
@@ -227,8 +227,8 @@
         <div class="col-12  m-0 p-0">
             <div class="row m-0 p-0 mb-3">
                 <?php foreach ($posts as $key => $post) : ?>
-                    <div class="col-12 col-sm-6 mb-1  ">
-                        <div class="row  m-0 p-0 card">
+                    <div class="col-12 col-sm-6 mb-4  ">
+                        <div class="row  m-0 p-0 shadow-sm">
                             <div class="col-sm-6 col-12 my-2 m-sm-0 p-0">
                                 <img class=" post_img w-100 my-auto " src="<?= $this->Url->build($post->image); ?>" alt="<?= $post->p_title ?>">
                             </div>

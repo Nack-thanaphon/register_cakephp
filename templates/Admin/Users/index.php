@@ -5,7 +5,7 @@
     <div class="row my-5 h-100 ">
         <?php if (!empty($usersUnVerifiled)) { ?>
             <div class=" col-12 ">
-                <?= $this->Flash->render() ?>
+                
             </div>
             <div class="col-sm-4 col-12 news_orders">
                 <h3 class="mb-3"> ลูกค้าใหม่</h3>

@@ -71,24 +71,19 @@
 
 <div class="container h-100">
   <div class="row my-5 p-0 m-0">
-    <div class="col-12">
-      <h5>ค้นหาสินค้า</h5>
+    <div class="col-sm-3 col-12 mb-2">
+      <h5>ค้นหาข่าว</h5>
     </div>
-    <div class="col-sm-12 col-md-12 col-lg-3 h-100  p-1">
-      <!-- <div class="mb-2">
-
-                <div class="input-group mb-3">
-                    <select class="custom-select" id="inputGroupSelect02">
-                        <option selected>เลือก...</option>
-                        <option value="1">โปร 1 แถม 1</option>
-                        <option value="2">ส่งฟรี</option>
-                        <option value="3">ตอนรับหน้าฝน</option>
-                    </select>
-                    <div class="input-group-append">
-                        <label class="input-group-text" for="inputGroupSelect02">ค้นหา</label>
-                    </div>
-                </div>
-            </div> -->
+    <div class="col-9 mb-2">
+      <nav aria-label="text-end">
+        <ol class="breadcrumb bg-transparent  p-0 m-0">
+          <li class="breadcrumb-item"><a href="/">หน้าหลัก</a></li>
+          <li class="breadcrumb-item active" aria-current="page">ข่าวสาร</li>
+          <!-- <li class="breadcrumb-item active" aria-current="page">Data</li> -->
+        </ol>
+      </nav>
+    </div>
+    <div class="col-sm-3  col-12">
       <div class="card p-2">
         <label for="product_type">ตามชนิดสินค้า</label>
         <form id="sizes-form">
@@ -102,25 +97,13 @@
           <?php endforeach; ?>
         </form>
       </div>
-
-      <!-- <ul class="list-group d-none d-sm-block" id="product_type">
-                <label for="product_type">ตามชนิดสินค้า</label>
-                <li class="list-group-item"><a href="http://">#Lorem, ipsum dolor.</a></li>
-                <li class="list-group-item"><a href="http://">#Lorem, ipsum dolor.</a></li>
-                <li class="list-group-item"><a href="http://">#Lorem, ipsum dolor.</a></li>
-                <li class="list-group-item"><a href="http://">#Lorem, ipsum dolor.</a></li>
-                <li class="list-group-item"><a href="http://">#Lorem, ipsum dolor.</a></li>
-            </ul> -->
     </div>
-    <div class="col-sm-12 col-md-12 col-lg-9 h-100 p-0 m-0">
-      <div style="overflow:hidden;">
-        <div class="row m-0 p-0 " id="product_items">
-        </div>
+    <div class="col-sm-9 col-12 m-0 p-0">
+      <div class="row m-0 p-0 " id="product_items">
       </div>
     </div>
   </div>
 </div>
-
 
 <script>
   var category_items = []

@@ -2,31 +2,36 @@
 
 
 <style>
-    /* .product_card1:hover {
-        box-shadow: 1px 1px 1px 1px #888888;
-
-    } */
-
-    .postsImg {
-        position: relative;
+   .p_img {
         width: 100%;
-        height: 180px;
-        overflow: hidden;
+        object-fit: cover;
+        height: 200px;
     }
 
-    .posts_type {
-        position: absolute;
-        top: 10px;
-        left: 6px;
+
+    .post_img {
+        object-fit: cover;
+        height: 160px;
     }
 
-    @media screen and (max-width: 650px) {
-        .postsImg {
-            position: relative;
-            width: 100%;
-            height: 170px;
-            overflow: hidden;
+    .map {
+        width: 100%;
+        height: 170px;
+    }
+
+    iframe {
+        width: 100% !important;
+        object-fit: contain;
+    }
+
+    @media screen and (max-width: 750px) {
+
+
+        .post_img {
+            height: 100%;
+            /* overflow: hidden; */
         }
+
 
     }
 
@@ -57,7 +62,6 @@
     }
 </style>
 
-
 <div class="header-cover">
     <img class="header-img" src="https://img.freepik.com/premium-photo/ripe-fresh-avocado-green-background-top-view_185193-10955.jpg?w=2000" alt="">
     <div class="centered">
@@ -66,26 +70,22 @@
     </div>
 </div>
 
+
 <div class="container h-100">
     <div class="row my-5 p-0 m-0">
-        <div class="col-12">
-            <h5>ค้นหาสินค้า</h5>
+        <div class="col-sm-3 col-12 mb-2">
+            <h5>ค้นหาข่าว</h5>
         </div>
-        <div class="col-sm-12 col-md-12 col-lg-3 h-100  p-1">
-            <!-- <div class="mb-2">
-
-                <div class="input-group mb-3">
-                    <select class="custom-select" id="inputGroupSelect02">
-                        <option selected>เลือก...</option>
-                        <option value="1">โปร 1 แถม 1</option>
-                        <option value="2">ส่งฟรี</option>
-                        <option value="3">ตอนรับหน้าฝน</option>
-                    </select>
-                    <div class="input-group-append">
-                        <label class="input-group-text" for="inputGroupSelect02">ค้นหา</label>
-                    </div>
-                </div>
-            </div> -->
+        <div class="col-9 mb-2">
+            <nav aria-label="text-end">
+                <ol class="breadcrumb bg-transparent  p-0 m-0">
+                    <li class="breadcrumb-item"><a href="/">หน้าหลัก</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">สินค้า</li>
+                    <!-- <li class="breadcrumb-item active" aria-current="page">Data</li> -->
+                </ol>
+            </nav>
+        </div>
+        <div class="col-sm-3  col-12">
             <div class="card p-2">
                 <label for="product_type">ตามชนิดสินค้า</label>
                 <form id="sizes-form">
@@ -99,20 +99,9 @@
                     <?php endforeach; ?>
                 </form>
             </div>
-
-            <!-- <ul class="list-group d-none d-sm-block" id="product_type">
-                <label for="product_type">ตามชนิดสินค้า</label>
-                <li class="list-group-item"><a href="http://">#Lorem, ipsum dolor.</a></li>
-                <li class="list-group-item"><a href="http://">#Lorem, ipsum dolor.</a></li>
-                <li class="list-group-item"><a href="http://">#Lorem, ipsum dolor.</a></li>
-                <li class="list-group-item"><a href="http://">#Lorem, ipsum dolor.</a></li>
-                <li class="list-group-item"><a href="http://">#Lorem, ipsum dolor.</a></li>
-            </ul> -->
         </div>
-        <div class="col-sm-12 col-md-12 col-lg-9 h-100 p-0 m-0">
-            <div style="overflow:hidden;">
-                <div class="row m-0 p-0" id="product_items">
-                </div>
+        <div class="col-sm-9 col-12 m-0 p-0">
+            <div class="row m-0 p-0 " id="product_items">
             </div>
         </div>
     </div>
@@ -175,34 +164,23 @@
             for (let i = 0; i < category_items.length; i++) {
                 productItem += `
                 <div class=" col-sm-4 col-6 " id="productCart_list" >
-                    <a href="<?php echo $this->Url->build(['controller' => 'products', 'action' => 'view',]); ?>/${category_items[i]['id']}/${category_items[i]['title']}" >
-                        <div class="card product_card1">
-                            <div class=" ">
-                                <small class="text-muted posts_type badge badge-pill badge-success text-white m-0 ">${category_items[i]['type']}</small>
-                                 <img class="d-block w-100" src="<?php echo $this->Url->build('/', ['fullBase' => true]); ?>${category_items[i]['image']}" style="width:100%;height:190px;object-fit:cover;">
-                                    </div>
-                                <div class="card-body m-0 p-2">
-                                <h5 class="col-12 text-truncate my-1 m-0 p-0">${category_items[i]['title']}</h5>
-                                    <div class="text-right m-0 ">
-                                        <h5 class="text-success mt-1 m-0 p-0  d-none d-sm-block"> ${category_items[i]['price']}บาท/ชิ้น </h5>
-                                        <small class="text-success mt-1 m-0 p-0  d-block d-sm-none"> ${category_items[i]['price']}บาท/ชิ้น </small>
-                                        <small class="text-muted text-right m-0 p-0">ในคลัง ${category_items[i]['total']} ชิ้น</small>
-                                       <div class="row mt-3 m-0 p-0 d-flex justify-content-between" > 
-                                            <div class="col-2 m-0 p-0">
-                                                <a href="https://line.me/R/oaMessage/<?= $contactData->lineoficial; ?>?สอบถามสินค้า${category_items[i]['title']}" target="blank" class="btn btn m-0 p-0 w-100 ">
-                                                    <h5 class="fab fa-line text-success m-0 p-0"></h5>
-                                                </a>
-                                            </div>
-                                            <div class="col-9 m-0 p-0">
-                                                 <a class="btn btn-white m-0 p-0  w-100" href="<?php echo $this->Url->build(['controller' => 'products', 'action' => 'view',]); ?>/${category_items[i]['id']}/${category_items[i]['title']}">
-                                                    <small class="m-0 p-0" ><i class="fas fa-link"></i> รายละเอียดสินค้า</small>
-                                                </a>
-                                            </div>
-                                       </div>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
+                <div class="card">
+                <img class="card-img p_img" src="<?php echo $this->Url->build('/', ['fullBase' => true]); ?>${category_items[i]['image']}" alt="${category_items[i]['title']}">
+                <div class="card-body">
+                <h4 class="">${category_items[i]['title']}</h4>
+                <h6 class="card-subtitle mb-2 text-muted">ชนิด : ${category_items[i]['type']}</h6>
+                <p class="card-text">
+                <div class="price text-success">
+                    <h5 class="mt-4"><i class="fa-solid fa-baht-sign"></i>${category_items[i]['price']}</h5>
+                </div>
+                <div class="buy d-flex justify-content-between align-items-center ">
+                    <div class="btn-group w-100" role="group" aria-label="Basic example">
+                        <a href="https://line.me/R/oaMessage/<?= $contactData->lineoficial; ?>?สอบถามสินค้า${category_items[i]['title']}" target="blank" type="button" class="btn btn-success  mt-3"> <i class="fab fa-line  text-white"></i></a>
+                        <a href="<?php echo $this->Url->build(['controller' => 'products', 'action' => 'view',]); ?>/${category_items[i]['id']}/${category_items[i]['title']}" type="button" class="btn btn-success mt-3">รายละเอียดสินค้า</a>
+                    </div>
+                </div>
+                </div>
+                </div>
                 </div>`;
             }
             $("#product_items").html(productItem);
@@ -218,34 +196,23 @@
                 if (ProductsTypeArray.some((v) => category_items[i]['type'].includes(v))) {
                     FilteredItem += `
                     <div class=" col-sm-4 col-6 " id="productCart_list" >
-                    <a href="<?php echo $this->Url->build(['controller' => 'products', 'action' => 'view',]); ?>/${category_items[i]['id']}/${category_items[i]['title']}" >
-                        <div class="card product_card1">
-                            <div class=" ">
-                                <small class="text-muted posts_type badge badge-pill badge-success text-white m-0 ">${category_items[i]['type']}</small>
-                                 <img class="d-block w-100" src="<?php echo $this->Url->build('/', ['fullBase' => true]); ?>${category_items[i]['image']}" style="width:100%;height:190px;object-fit:cover;">
-                                    </div>
-                                <div class="card-body m-0 p-2">
-                                <h5 class="col-12 text-truncate my-1 m-0 p-0">${category_items[i]['title']}</h5>
-                                    <div class="text-right m-0 ">
-                                        <h5 class="text-success mt-1 m-0 p-0  d-none d-sm-block"> ${category_items[i]['price']}บาท/ชิ้น </h5>
-                                        <small class="text-success mt-1 m-0 p-0  d-block d-sm-none"> ${category_items[i]['price']}บาท/ชิ้น </small>
-                                        <small class="text-muted text-right m-0 p-0">ในคลัง ${category_items[i]['total']} ชิ้น</small>
-                                       <div class="row mt-3 m-0 p-0 d-flex justify-content-between" > 
-                                            <div class="col-2 m-0 p-0">
-                                                <a href="https://line.me/R/oaMessage/<?= $contactData->lineoficial; ?>?สอบถามสินค้า${category_items[i]['title']}" target="blank" class="btn btn m-0 p-0 w-100 ">
-                                                    <h5 class="fab fa-line text-success m-0 p-0"></h5>
-                                                </a>
-                                            </div>
-                                            <div class="col-9 m-0 p-0">
-                                                 <a class="btn btn-white m-0 p-0  w-100" href="<?php echo $this->Url->build(['controller' => 'products', 'action' => 'view',]); ?>/${category_items[i]['id']}/${category_items[i]['title']}">
-                                                    <small class="m-0 p-0" ><i class="fas fa-link"></i> รายละเอียดสินค้า</small>
-                                                </a>
-                                            </div>
-                                       </div>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
+                <div class="card">
+                <img class="card-img p_img" src="<?php echo $this->Url->build('/', ['fullBase' => true]); ?>${category_items[i]['image']}" alt="${category_items[i]['title']}">
+                <div class="card-body">
+                <h4 class="">${category_items[i]['title']}</h4>
+                <h6 class="card-subtitle mb-2 text-muted">ชนิด : ${category_items[i]['type']}</h6>
+                <p class="card-text">
+                <div class="price text-success">
+                    <h5 class="mt-4"><i class="fa-solid fa-baht-sign"></i>${category_items[i]['price']}</h5>
+                </div>
+                <div class="buy d-flex justify-content-between align-items-center ">
+                    <div class="btn-group w-100" role="group" aria-label="Basic example">
+                        <a href="https://line.me/R/oaMessage/<?= $contactData->lineoficial; ?>?สอบถามสินค้า${category_items[i]['title']}" target="blank" type="button" class="btn btn-success  mt-3"> <i class="fab fa-line  text-white"></i></a>
+                        <a href="<?php echo $this->Url->build(['controller' => 'products', 'action' => 'view',]); ?>/${category_items[i]['id']}/${category_items[i]['title']}" type="button" class="btn btn-success mt-3">รายละเอียดสินค้า</a>
+                    </div>
+                </div>
+                </div>
+                </div>
                 </div>`;
                 }
                 $("#product_items").html(FilteredItem);

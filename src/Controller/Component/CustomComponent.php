@@ -26,7 +26,7 @@ class CustomComponent extends Component
         $getProductsType = $ProductsType->find('all')->toArray();
         return $getProductsType;
     }
-    
+
     public function GetUserDataById($id)
     {
         if (!empty($id)) {
@@ -151,7 +151,19 @@ class CustomComponent extends Component
         $countBranch = $table->find()->count();
         return $countBranch;
     }
+    public function countTotal()
+    {
+        $table = TableRegistry::getTableLocator()->get('Orders');
 
+        $query = $table->find();
+        $res = $query->select(['total_sum' => $query->func()->sum('total_price')])
+            ->where([
+                'status IN' => [3, 5]
+            ])->first(); //perform the sum operation 
+        $total = $res->total_sum;
+
+        return $total;
+    }
     public function countBalance()
     {
         $table = TableRegistry::getTableLocator()->get('orders');
@@ -164,6 +176,4 @@ class CustomComponent extends Component
         $GetContactData = $table->find('all')->first();
         return $GetContactData;
     }
-    
-    
 }

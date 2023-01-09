@@ -2,7 +2,7 @@
     <?= $this->Html->link(__('Back to'), ['action' => 'index'], ['class' => 'col-12 d-flex justify-content-end mb-2']) ?>
     <div class="col-12 col-md-12 col-lg-8">
         <div class="card p-3">
-            <?= $this->Flash->render() ?>
+            
             <?= $this->Form->create($product, ["enctype" => "multipart/form-data"]) ?>
             <div class="form-group">
                 <h3 class="font-weight-bold"><?= __('เพิ่มสินค้า') ?></h3>

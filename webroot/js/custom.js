@@ -1,10 +1,8 @@
 
-
 $(".delete").attr("onclick", "").unbind("click"); //remove function onclick button
 
 $(document).on('click', '.delete', function () {
     let delete_form = $(this).parent().find('form');
-
 
     Swal.fire({
         title: 'คุณแน่ใจใช่ไหม?',
@@ -78,22 +76,45 @@ var count = 0;
 
 
 function select_product(id, name, img, price) {
-    var item = cart_list.find(item => item.id === id);
+    const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+            confirmButton: 'btn btn-success m-2',
+            cancelButton: 'btn btn m-2'
+        },
+        buttonsStyling: false
+    })
 
-    if (item) {
-        item.count++;
-    } else {
-        cart_list.push({
-            id,
-            img,
-            name,
-            price,
-            count: 1
-        })
-    }
-    localStorage.setItem('cart_list', JSON.stringify(cart_list));
-    cart();
-    precal()
+    swalWithBootstrapButtons.fire({
+        text: "ต้องการเพิ่มสินค้าในตะกร้าใช่ไหม",
+        icon: 'info',
+        showCancelButton: true,
+        confirmButtonText: 'ใช่, เพิ่มเลย!',
+        cancelButtonText: 'ยกเลิก',
+        reverseButtons: true
+    }).then((result) => {
+        if (result.isConfirmed) {
+            var item = cart_list.find(item => item.id === id);
+
+            if (item) {
+                item.count++;
+            } else {
+                cart_list.push({
+                    id,
+                    img,
+                    name,
+                    price,
+                    count: 1
+                })
+            }
+            localStorage.setItem('cart_list', JSON.stringify(cart_list));
+            cart();
+            precal()
+            toastr.success("เพิ่มสินค้าในตะกร้าเรียบร้อย")
+
+        } 
+    })
+
+
 }
 
 
@@ -109,7 +130,7 @@ function cart() {
                         <small id="countitems${i}">จำนวน : ${cart_list[i].count} ชิ้น</small>
                     </div>
                     <div>
-                        <i class="fas fa-trash-alt" onclick="delete_product(${cart_list[i].id})"></i>
+                        <i class="fas fa-trash-alt" type="button" onclick="delete_product(${cart_list[i].id})"></i>
                     </div>
                 </div>
             </div> `
@@ -169,12 +190,12 @@ function delete_product(id) {
         // cart_list.removeItem(item);
         for (i = 0; i < cart_list.length; i++) {
             // console.log(cart_list[2].id)
-            console.log(id,cart_list[i].id )
+            console.log(id, cart_list[i].id)
             if (id == cart_list[i].id) {
-                console.log('i >>> ',i,1)
+                console.log('i >>> ', i, 1)
                 cart_list.splice(i, 1)
                 console.log(cart_list)
-                
+
             }
         }
 
@@ -182,16 +203,8 @@ function delete_product(id) {
 
     localStorage.setItem('cart_list', JSON.stringify(cart_list));
 
-    // count--
-
-    // if (cart_list[i].count > 0) {
-    //     cart_list[i].count--;
-    //     localStorage.setItem("cart_list", cart_list[i].count);
-    //     $("#countitems" + i).text(`จำนวน : ${cart_list[i].count} ชิ้น`)
-    // }
-    // if (cart_list[i].count <= 0) {
-    //     $("#productItem" + id).remove();
-    // }
     cart()
     precal()
+    toastr.success("ลบสินค้าออกจากตะกร้าเรียบร้อย")
+
 }

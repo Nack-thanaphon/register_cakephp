@@ -1,10 +1,48 @@
+<style>
+    .p_img {
+        width: 100%;
+        object-fit: cover;
+        height: 200px;
+    }
+
+
+    .post_img {
+        object-fit: cover;
+        height: 160px;
+    }
+
+    .map {
+        width: 100%;
+        height: 170px;
+    }
+
+    iframe {
+        width: 100% !important;
+        object-fit: contain;
+    }
+
+    @media screen and (max-width: 750px) {
+
+        .p_img {
+            height: 100%;
+            /* overflow: hidden; */
+        }
+
+
+    }
+</style>
+
+
+
 <div class="container">
     <div class="row m-1 my-3">
-        <div class="col-12  py-3">
-
-            <h1>ตะกร้าสินค้า</h1>
+        <div class="col-12 d-flex  justify-content-between py-3 my-auto">
+            <h2>ตะกร้าสินค้า</h2>
+            <p onclick="seeProduct()" type="button" class="d-block d-sm-none m-0 p-0 my-auto">
+                ดูสินค้าทั้งหมด
+            </p>
         </div>
-        <div class="col-12 col-sm-8 m-0 p-0" style="overflow:hidden;">
+        <div class="col-12 col-sm-8 m-0 p-0 d-none d-sm-block" id="productData">
             <div class="row m-0 p-0" id="product_items">
             </div>
         </div>
@@ -44,7 +82,7 @@
     <script>
         var productData = "";
         $(document).ready(function() {
-          
+
             $.ajax({
                 url: "<?php echo $this->Url->build('/api/product', ['fullBase' => true]); ?>",
                 type: "GET",
@@ -56,19 +94,27 @@
                         let name = result[i].title.replace(/^\s+|\s+$/gm, '');;
 
                         productItem += ` 
-                    <div class="swiper-slide col-sm-4 col-6 product_card" id="productCart_list" >
-                        <div class="card ">
-                            <img class="border-full" src="<?php echo $this->Url->build('${result[i].image}', ['fullBase' => true]); ?>">
-                            <div class="card-body p-1">
-                                <h5 class="col-12 text-truncate  my-2 m-0 p-0 text-right">${result[i].title}</h5>
-                                <div class="text-right m-0 p-0">
-                                <h5 class="text-primary mt-1 m-0 p-0 ">${result[i].price} บาท/ชิ้น </h5>
-                                <small class="text-muted text-right m-0 p-0">ในคลัง ${result[i].total} ชิ้น</small>
-                                </div>
-                                <a class="btn btn-primary p-1 w-100 mt-1" onclick="select_product(${result[i].id},'${name}','${result[i].image}',${result[i].price})">เพิ่มในตะกร้าสินค้า</a>
-                            </div>
-                        </div>
-                    </div>`;
+                   <div class=" col-sm-4 col-12 " id="productCart_list" >
+                <div class="card">
+                <img class="card-img p_img" src="<?php echo $this->Url->build('/', ['fullBase' => true]); ?>${result[i].image}" alt="${result[i].title}">
+                <div class="card-body">
+                <h6 class="">${result[i].title}</h6>
+                <h6 class="card-subtitle mb-2 text-muted">ชนิด : ${result[i].type}</h6>
+                <p class="card-text">
+                <div class="price text-success">
+                    <h5 class="mt-4"><i class="fa-solid fa-baht-sign"></i>${result[i].price}</h5>
+                </div>
+                <div class="buy d-flex justify-content-between align-items-center ">
+                    <div class="btn-group w-100" role="group" aria-label="Basic example">
+                        <a href="https://line.me/R/oaMessage/<?= $contactData->lineoficial; ?>?สอบถามสินค้า${result[i].title}" target="blank" type="button" class="btn btn-success  mt-3"> <i class="fab fa-line  text-white"></i></a>
+                        <a type="button" class="btn btn-success  mt-3" onclick="select_product(${result[i].id},'${name}','${result[i].image}',${result[i].price})">เพิ่มในตะกร้าสินค้า</a>
+                    </div>
+                </div>
+                </div>
+                </div>
+                </div>
+                    
+                    `;
                     }
                     $("#product_items").html(productItem);
                 },
@@ -77,7 +123,9 @@
 
         //ตะกร้าสินค้า
 
-
+        function seeProduct() {
+            $('#productData').toggleClass('d-none')
+        }
         // ไปหน้าจ่ายเงิน
         function gotoPayment() {
 
