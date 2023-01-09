@@ -23,8 +23,8 @@ class DashboardController  extends AppController
         $cartTokensession =  $session->read('cartToken');
 
         $result = $this->Authentication->getResult()->getData();
-        $Usertoken =  $this->Custom->GetUsertoken($result);
-        $UserData =  $this->Custom->GetUserData($Usertoken);
+        $Usertoken =  $this->GetUsertoken($result);
+        $UserData =  $this->GetUserData($Usertoken);
 
         if (!empty($UserData)) {
             $UserOrders =  $OrdersTable->find()
@@ -61,7 +61,7 @@ class DashboardController  extends AppController
         $this->set(compact('user'));
     }
 
-
+    
     public function paymentUpload()
     {
         $imageTable = TableRegistry::getTableLocator()->get('Image');
@@ -209,7 +209,7 @@ class DashboardController  extends AppController
             ]);
         }
         $userId = $order[0]['orders_user_id'];
-        $UserData =  $this->Custom->GetUserDataById($userId);
+        $UserData =  $this->GetUserDataById($userId);
         // pr($UserData);
         // die;
         if (!empty($UserData)) {
@@ -236,6 +236,74 @@ class DashboardController  extends AppController
         $this->set(compact('order', 'OrdersData'));
     }
 
+    public function GetUsertoken($result = null)
+    {
+        if (!empty($result)) {
+            $Usertoken = '';
+            if (!empty($result['token'])) {
+                $Usertoken = $result['token'];
+            }
+            return $Usertoken;
+        }
+    }
+    public function GetUserData($token)
+    {
+        if (!empty($token)) {
+            $usertable = TableRegistry::getTableLocator()->get('Users');
+            $user = $usertable->find()
+                ->select([
+                    'id' => 'users.id',
+                    'token' => 'users.token',
+                    'email' => 'users.email',
+                    'address' => 'users.address',
+                    'phone' => 'users.phone',
+                    'name' => 'users.name',
+                    'role' => 'ur.ur_name'
+                ])
+                ->join([
+                    'ur' => ([
+                        'table' => 'users_role',
+                        'type' => 'INNER',
+                        'conditions' => 'ur.id = users.user_role_id'
+                    ])
+                ])
+                ->from('users')
+                ->where([
+                    'users.token' => $token
+                ])
+                ->toArray();
+            return $user;
+        }
+    }
+    public function GetUserDataById($id)
+    {
+        if (!empty($id)) {
+            $usertable = TableRegistry::getTableLocator()->get('Users');
+            $user = $usertable->find()
+                ->select([
+                    'id' => 'users.id',
+                    'token' => 'users.token',
+                    'email' => 'users.email',
+                    'address' => 'users.address',
+                    'phone' => 'users.phone',
+                    'name' => 'users.name',
+                    'role' => 'ur.ur_name'
+                ])
+                ->join([
+                    'ur' => ([
+                        'table' => 'users_role',
+                        'type' => 'INNER',
+                        'conditions' => 'ur.id = users.user_role_id'
+                    ])
+                ])
+                ->from('users')
+                ->where([
+                    'users.id' => $id
+                ])
+                ->toArray();
+            return $user;
+        }
+    }
     public function order()
     {
 
@@ -257,8 +325,8 @@ class DashboardController  extends AppController
         //         'action' => 'index',
         //     ]);
         // }
-        $Usertoken =  $this->Custom->GetUsertoken($result);
-        $UserData =  $this->Custom->GetUserData($Usertoken);
+        $Usertoken =  $this->GetUsertoken($result);
+        $UserData =  $this->GetUserData($Usertoken);
         // pr($Usertoken);
         // pr($UserData);
         // die;
@@ -274,6 +342,7 @@ class DashboardController  extends AppController
 
         $this->set(compact('UserOrders', 'UserData'));
     }
+  
     public function tracking()
     {
     }
@@ -297,8 +366,8 @@ class DashboardController  extends AppController
         //         'action' => 'index',
         //     ]);
         // }
-        $Usertoken =  $this->Custom->GetUsertoken($result);
-        $UserData =  $this->Custom->GetUserData($Usertoken);
+        $Usertoken =  $this->GetUsertoken($result);
+        $UserData =  $this->GetUserData($Usertoken);
         // pr($Usertoken);
         // pr($UserData);
         // die;
@@ -373,22 +442,13 @@ class DashboardController  extends AppController
 
         if ($this->request->is('post')) {
             $email = $this->request->getData('email');
-            $token = Security::hash(Security::randomBytes(25));
             $usertable = TableRegistry::getTableLocator()->get('Users');
             $user = $usertable->find('all')->where(['email' => $email])->first();
+            $token = $user->token;
             if ($user != null) {
                 $user->password = '';
-                $user->token = $token;
                 if ($usertable->save($user)) {
                     $this->Flash->set('กรุณาเช็คในอีเมลล์ ' . $email . ' เพื่อยืนยันการเปลี่ยนรหัสผ่าน', ['element' => 'success']);
-                    TransportFactory::setConfig('gmail', [
-                        'host' => 'smtp.gmail.com',
-                        'port' => 587,
-                        'username' => 'e21bvz@gmail.com',
-                        'password' => 'jxcsblueiiwjzvxd',
-                        'className' => 'Smtp',
-                        'tls' => true
-                    ]);
 
                     $mailer = new Mailer('default');
                     $mailer->setFrom(['e21bvz@gmail.com' => 'แม่ปลูกลูกขาย'])

@@ -35,36 +35,22 @@
 
 <?php $this->assign('title', 'หน้าหลัก'); ?>
 <div class="container">
-    <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <img class="d-block w-100" src="<?= $this->Url->image("mainbanner.png") ?>" alt="First slide">
-            </div>
-            <!-- <div class="carousel-item">
+    <div class="col-12 m-0 p-0 m-sm-1">
+        <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img class="d-block w-100" src="<?= $this->Url->image("mainbanner2.jpg") ?>" style="height: 350px;object-fit: cover;" alt="แม่ปลูกลูกขาย">
+                </div>
+                <!-- <div class="carousel-item">
                 <img class="d-block w-100" src="..." alt="Second slide">
             </div>
             <div class="carousel-item">
                 <img class="d-block w-100" src="..." alt="Third slide">
             </div> -->
-        </div>
-    </div>
-    <!-- <div class="row  m-0 p-0 mb-4">
-        <div class="swiper mySwiper3 px-sm-2 ">
-            <div class="swiper-wrapper rounded">
-                <div class="cover_img ">
-                    <img class="" src="">
-                </div>
-                <div class="cover_img ">
-                    <img class="" src="<?= $this->Url->image("91689392_2966188953437431_3585391548549824512_n.jpg") ?>">
-                </div>
-                <div class="cover_img ">
-                    <img class="" src="<?= $this->Url->image("174070815_4020892831300366_8612633571049325923_n.jpg") ?>">
-                </div>
             </div>
         </div>
-        <div class="swiper-pagination"></div>
-
-    </div> -->
+    </div>
+  
 
 
     <div class="row m-0 p-0 d-sm-flex justify-content-between d-none ">
@@ -73,15 +59,15 @@
             <a href="<?= $this->Url->build(['prefix' => false, 'controller' => 'aboutus', 'action' => 'ourbranch']) ?>" class="row m-0 d-flex justify-content-between  bg-success p-4 rounded mb-2 border shadow-sm">
                 <div class="m-0 p-0 col-7 my-auto">
                     <h4>สาขาทั้งหมด</h4>
-                    <h1 style="font-size:4rem ;">20 สาขา </h1>
+                    <h1 style="font-size:4rem ;"><?= $this->Custom->CountBranch() ?> สาขา </h1>
                 </div>
             </a>
         </div>
         <div class="col-12 col-sm-6  m-0">
             <a href="<?= $this->Url->build(['prefix' => false, 'controller' => 'products', 'action' => 'index']) ?>" class="row m-0 d-flex justify-content-between  bg-white p-4 rounded mb-2 border  shadow-sm">
                 <div class="col-7 my-auto">
-                    <h4>เมนูทั้งหมด</h4>
-                    <h1 class="text-success" style="font-size:4rem ;">10 เมนู </h1>
+                    <h4>สินค้าทั้งหมด</h4>
+                    <h1 class="text-success" style="font-size:4rem ;"><?= $this->Custom->CountProducts() ?> รายการ </h1>
                 </div>
             </a>
         </div>
@@ -95,15 +81,15 @@
             <a href="<?= $this->Url->build(['prefix' => false, 'controller' => 'aboutus', 'action' => 'ourbranch']) ?>" class="row m-0 d-flex justify-content-between  bg-success p-2 rounded mb-2 border shadow-sm">
                 <div class="col-12 my-auto p-0 m-0">
                     <h6>สาขาทั้งหมด</h6>
-                    <h1 class=" m-0 p-0" style="font-size:2rem ;">20 สาขา </h1>
+                    <h1 class=" m-0 p-0" style="font-size:2rem ;"><?= $this->Custom->CountBranch() ?> สาขา </h1>
                 </div>
             </a>
         </div>
         <div class="col-6 col-sm-6  m-0">
             <a href="<?= $this->Url->build(['prefix' => false, 'controller' => 'products', 'action' => 'index']) ?>" class="row m-0 d-flex justify-content-between  bg-white p-2 rounded mb-2 border  shadow-sm">
                 <div class="col-12 my-auto p-0 m-0">
-                    <h6>เมนูทั้งหมด</h6>
-                    <h1 class="text-success m-0 p-0" style="font-size:2rem ;">10 เมนู </h1>
+                    <h6>สินค้าทั้งหมด</h6>
+                    <h1 class="text-success m-0 p-0" style="font-size:2rem ;"><?= $this->Custom->CountProducts() ?> รายการ </h1>
                 </div>
             </a>
         </div>

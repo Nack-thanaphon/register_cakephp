@@ -151,40 +151,20 @@ class customHelper extends Helper
         return $countPost;
     }
 
-    public function CountBalanceByYear()
+    public function CountBranch()
     {
-        $arr = [
-            [
-                "month" => "jan",
-                "total" => 300450,
-            ],
-            [
-                "month" => "feb",
-                "total" => 23000,
-            ],
-            [
-                "month" => "march",
-                "total" => 3000,
-            ],
-            [
-                "month" => "mar",
-                "total" => 110000,
-            ],
-        ];
-
-
-
-        return $arr;
-
-        // get data from sql 
-        // get m 
-        // if  m = m list 
-        // ++ 
-        // else 
-        // 0
-
-        // gr
+        $ProductsType = TableRegistry::getTableLocator()->get('Branch');
+        $getProductsType = $ProductsType->find('all')->count();
+        return $getProductsType;
     }
+
+    public function CountProducts()
+    {
+        $ProductsType = TableRegistry::getTableLocator()->get('Products');
+        $getProductsType = $ProductsType->find('all')->count();
+        return $getProductsType;
+    }
+
     public function countProduct()
     {
         $table = TableRegistry::getTableLocator()->get('Products');

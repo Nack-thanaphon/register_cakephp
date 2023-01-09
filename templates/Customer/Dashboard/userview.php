@@ -1,5 +1,3 @@
-<?php $this->assign('title', 'ข้อมูลผู้ใช้งาน'); ?>
-
 <div class="row my-3 m-2">
     <div class="col-12 d-flex justify-content-between my-4">
         <h3 class="font-weight-bold"><?= __('ข้อมูลผู้ใช้งาน') ?></h3>

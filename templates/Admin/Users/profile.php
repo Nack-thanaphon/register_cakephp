@@ -8,14 +8,12 @@
     <div class="col-12 col-md-12 col-lg-12 card">
         <?= $this->Form->create($user, ["enctype" => "multipart/form-data"]) ?>
         <div class="row p-3 ">
-            <div class="col-12 d-flex justify-content-end mb-3">
-                <h5 class="fas fa-trash-alt my-auto" type="button" onclick="deletePosts(<?= $user->id ?>)"></h5>
-            </div>
+
             <div class="col-12  my-2">
                 <h3>รูปภาพประจำตัว</h3>
             </div>
-            <div class="col-12 col-sm-6 my-2">
-                <input type="file" name="userimage" id="user_image" >
+            <div class="col-12 col-sm-4 my-2">
+                <input type="file" name="userimage" id="user_image">
                 <input type="hidden" name="imgold" value="<?php echo $this->Url->build($user->image, ['fullBase' => true]); ?>">
                 <input type="hidden" name="userId" value="<?= $user->id ?>">
                 <?php if (!empty($user->image)) { ?>
@@ -28,35 +26,35 @@
                     <img id="UsersImgPreviews" src="https://www.pngall.com/wp-content/uploads/5/User-Profile-PNG.png" class="w-100 m-auto p-3" alt="">
                 <?php } ?>
             </div>
-            <div class="form-group col-12 col-sm-6 mt-2">
+            <div class="form-group col-12 col-sm-8 mt-2">
 
-                <div class="form-floating mb-3">
-                    <label for="floatingemail">ชื่อ-นามสกุล</label>
-                    <?= $this->Form->input('name', ['class' => 'form-control ', 'placeholder' => 'ชื่อ-นามสกุล']); ?>
-                </div>
-                <div class="form-floating mb-3">
-                    <label for="floatingemail">อีเมลล์ผู้ใช้งาน</label>
-                    <?= $this->Form->input('email', ['class' => 'form-control ', 'placeholder' => 'อีเมลล์ผู้ใช้งาน']); ?>
-                </div>
+
+
+
                 <div class="row m-0 p-0 d-flex  justify-content-between">
+                    <div class="col-6 m-0 p-0">
+                        <div class="form-floating mb-3">
+                            <label for="floatingemail">ชื่อ-นามสกุล</label>
+                            <?= $this->Form->input('name', ['class' => 'form-control ', 'placeholder' => 'ชื่อ-นามสกุล']); ?>
+                        </div>
+                    </div>
+                    <div class="col-5 m-0 p-0">
+                        <div class="form-floating mb-3">
+                            <label for="floatingemail">อีเมลล์ผู้ใช้งาน</label>
+                            <?= $this->Form->input('email', ['class' => 'form-control ', 'placeholder' => 'อีเมลล์ผู้ใช้งาน']); ?>
+                        </div>
+                    </div>
+
                     <div class="col-6 m-0 p-0">
                         <div class="form-floating my-3 ">
                             <label for="floatingemail">ตำแหน่งผู้ใช้งาน</label>
-                            <select class="form-control" name="user_role_id">
-                                <?php foreach ($getUserRole as $data) : ?>
-                                    <option value="<?= $data->id ?>" <?= ($user->user_role_id == $data->id) ? 'selected' : '' ?>><?= $data->ur_name ?></option>
-                                <?php endforeach; ?>
-                            </select>
+                            <p class="text-muted"><?= $user->users_role['ur_name']  ?></p>
                         </div>
                     </div>
                     <div class="col-5 m-0 p-0">
                         <div class="form-floating my-3 ">
                             <label for="floatingemail">สิทธิ์ผู้ใช้งาน</label>
-                            <select class="form-control" name="user_type_id">
-                                <?php foreach ($getUserType as $data) : ?>
-                                    <option value="<?= $data->id ?>" <?= ($user->user_type_id == $data->id) ? 'selected' : '' ?>><?= $data->ut_name ?></option>
-                                <?php endforeach; ?>
-                            </select>
+                            <p class="text-muted"><?= $user->users_type['ut_name']  ?></p>
                         </div>
                     </div>
                 </div>
@@ -88,18 +86,7 @@
                 </div>
                 <div class="form-floating mb-3">
                     <label for="floatingemail">สถานะผู้ใช้งาน</label>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="p_status[]" value='1' <?php echo ($user['status'] == 0) ? "checked" : ""  ?>>
-                        <label class="form-check-label" for="flexRadioDefault1">
-                            ปิดการใช้งาน
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="p_status[]" value='0' <?php echo ($user['status'] == 1) ? "checked" : ""  ?>>
-                        <label class="form-check-label" for="flexRadioDefault2">
-                            เปิดการใช้งาน
-                        </label>
-                    </div>
+                    <p class="text-muted"><?= ($user['status'] == 1) ? "กำลังใช้งาน" : "ไม่ได้ใช้งาน"  ?></p>
                 </div>
                 <div class="btn-group w-100 mt-4">
                     <!-- <?= $this->Form->button('ลบผู้ใช้งาน', ['class' => "btn btn text-danger border  w-100"]); ?> -->

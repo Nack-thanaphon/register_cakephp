@@ -63,8 +63,8 @@
                 <label for="" class="text-muted">ที่อยู่จัดส่ง</label>
                 <small class="mb-2"><?= ($UserData[0]['address']) ? $UserData[0]['address'] : 'ไม่มีข้อมูล' ?></small>
                 <hr class="m-0">
-                <b>หมายเหตุ</b>
-                <small><?= ($UserData[0]['address']) ? $UserData[0]['address'] : 'ไม่มีข้อมูล' ?></small>
+                <!-- <b>หมายเหตุ</b>
+                <small><?= ($UserData[0]['address']) ? $UserData[0]['address'] : 'ไม่มีข้อมูล' ?></small> -->
             </div>
         </div>
     </div>

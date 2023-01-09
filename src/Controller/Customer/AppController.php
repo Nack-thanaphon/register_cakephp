@@ -28,6 +28,8 @@ class AppController extends Controller
         $cartTokensession =  $session->read('cartToken');
         $result = $this->Authentication->getResult()->getData() ?? "";
 
+
+        
         if (!empty($result)) {
             if ($result['user_role_id'] == 2) {
                 $token = $result['token'] ?? "";

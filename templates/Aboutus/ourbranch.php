@@ -84,7 +84,7 @@
         </div>
         <div class="col-12 col-md-12 col-lg-3 mb-2 h-100">
             <select onchange="fillterFunc()" id="filterData" class="form-control">
-
+                <!-- <option value="" selected>เลือกสาขา</option> -->
             </select>
         </div>
 
@@ -145,7 +145,7 @@
                     branchData2 +=
                         `<option value="${i}">${Branch[i]['name']}</option>`
                     branchData.push(Branch[i])
-
+                    filterData(Branch[i]['name'], i, Branch[i]['phone'], Branch[i]['link'], Branch[i]['province'])
                 }
                 $('#filterData').html(branchData2)
             }

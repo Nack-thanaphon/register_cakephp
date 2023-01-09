@@ -5,18 +5,19 @@
         <h3 class="font-weight-bold"><?= __('เพิ่มผู้ใช้งาน') ?></h3>
         <?= $this->Html->link(__('Back to'), ['action' => 'index'], ['class' => ' mb-2']) ?>
     </div>
-    
+
     <div class="col-12 col-md-12 col-lg-12 card">
         <div class="row p-3 ">
-            <div class="col-12 col-sm-6 my-2">
+            <div class="col-12  my-2">
                 
+            </div>
+            <div class="col-12 col-sm-6 my-2">
                 <h3>รูปภาพประจำตัว</h3>
-                <input type="file" name="" id="">
-                <input type="hidden" name="adminside" value="qwewebdbdfgbfgbdfngjndr">
-                <img src="https://www.pngall.com/wp-content/uploads/5/User-Profile-PNG.png" class="w-100 my-auto" alt="">
+                <input type="file" name="" id="imgcover">
+                <img  src="https://www.pngall.com/wp-content/uploads/5/User-Profile-PNG.png" class="w-100 my-3" id="EventsImgPreviews" class="py-2" alt="">
             </div>
             <div class="form-group col-12 col-sm-6 my-auto ">
-                <?= $this->Form->create($user,['action' => 'register', "enctype" => "multipart/form-data"]); ?>
+                <?= $this->Form->create($user, ["enctype" => "multipart/form-data"]); ?>
                 <div class="form-floating mb-3">
                     <label for="floatingemail">ชื่อ-นามสกุล</label>
                     <?= $this->Form->input('name', ['class' => 'form-control ', 'placeholder' => 'ชื่อ-นามสกุล']); ?>
@@ -29,16 +30,28 @@
                     <label for="floatingemail">รหัสผ่าน</label>
                     <?= $this->Form->input('password', ['type' => 'password', 'class' => 'form-control ', 'placeholder' => 'รหัสผ่าน']); ?>
                 </div>
-                <div class="form-floating mb-3">
-                    <label for="floatingemail">ตำแหน่งผู้ใช้งาน</label>
-                    <select name="p_type_id" class="form-control selectpicker">
-                        <option value="1">ผู้ใช้งานทั่วไป</option>
-                        <option value="2">ผู้จัดการร้านค้า</option>
-                        <option value="3">ผู้จัดการเว็บไซต์</option>
-                        <option value="4">เจ้าของร้านค้า</option>
-                    </select>
+                <div class="row m-0 p-0">
+                    <div class="col-6">
+                        <div class="form-floating my-3 ">
+                            <label for="floatingemail">ตำแหน่งผู้ใช้งาน</label>
+                            <select class="form-control" name="user_role_id">
+                                <?php foreach ($getUserRole as $data) : ?>
+                                    <option value="<?= $data->id ?>"><?= $data->ur_name ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-floating my-3 ">
+                            <label for="floatingemail">สิทธิ์ผู้ใช้งาน</label>
+                            <select class="form-control" name="user_type_id">
+                                <?php foreach ($getUserType as $data) : ?>
+                                    <option value="<?= $data->id ?>"><?= $data->ut_name ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                    </div>
                 </div>
-
                 <div class="form-floating mb-3">
                     <label for="floatingemail">สถานะผู้ใช้งาน</label>
                     <div class="form-check">
@@ -61,75 +74,24 @@
         </div>
     </div>
 
-    <!-- <div class="col-12 col-md-12 col-lg-4">
-        <div class="card p-3">
-            <div class="form-group my-2">
-                <small>ภาพบทความ</small>
-            </div>
-            <input type="file" name="p_image_id[]" id="files" class="form-control" class="image" multiple id="gallery-photo-add">
-
-            <section class="uploaded-area"></section>
-        </div>
-    </div> -->
 </div>
 
 
 
 <script>
-    CKEDITOR.replace('editor1');
-    const uploadedArea = document.querySelector(".uploaded-area");
-
-    function bytesToSize(bytes) {
-        var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
-        if (bytes == 0) return '0 Byte';
-        var i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)));
-        return Math.round(bytes / Math.pow(1024, i), 2) + ' ' + sizes[i];
-    }
-
     $(document).ready(function() {
-        if (window.File &&
-            window.FileList &&
-            window.FileReader) {
-            $("#files").on("change", async function(e) {
-                var files = e.target.files,
-                    filesLength = files.length;
-                var filemore = '';
-                //เช็คค่า
-                for (var i = 0; i < filesLength; i++) {
-                    var filesize = files[i].size;
-                    var filename = files[i].name
-                    var fileSize = bytesToSize(filesize)
-                    //เช็คชื่อ
-                    if (filename.length >= 12) {
-                        let splitName = filename.split('.');
-                        filename = splitName[0].substring(0, 13) + "... ." + splitName[1];
-                    }
-                    // check ขนาดไฟล์
-                    if (filesize <= 5000000) {
-                        var fileReader = await new FileReader();
-                        let uploadedHTML =
-                            `<li class="d-flex justify-content-between row m-0 p-0 my-2">
-                    <div class="content upload align-items-center d-flex content">
-                        <i class="fas fa-file-alt"></i>
-                        <div class="ml-3 details">
-                        <span class="name">${filename}|</span>
-                        <span class="size text-muted">${fileSize}</span>
-                        </div>
-                    </div>
-                    <i class="fas fa-trash m-0 p-0 remove" ></i>
-                </li>`;
-                        uploadedArea.insertAdjacentHTML("afterbegin", uploadedHTML);
-                        $(".remove").click(function() {
-                            $(this).parent(".row").remove();
-                        });
-                        await fileReader.readAsDataURL(f);
-                    } else {
-                        filemore += filename + '\n'
-                    }
-                } //end loop
-                if (filemore)
-                    alert('File size > 3MB \n' + filemore)
-            });
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    $('#EventsImgPreviews').attr('src', e.target.result);
+                    $('#EventsImgPreviews').attr('hidden', false);
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
         }
+        $("#imgcover").change(function() {
+            readURL(this);
+        })
     });
 </script>

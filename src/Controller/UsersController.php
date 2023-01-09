@@ -155,14 +155,7 @@ class UsersController extends AppController
 
             if ($usertable->save($user)) {
                 $this->Flash->set('กรุณาเช็คอีเมลล์เพื่อยืนยัน', ['element' => 'success']);
-                TransportFactory::setConfig('gmail', [
-                    'host' => 'smtp.gmail.com',
-                    'port' => 587,
-                    'username' => 'e21bvz@gmail.com',
-                    'password' => 'jxcsblueiiwjzvxd',
-                    'className' => 'Smtp',
-                    'tls' => true
-                ]);
+
 
                 $mailer = new Mailer('default');
                 $mailer->setFrom(['e21bvz@gmail.com' => 'แม่ปลูกลูกขาย'])
@@ -201,14 +194,7 @@ class UsersController extends AppController
 
                 if ($usertable->save($user)) {
                     $this->Flash->set('กรุณาเช็คในอีเมลล์ ' . $email . ' เพื่อยืนยันการเปลี่ยนรหัสผ่าน', ['element' => 'success']);
-                    TransportFactory::setConfig('gmail', [
-                        'host' => 'smtp.gmail.com',
-                        'port' => 587,
-                        'username' => 'e21bvz@gmail.com',
-                        'password' => 'jxcsblueiiwjzvxd',
-                        'className' => 'Smtp',
-                        'tls' => true
-                    ]);
+           
 
                     $mailer = new Mailer('default');
                     $mailer->setFrom(['e21bvz@gmail.com' => 'แม่ปลูกลูกขาย'])

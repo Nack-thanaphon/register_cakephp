@@ -1,7 +1,7 @@
 <?php $this->assign('title', 'สาขา'); ?>
 
 <style>
-    iframe{
+    iframe {
         width: 100%;
     }
 </style>
@@ -61,7 +61,7 @@
             </div>
             <ul class="list-group d-sm-block" id="branch_list">
             </ul>
-            <div class="list-group-item">ดูข้อมูลทั้งหมด</div>
+            <!-- <div class="list-group-item">ดูข้อมูลทั้งหมด</div> -->
         </div>
 
     </div>
@@ -84,6 +84,7 @@
     }
 
     var branchglobal = '';
+
     function sidebar() {
         $.ajax({
             url: "<?= $this->Url->build(['controller' => 'Branch', 'action' => 'index']) ?>",
@@ -135,9 +136,9 @@
                 'X-CSRF-token': $('meta[name="csrfToken"]').attr('content')
             },
             success: function(resp) {
-                sidebar()
             }
         })
+        sidebar()
     })
 
     function editbranch(id) {
@@ -237,9 +238,9 @@
                             'success'
                         )
                     }
-                    sidebar()
                 }
             })
+            sidebar()
         })
     }
 </script>
